@@ -1,0 +1,85 @@
+"use client"
+
+import { checkNameAvailability } from '@/utils/verificNameLink';
+import React, { useEffect, useState } from 'react'
+import NavBar from '@/components/Navbar/index'
+import CreateUserSingUp from '@/components/CreateSingUp/Index'
+import Image from 'next/image';
+import ImageIconPage from '@/Images/image_pages.png'
+import Link from 'next/link';
+import { MoveLeft } from 'lucide-react';
+
+const SingUp = ({params}: any) => {
+    const { locale } = params
+    const [changeComponents, setChangeComponents] = useState(false)
+    const [nameLink, setNameLink] = useState('')
+    const [load, setLoad] = useState<Boolean>(false)
+    
+
+    const handlePush = async (e: any) => {
+        e.preventDefault()
+        setChangeComponents(!false)
+    }
+
+    useEffect(() => {
+        if (nameLink) {
+            setLoad(true)
+            checkNameAvailability({ nameLink: nameLink })
+        }
+
+        setLoad(false)
+    }, [nameLink]);
+
+    return (
+        <>
+            {
+                !changeComponents ? (
+                    <div>
+                        <NavBar state={false} />
+                        <div className="container_link-name container ">
+                            <div className='box_info_link-name'>
+                                <Link href='/'><MoveLeft /></Link>
+                                <div className="box_text-link-personalize">
+                                    <h2>Primeiro, insira seu nome no link unico!</h2>
+                                    <p>Os bons ainda estão disponíveis!</p>
+                                </div>
+                                <form onSubmit={handlePush} className="box_input-namelink">
+                                    <div className='box_input-namelink-input'>
+                                        <span>simpleprofile.me/</span>
+                                        <input
+                                            type="text"
+                                            placeholder="seu-nome"
+                                            value={nameLink}
+                                            onChange={(e) => setNameLink(e.target.value)}
+                                        />
+                                        {
+                                            load ? (
+                                                <p>V</p>
+                                            ) : (
+                                                <p>X</p>
+                                            )
+                                        }
+                                    </div>
+                                    {
+                                        nameLink && (
+                                            <button type='submit'>Pegar link</button>
+                                        )
+                                    }
+                                </form>
+                                <Link href={`${locale}/pages/Login`}>Faça login</Link>
+                            </div>
+                            <div className='box_info-image'>
+                                <Image src={ImageIconPage} alt='' />
+                            </div>
+                        </div>
+                    </div>
+
+                ) : (
+                    <CreateUserSingUp changeState={setChangeComponents} nameLink={nameLink} />
+                )
+            }
+        </>
+    )
+}
+
+export default SingUp

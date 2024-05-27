@@ -1,0 +1,33 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+:root {
+    background-color: #051139;
+    color: #f1f1f1;
+
+    &.dark {
+        background-color: #333;
+        color: #f1f1f1;
+    }
+}
+
+.container {
+    max-width: 88%;
+    width: 100%;
+    margin: auto;
+}
+
+ul {
+    list-style: none;
+}
+
+
+@media (max-width: 850px){
+    .container {
+        max-width: 100%;
+        padding: 0.5rem;
+    }
+}

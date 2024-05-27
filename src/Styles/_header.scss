@@ -1,0 +1,13 @@
+.card_navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem 0px;
+
+    ul {
+        display: flex;
+        align-items:center;
+        gap: 0.5rem;
+    }
+}
