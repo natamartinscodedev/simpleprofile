@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { sendSignInLinkToEmail } from 'firebase/auth';
-import { auth } from '@/config/firebase'
+import { auth } from '@/firebase/firebase'
 import { checkEmailAvailability } from '@/utils/verificEmail';
 import { Post } from '@/utils/createUser'
 import Image from 'next/image';
