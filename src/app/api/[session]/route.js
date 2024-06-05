@@ -1,6 +1,6 @@
 // pages/api/task.ts
 import { NextResponse } from 'next/server';
-import { connectToDatabase } from '@/config/mongodb';
+import { connectToDatabase } from '@/db/mongodb';
 import TaskSchema from '@/models/Task';
 
 export async function POST(req) {
