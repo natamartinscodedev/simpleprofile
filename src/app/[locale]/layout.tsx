@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import '@/Styles/style.scss'
-// import { NextIntlClientProvider } from 'next-intl';
-// import { getMessages } from 'next-intl/server';
 import { Inter } from "next/font/google";
 import { i18n, type Locale } from "../../../i18n";
 
