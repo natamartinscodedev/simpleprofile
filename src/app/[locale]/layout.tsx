@@ -3,7 +3,7 @@ import '@/Styles/style.scss'
 // import { NextIntlClientProvider } from 'next-intl';
 // import { getMessages } from 'next-intl/server';
 import { Inter } from "next/font/google";
-import { i18n, type Locale } from "../../../i18n-config";
+import { i18n, type Locale } from "../../../i18n";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -24,10 +24,11 @@ export default async function LocaleLayout({
   params: { locale: Locale };
 }) {
   // const messages = await getMessages();
+
   return (
     <html lang={params.locale}>
       <body className={inter.className}>
-        {/* <NextIntlClientProvider messages={messages}> */}
+        {/* <NextIntlClientProvider> */}
         {children}
         {/* </NextIntlClientProvider> */}
       </body>

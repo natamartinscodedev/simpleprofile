@@ -1,7 +1,7 @@
 'use client'
 import React, { useRef, useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import BoardContext from '@/Components/Board/context';
+import BoardContext from '@/components/Board/context';
 
 const ListItem = ({ name, index }) => {
     const ID = name.id;

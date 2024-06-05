@@ -1,19 +1,47 @@
 .card_pubi {
+    display: flex;
     width: 100%;
     height: 5rem;
     background-color: #6A65FF;
     // margin-top: -9rem;
     z-index: 800;
+    overflow: hidden;
+    white-space: nowrap;
 
     ul {
         display: flex;
         align-items: center;
         justify-items: center;
         justify-content: space-between;
+    }
+}
 
-        li {
-            font-size: 20px;
-            color: #f1f1f1;
-        }
+.text-animation01,
+.text-animation02 {
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: rollText 10s linear infinite;
+    /* Aplicar animação */
+}
+
+.text-animation01 {
+    color: #fff;
+}
+
+.text-animation02 {
+    color: transparent;
+    -webkit-text-stroke: 1px #ffffff;
+}
+
+@keyframes rollText {
+    0% {
+        transform: translateX(100%);
+        /* Começar fora da tela à direita */
+    }
+
+    100% {
+        transform: translateX(-100%);
+        /* Rolar para fora da tela à esquerda */
     }
 }

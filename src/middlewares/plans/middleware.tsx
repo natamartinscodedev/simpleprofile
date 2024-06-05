@@ -1,6 +1,6 @@
 // middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { connectToDatabase } from '@/config/mongodb';
+import { connectToDatabase } from '@/db/mongodb';
 
 export async function middleware(req: NextRequest) {
     const { db } = await connectToDatabase();

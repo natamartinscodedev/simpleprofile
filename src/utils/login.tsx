@@ -1,5 +1,5 @@
 import { sendSignInLinkToEmail } from "firebase/auth";
-import { auth } from '@/config/firebase'
+import { auth } from '@/firebase/firebase'
 
 export function loginMagicLink(email: string) {
     try {

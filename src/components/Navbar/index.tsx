@@ -19,11 +19,11 @@ const NavBar = ({ state }: typeState) => {
     return (
         <header className="container">
             <nav className='card_navbar'>
-                <p>Logo</p>
+                <p>SimpleP</p>
                 <ul>
                     <li><DarkMode /></li>
                     {
-                        on ?? <li><CardLink text="Login" link="/pages/Login" /></li>
+                        on ?? <li><CardLink text="Login" link="/Login" /></li>
                     }
                     <Langues />
                 </ul>

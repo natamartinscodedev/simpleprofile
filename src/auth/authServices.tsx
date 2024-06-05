@@ -1,5 +1,5 @@
 import { isSignInWithEmailLink, signInWithEmailLink, signOut } from "firebase/auth";
-import { auth } from '@/config/firebase'
+import { auth } from '@/firebase/firebase'
 import { useEffect, useState } from "react";
 
 export function Login() {

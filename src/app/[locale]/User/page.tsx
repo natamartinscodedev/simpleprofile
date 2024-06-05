@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { auth } from '@/config/firebase'
+// import { auth } from '@/firebase/firebase'
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { produce } from 'immer';
-import Card from '@/Components/IsDragging/index';
+import Card from '@/components/IsDragging/index';
 import BoardContext from '@/components/Board/context'
 import Image from 'next/image';
 import { SaveInfoUser } from '@/utils/saveInfoUser';

@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { auth } from '@/config/firebase';
+import { auth } from '@/firebase/firebase';
 
 const Callback = () => {
     const router = useRouter();

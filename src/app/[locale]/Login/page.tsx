@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/config/firebase'
+import { auth } from '@/firebase/firebase'
 import loginMagicLink from '@/utils/login';
 import Link from 'next/link';
 import NavBar from '@/components/Navbar/index'
