@@ -2,18 +2,15 @@
 
 
 import React from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import CardLink from '@/components/components/cardLink'
 import ImageHomePage from '@/Images/Logo_Home.svg'
 import { CircleCheck } from 'lucide-react'
 import NavBar from '@/components/Navbar'
-
 import CardPlan from '@/components/CardPlans'
 import CardInfinitLoop from '@/components/CarroselInfinitLoop'
 
 const Home = ({ lang }: any) => {
-
     const t = lang["Homepage"]
 
     return (
