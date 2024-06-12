@@ -36,7 +36,7 @@ const User = () => {
     ]
 
     const [lists, setLists] = useState(data)
-
+    // save position of cards animations
     function move(from: any, to: any) {
         setLists(produce(lists, draft => {
             const dragged = draft[from];

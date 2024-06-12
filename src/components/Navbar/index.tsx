@@ -18,7 +18,7 @@ const NavBar = ({ state }: typeState) => {
 
     return (
         <header className="container">
-            <nav className='card_navbar'>
+            <nav className=' container card_navbar'>
                 <p>SimpleP</p>
                 <ul>
                     <li><DarkMode /></li>

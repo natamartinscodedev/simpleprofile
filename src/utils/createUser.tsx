@@ -1,9 +1,10 @@
 interface TypeInfo {
     nameLink: string,
-    email: string
+    email: string,
+    plans: string
 }
 
-export async function Post({ nameLink, email }: TypeInfo) {
+export async function Post({ nameLink, email, plans }: TypeInfo) {
     try {
         const res = await fetch("/api/session", {
             method: "POST",
@@ -13,6 +14,7 @@ export async function Post({ nameLink, email }: TypeInfo) {
             body: JSON.stringify({
                 nameLink,
                 email,
+                plans,
             })
         })
 

@@ -8,18 +8,17 @@ const Langues = () => {
     const router = useRouter()
 
     const onChangeLangague = (e: ChangeEvent<HTMLSelectElement>) => {
-        const nextLocale = e.target.value
 
         startTransition(() => {
-            router.replace(`/${nextLocale}`)
+            router.replace(`/${e}`)
         })
     }
 
     return (
         <label htmlFor="lang" className=''>
-            <select name="lang" id="lang" onChange={onChangeLangague} className=''>
-                <option value="en" id='lang'>Português</option>
-                <option value="pt" id='lang'>English</option>
+            <select name="lang" id="lang" onChange={(e: any) => onChangeLangague(e.target.value)} className=''>
+                <option value="pt-BR" id='lang'>Português</option>
+                <option value="en-US" id='lang'>English</option>
             </select>
         </label>
     )
