@@ -1,13 +1,24 @@
 .card_navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 900;
+    margin-top: 1rem;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding: 1rem 0px;
 
     ul {
         display: flex;
-        align-items:center;
+        align-items: center;
         gap: 0.5rem;
     }
+
+    background-color: rgba(250, 250, 250, 0.5);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 16px;
+    padding: 1rem;
 }

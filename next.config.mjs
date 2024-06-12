@@ -19,10 +19,14 @@ const nextConfig = {
                 source: '/linkPersonalize',
                 destination: '/Components/CreateSingUp/Index', // ou 'pages/login'
             },
+            // {
+            //     source: '/app/callback',
+            //     destination: '/callback', // ou 'pages/callback'
+            // },
             {
-                source: '/app/callback',
-                destination: '/callback', // ou 'pages/callback'
-            },
+                source: '/api/:path*',
+                destination: '/api/:path*'
+            }
         ];
     },
     typescript: {

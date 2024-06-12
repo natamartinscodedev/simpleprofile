@@ -14,4 +14,4 @@ const TaskSchema = new Schema({
     timestamps: true,
 });
 
-export default models.Task || model('Task', TaskSchema);
+export default models.Task || model('users', TaskSchema);

@@ -1,6 +1,6 @@
 export const fetchMongodb = async () => {
     try {
-        const res = await fetch("app/api/session", {
+        const res = await fetch("/api/session", {
             cache: "no-cache"
         })
 
@@ -9,7 +9,8 @@ export const fetchMongodb = async () => {
         }
 
         return res.json()
-    } catch (err) {
-        console.log(err)
+    } catch (err: any) {
+        console.error(err) // Log the error for debugging
+        return { error: err.message }; // Return the error message
     }
 };

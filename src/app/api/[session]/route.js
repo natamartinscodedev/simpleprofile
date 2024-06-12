@@ -11,8 +11,9 @@ export async function POST(req) {
             name,
             bio,
             image,
-            lists
-        } = await req.json();   
+            lists,
+            plans
+        } = await req.json();
 
         await connectToDatabase();
         await TaskSchema.create({
@@ -21,7 +22,8 @@ export async function POST(req) {
             name,
             bio,
             image,
-            lists
+            lists,
+            plans
         });
 
         return NextResponse.json({ message: "NameLink Created!!!" }, { status: 200 });

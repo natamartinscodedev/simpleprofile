@@ -15,9 +15,7 @@ const Home = ({ lang }: any) => {
 
     return (
         <>
-            <header className="container">
-                <NavBar />
-            </header>
+            <NavBar />
             <main>
                 <section className='container box_main'>
                     <div className='box_main-info'>
@@ -78,21 +76,31 @@ const Home = ({ lang }: any) => {
                     </div>
                 </section>
             </main>
-            <footer>
-                <section>
-                    <div>
+            <footer className='container'>
+                <section className='container_footer'>
+                    <div className='container_footer-box-info'>
+                        <p>Simple Profile</p>
                         <div>
-                            {/* logo */}
-                        </div>
-                        <div>
-                            {/* lijnks */}
+                            <ul>
+                                <li>About</li>
+                                <li>Company</li>
+                                <li>Home</li>
+                            </ul>
+                            <ul>
+                                <li>Contact</li>
+                                <li>Email</li>
+                                <li>locale</li>
+                            </ul>
+                            <ul>
+                                <li>Discord</li>
+                                <li>Linkein</li>
+                                <li>Instagram</li>
+                            </ul>
                         </div>
                     </div>
-                    <div>
-                        {/* midia social */}
-                    </div>
-                    <div>
-                        {/* direitos reservados */}
+                    <div className='container_footer-box-email'>
+                        <p>Todos os direitor reservados © 2024</p>
+                        <p>Icon Email</p>
                     </div>
                 </section>
             </footer>

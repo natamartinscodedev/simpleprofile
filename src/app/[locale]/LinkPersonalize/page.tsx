@@ -9,12 +9,12 @@ import ImageIconPage from '@/Images/image_pages.png'
 import Link from 'next/link';
 import { MoveLeft } from 'lucide-react';
 
-const SingUp = ({params}: any) => {
+const SingUp = ({ params }: any) => {
     const { locale } = params
     const [changeComponents, setChangeComponents] = useState(false)
     const [nameLink, setNameLink] = useState('')
     const [load, setLoad] = useState<Boolean>(false)
-    
+
 
     const handlePush = async (e: any) => {
         e.preventDefault()
@@ -24,10 +24,9 @@ const SingUp = ({params}: any) => {
     useEffect(() => {
         if (nameLink) {
             setLoad(true)
-            checkNameAvailability({ nameLink: nameLink })
+            checkNameAvailability({ nameLink })
+            setLoad(false)
         }
-
-        setLoad(false)
     }, [nameLink]);
 
     return (
