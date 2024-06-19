@@ -1,6 +1,6 @@
 export const fetchMongodb = async () => {
     try {
-        const res = await fetch('/api/task', {
+        const res = await fetch('/api/task/', {
             cache: 'no-cache',
         })
 
