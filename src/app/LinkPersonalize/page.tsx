@@ -49,13 +49,15 @@ const SingUp = () => {
                                             value={nameLink}
                                             onChange={(e) => setNameLink(e.target.value)}
                                         />
-                                        {
-                                            load && nameLink ? (
-                                                <p><Check /></p>
-                                            ) : (
-                                                <p><X /></p>
-                                            )
-                                        }
+                                        <div>
+                                            {
+                                                load && nameLink ? (
+                                                    <p><Check color='green' /></p>
+                                                ) : (
+                                                    <p><X color='red' /></p>
+                                                )
+                                            }
+                                        </div>
                                     </div>
                                     {
                                         nameLink && (

@@ -1,8 +1,10 @@
 .container_plans {
+    width: 100%;
+    justify-content: center;
     display: flex;
     gap: 2rem;
     align-items: end;
-  
+
 }
 
 .card_plans-change {
@@ -130,7 +132,7 @@
             gap: 5px;
 
             font-size: 12px;
-            color: #858585;
+            color: #bdbdbd;
             margin-bottom: 10px;
         }
     }
@@ -143,5 +145,14 @@
         font-size: 12px;
         padding: 15px 1.5rem;
         cursor: pointer;
+    }
+}
+
+// Responsive
+
+@media (max-width: 600px) {
+    .container_plans {
+        flex-direction: column;
+        align-items: center;
     }
 }
