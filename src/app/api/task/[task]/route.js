@@ -1,6 +1,6 @@
 import { ConnectToDatabase } from '@/db/mongodb'
 import { NextResponse } from 'next/server';
-import TaskSchema from '@/models/Users'
+import User from '@/models/Users'
 
 export async function POST(req) {
     try {
@@ -15,7 +15,7 @@ export async function POST(req) {
         } = await req.json()
 
         await ConnectToDatabase()
-        await TaskSchema.create(
+        await User.create(
             {
                 nameLink,
                 email,
@@ -36,7 +36,7 @@ export async function POST(req) {
 export async function GET() {
     try {
         await ConnectToDatabase();
-        const topics = await TaskSchema.find();
+        const topics = await User.find();
 
         return NextResponse.json({ topics });
     } catch (error) {
@@ -49,7 +49,7 @@ export async function GET() {
 //     const id = req.nextUrl.searchParams.get("id")
 
 //     await connectToDatabase();
-//     await TaskSchema.findByIdAndDelete(id);
+//     await User.findByIdAndDelete(id);
 
 //     return NextResponse.json({ message: "Top deleted!!!" }, { status: 200 });
 // } 

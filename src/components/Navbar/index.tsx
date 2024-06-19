@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import DarkMode from '@/components/ButtonDark/Index'
 import CardLink from '@/components/components/cardLink'
-import Langues from '@/components/ChangeLeangue/language-switcher'
+// import Langues from '@/components/ChangeLeangue/language-switcher'
 
 interface typeState {
     state?: any
@@ -25,7 +25,7 @@ const NavBar = ({ state }: typeState) => {
                     {
                         on ?? <li><CardLink text="Login" link="/Login" /></li>
                     }
-                    <Langues />
+                    {/* <Langues /> */}
                 </ul>
             </nav>
         </header>
