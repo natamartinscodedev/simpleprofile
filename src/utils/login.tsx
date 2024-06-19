@@ -4,7 +4,7 @@ import { auth } from '@/firebase/firebase'
 export function loginMagicLink(email: string) {
     try {
         sendSignInLinkToEmail(auth, email, {
-            url: 'http://localhost:3000/User',
+            url: `http://localhost:3000/User`,
             handleCodeInApp: true,
         }).then(() => {
             window.localStorage.setItem('emailForSignIn', email);

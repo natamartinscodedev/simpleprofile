@@ -1,78 +1,61 @@
-// // config/mongodb.ts
-// import mongoose from 'mongoose'
-// import { MongoClient } from 'mongodb'
+import mongoose from 'mongoose';
+const MONGODBURI = process.env.MONGODB_URI;
 
-// const MONGODB_URI = process.env.MONGODB_URI
+export const ConnectToDatabase = async () => {
+    if (!MONGODBURI) {
+        throw new Error(
+            'Please define the MONGODB_URI environment variable inside .env.local',
+        )
+    }
+    try {
+        await mongoose.connect(MONGODBURI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }).then((res) => {
+            console.log("MongoDB Atlas Conectado!")
+            return res
+        })
+    } catch (error) {
+        console.error('Erro ao conectar ao MongoDB:', error);
+        throw error;
+    }
+};
+
+// import mongoose from 'mongoose';
+// const MONGODB_URI = process.env.MONGODB_URI;
 
 // if (!MONGODB_URI) {
-//     throw new Error('Por favor, defina a variável MONGODB_URI no seu arquivo .env.local')
+//     throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 // }
 
-// let cachedClient = null
-// let cachedDb = null
+// let cached = global.mongoose;
 
-// export const connectToDatabase = async () => {
-//     if (cachedDb) {
-//         return { client: cachedClient, db: cachedDb }
+// if (!cached) {
+//     cached = global.mongoose = { conn: null, promise: null };
+// }
+
+// export async function connectToDatabase() {
+//     if (cached.conn) {
+//         return cached.conn;
 //     }
+//     if (!cached.promise) {
+//         const opts = {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true,
+//         };
 
+//         cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+//             console.log("MongoDB Atlas Conectado!");
+//             return mongoose;
+//         });
+//     }
 //     try {
-//         const client = await MongoClient.connect(MONGODB_URI, {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true,
-//         })
-
-//         const db = client.db('create-links')
-//         cachedClient = client
-//         cachedDb = db
-
-//         await mongoose.connect(MONGODB_URI, {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true,
-//         })
-
-//         console.log("MongoDB Atlas conectado!")
-
-//         return { client, db }
+//         cached.conn = await cached.promise;
 //     } catch (error) {
-//         console.error('Erro ao conectar ao MongoDB:', error)
-//         throw error
+//         cached.promise = null;
+//         console.error('Erro ao conectar ao MongoDB:', error);
+//         throw error;
 //     }
+
+//     return cached.conn;
 // }
-import mongoose from 'mongoose'
-import { MongoClient } from 'mongodb'
-
-const MONGODB_URI = process.env.MONGODB_URI
-if (!MONGODB_URI) {
-    throw new Error('Por favor, defina a variável MONGODB_URI no seu arquivo .env.local')
-}
-
-let cachedClient = null
-let cachedDb = null
-
-export const connectToDatabase = async () => {
-    if (cachedDb) {
-        return { client: cachedClient, db: cachedDb }
-    }
-
-    try {
-        const client = await MongoClient.connect(MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
-        const db = client.db('create-links')
-        cachedClient = client
-        cachedDb = db
-
-        await mongoose.connect(MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
-
-        console.log("MongoDB Atlas conectado!")
-        return { client, db }
-    } catch (error) {
-        console.error('Erro ao conectar ao MongoDB:', error)
-        throw error
-    }
-}

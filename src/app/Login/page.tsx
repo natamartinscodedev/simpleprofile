@@ -10,12 +10,12 @@ import CardAlert from '@/components/components/cardAlert'
 
 const Index = () => {
     const [user, loading, error]: any = useAuthState(auth);
-    const [email, setEmail] = useState<string>("")
+    const [email, setEmail] = useState("")
     const [showAlert, setShowAlert] = useState(false);
 
     const handleEmail = () => {
         try {
-            if (user && user.email === email) {
+            if (user.email === email) {
                 loginMagicLink(email)
 
                 return setShowAlert(!false);

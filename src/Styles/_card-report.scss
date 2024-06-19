@@ -31,9 +31,9 @@
 }
 
 .cardf_report-infouser {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    // display: flex;
+    // align-items: center;
+    // gap: 1.5rem;
 
 
     img {
@@ -67,13 +67,14 @@
 }
 
 .carrosel_reports {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
 .left {
-    animation: carroselRepostsLeft 50s linear infinite;
+    animation: carroselRepostsLeft 40s linear infinite;
 
     &:hover {
         animation-play-state: paused;
@@ -104,7 +105,7 @@
 
 .carrosel_infinit-loop {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
 
     div {
         display: flex;
@@ -114,10 +115,10 @@
 
 @keyframes carroselRepostsLeft {
     from {
-        transform: translateX(-100%);
+        transform: translateX(0);
     }
 
     to {
-        transform: translateX(0);
+        transform: translateX(-100%);
     }
 }

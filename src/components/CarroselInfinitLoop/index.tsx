@@ -43,8 +43,32 @@ const CardInfinitLoop = () => {
                         level='Desenvolvedor Frontend'
                         description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
                     />
+                    <CardReport
+                        img={ImageHomePage}
+                        name='Naythan'
+                        level='Desenvolvedor Frontend'
+                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                    />
+                    <CardReport
+                        img={ImageHomePage}
+                        name='Naythan'
+                        level='Desenvolvedor Frontend'
+                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                    />
                 </div>
                 <div>
+                    <CardReport
+                        img={ImageHomePage}
+                        name='Naythan'
+                        level='Desenvolvedor Frontend'
+                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                    />
+                    <CardReport
+                        img={ImageHomePage}
+                        name='Naythan'
+                        level='Desenvolvedor Frontend'
+                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                    />
                     <CardReport
                         img={ImageHomePage}
                         name='Naythan'
