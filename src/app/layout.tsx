@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import '@/Styles/style.scss'
 import { Inter } from "next/font/google";
-import { i18n, type Locale } from "../../../i18n";
+// import { i18n, type Locale } from "../../i18n";
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
-}
+// export async function generateStaticParams() {
+//   return i18n.locales.map((locale) => ({ lang: locale }));
+// }
+
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,19 +18,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default async function LocaleLayout({
   children,
-  params
+  // params
 }: {
   children: React.ReactNode;
-  params: { locale: Locale };
+  // params: { locale: Locale };
 }) {
-  // const messages = await getMessages();
 
   return (
-    <html lang={params.locale}>
+    <html lang='pt-BR'>
       <body className={inter.className}>
-        {/* <NextIntlClientProvider> */}
         {children}
-        {/* </NextIntlClientProvider> */}
       </body>
     </html>
   );

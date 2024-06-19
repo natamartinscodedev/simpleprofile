@@ -1,14 +1,12 @@
 import { fetchMongodb } from "./fetchMongodb";
 
 export const checkNameAvailability = async ({ nameLink }: any) => {
-    console.log("Name ==>", nameLink)
 
     try {
-        const users = await fetchMongodb();
-        console.log("Cade ==>", users)
+        const { topics } = await fetchMongodb();
 
-        if (users) {
-            const nameExists = users.some((topic: any) => topic.nameLink === nameLink);
+        if (topics) {
+            const nameExists = topics.some((topic: any) => topic.nameLink === nameLink);
 
             if (nameExists) {
                 alert('Esse nome já existe!😒');
@@ -18,7 +16,7 @@ export const checkNameAvailability = async ({ nameLink }: any) => {
 
             return { nameExists }
         } else {
-            console.log(`${users} don't exist`)
+            console.log("Topics don't exist")
         }
     } catch (err) {
         console.log('Erro:', err);

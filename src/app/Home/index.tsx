@@ -5,13 +5,13 @@ import React from 'react'
 import Image from 'next/image'
 import CardLink from '@/components/components/cardLink'
 import ImageHomePage from '@/Images/Logo_Home.svg'
-import { CircleCheck } from 'lucide-react'
+import { CircleCheck, Mail } from 'lucide-react'
 import NavBar from '@/components/Navbar'
 import CardPlan from '@/components/CardPlans'
 import CardInfinitLoop from '@/components/CarroselInfinitLoop'
+import Link from 'next/link'
 
-const Home = ({ lang }: any) => {
-    const t = lang["Homepage"]
+const Home = () => {
 
     return (
         <>
@@ -19,10 +19,10 @@ const Home = ({ lang }: any) => {
             <main>
                 <section className='container box_main'>
                     <div className='box_main-info'>
-                        <h1>{t.subtitle}</h1>
-                        <h3>{t.description}</h3>
+                        <h1>Professional Profile</h1>
+                        <h3>Sua página pessoal para mostrar quem você é e seu trabalho. Compartilhe seu perfil com seu link personalizado!</h3>
 
-                        <CardLink text={`${t.btncreatelink}`} link="/LinkPersonalize" />
+                        <CardLink text='Crie seu link' link='/LinkPersonalize' />
                     </div>
                     <div className='box_main-image'>
                         <Image src={ImageHomePage} alt='image ilustration page user in home' />
@@ -38,7 +38,7 @@ const Home = ({ lang }: any) => {
                         </ul>
                     </div>
                     <div className='container_reports'>
-                        <p className='container_reports-title'>{t.reportTitle}</p>
+                        <p className='container_reports-title'>O que as pessoas estão dizendo sobre o Simple Profile...🚀</p>
                         <>
                             <CardInfinitLoop />
                         </>
@@ -54,6 +54,7 @@ const Home = ({ lang }: any) => {
                             tipePlan='Simple'
                             price={'Free'}
                             state={false}
+
                         >
                             <li><CircleCheck size={20} />tsete01</li>
                             <li><CircleCheck size={20} />teste02</li>
@@ -82,25 +83,25 @@ const Home = ({ lang }: any) => {
                         <p>Simple Profile</p>
                         <div>
                             <ul>
-                                <li>About</li>
-                                <li>Company</li>
-                                <li>Home</li>
+                                <li><Link href=''>About </Link></li>
+                                <li><Link href=''>Company </Link></li>
+                                <li><Link href=''>Home </Link></li>
                             </ul>
                             <ul>
-                                <li>Contact</li>
-                                <li>Email</li>
-                                <li>locale</li>
+                                <li><Link href=''>Contact </Link></li>
+                                <li><Link href=''>Email </Link></li>
+                                <li><Link href=''>locale </Link></li>
                             </ul>
                             <ul>
-                                <li>Discord</li>
-                                <li>Linkein</li>
-                                <li>Instagram</li>
+                                <li><Link href=''>Discord </Link></li>
+                                <li><Link href=''>Linkein </Link></li>
+                                <li><Link href=''>Instagram </Link></li>
                             </ul>
                         </div>
                     </div>
                     <div className='container_footer-box-email'>
                         <p>Todos os direitor reservados © 2024</p>
-                        <p>Icon Email</p>
+                        <p><Mail size={20} /> Email</p>
                     </div>
                 </section>
             </footer>

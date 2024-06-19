@@ -9,16 +9,16 @@ import ImageIconPage from '@/Images/image_pages.png'
 import Link from 'next/link';
 import { MoveLeft } from 'lucide-react';
 
-const SingUp = ({ params }: any) => {
-    const { locale } = params
+const SingUp = () => {
     const [changeComponents, setChangeComponents] = useState(false)
     const [nameLink, setNameLink] = useState('')
     const [load, setLoad] = useState<Boolean>(false)
 
-
     const handlePush = async (e: any) => {
         e.preventDefault()
-        setChangeComponents(!false)
+        if (nameLink) {
+            setChangeComponents(!false)
+        }
     }
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const SingUp = ({ params }: any) => {
                         <NavBar state={false} />
                         <div className="container_link-name container ">
                             <div className='box_info_link-name'>
-                                <Link href='/'><MoveLeft /></Link>
+                                <Link href='/pt-Br'><MoveLeft /></Link>
                                 <div className="box_text-link-personalize">
                                     <h2>Primeiro, insira seu nome no link unico!</h2>
                                     <p>Os bons ainda estão disponíveis!</p>
@@ -53,9 +53,9 @@ const SingUp = ({ params }: any) => {
                                         />
                                         {
                                             load ? (
-                                                <p>V</p>
-                                            ) : (
                                                 <p>X</p>
+                                            ) : (
+                                                <p>V</p>
                                             )
                                         }
                                     </div>
@@ -65,7 +65,7 @@ const SingUp = ({ params }: any) => {
                                         )
                                     }
                                 </form>
-                                <Link href={`${locale}/pages/Login`}>Faça login</Link>
+                                <Link href='/pages/Login'>Faça login</Link>
                             </div>
                             <div className='box_info-image'>
                                 <Image src={ImageIconPage} alt='' />

@@ -6,7 +6,7 @@ import { checkEmailAvailability } from '@/utils/verificEmail';
 import { Post } from '@/utils/createUser'
 import Image from 'next/image';
 import ImageIconPage from '@/Images/image_pages.png'
-import Plans from '@/app/[locale]/Plans/index'
+import Plans from '@/app/Plans/index'
 import { Mail, MoveLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -19,34 +19,29 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
   const [email, setEmail] = useState<string | ''>('')
   const [openPlan, setOpenPlan] = useState(false)
 
-  // async function handleSubmit(e: any) {
-  //   e.preventDefault();
+  async function handleSubmit(e: any) {
+    e.preventDefault();
 
-  //   try {
-  //     if (email) {
-  //       await Post({ nameLink, email });
-  //       await sendSignInLinkToEmail(auth, email, {
-  //         url: 'http://localhost:3000/User',
-  //         handleCodeInApp: true,
-  //       }).then(() => {
-  //         window.localStorage.setItem('emailForSignIn', email);
-  //       }).catch((err) => {
-  //         console.log("Error ==>", err)
-  //       })
+    try {
+      if (email) {
+        await Post({ nameLink, email, plans: 'free' });
+        await sendSignInLinkToEmail(auth, email, {
+          url: 'http://localhost:3000/User',
+          handleCodeInApp: true,
+        }).then(() => {
+          window.localStorage.setItem('emailForSignIn', email);
+        }).catch((err) => {
+          console.log("Error ==>", err)
+        })
 
-  //       alert("Link de login enviado para seu E-mail! 🤠")
-  //     }
+        alert("Link de login enviado para seu E-mail! 🤠")
+      }
 
-  //     return
-  //   } catch (err) {
-  //     console.error('Erro ao enviar o link de autenticação:', err);
-  //   }
-  // };
-
-  const handleClick = (e: any) => {
-    setEmail(e.target.valu)
-    setOpenPlan(true)
-  }
+      return
+    } catch (err) {
+      console.error('Erro ao enviar o link de autenticação:', err);
+    }
+  };
 
   const backPage = (e: any) => {
     e.preventDefault()
@@ -88,8 +83,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
                   <b>Crie sua conta de forma rapida, insira apenas o seu
                     email para se cadastrar!</b>
                 </div>
-                {/* <form onSubmit={handleSubmit} className='box_input-form'> */}
-                <form className='box_input-form'>
+                <form onSubmit={handleSubmit} className='box_input-form'>
                   {/* add zood for validation in all forms*/}
                   <div>
                     <span><Mail /></span>
@@ -103,7 +97,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
                     />
                   </div>
 
-                  <button onClick={(e: any) => handleClick(e)}>Escolher Plano</button>
+                  <button>Escolher Plano</button>
                 </form>
                 <div className='box_link-login'>
                   <p> ------------ OR ------------ </p>
