@@ -53,7 +53,6 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
       if (email) {
         try {
           await checkEmailAvailability({ email });
-          console.log("Email ==>", email)
         } catch (err) {
           console.log("Erro ao verificar disponibilidade do e-mail:", err);
         }

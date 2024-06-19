@@ -6,7 +6,7 @@ interface TypeInfo {
 
 export async function Post({ nameLink, email, plans }: TypeInfo) {
     try {
-        const res = await fetch("/api/session", {
+        const res = await fetch("/api/task/task", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"

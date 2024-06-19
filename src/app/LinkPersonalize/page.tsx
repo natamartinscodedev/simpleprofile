@@ -7,12 +7,12 @@ import CreateUserSingUp from '@/components/CreateSingUp/Index'
 import Image from 'next/image';
 import ImageIconPage from '@/Images/image_pages.png'
 import Link from 'next/link';
-import { MoveLeft } from 'lucide-react';
+import { Check, MoveLeft, X } from 'lucide-react';
 
 const SingUp = () => {
     const [changeComponents, setChangeComponents] = useState(false)
     const [nameLink, setNameLink] = useState('')
-    const [load, setLoad] = useState<Boolean>(false)
+    const [load, setLoad] = useState(null)
 
     const handlePush = async (e: any) => {
         e.preventDefault()
@@ -23,9 +23,7 @@ const SingUp = () => {
 
     useEffect(() => {
         if (nameLink) {
-            setLoad(true)
-            checkNameAvailability({ nameLink })
-            setLoad(false)
+            checkNameAvailability({ nameLink, setLoad })
         }
     }, [nameLink]);
 
@@ -37,7 +35,7 @@ const SingUp = () => {
                         <NavBar state={false} />
                         <div className="container_link-name container ">
                             <div className='box_info_link-name'>
-                                <Link href='/pt-Br'><MoveLeft /></Link>
+                                <Link href='/'><MoveLeft /></Link>
                                 <div className="box_text-link-personalize">
                                     <h2>Primeiro, insira seu nome no link unico!</h2>
                                     <p>Os bons ainda estão disponíveis!</p>
@@ -52,10 +50,10 @@ const SingUp = () => {
                                             onChange={(e) => setNameLink(e.target.value)}
                                         />
                                         {
-                                            load ? (
-                                                <p>X</p>
+                                            load && nameLink ? (
+                                                <p><Check /></p>
                                             ) : (
-                                                <p>V</p>
+                                                <p><X /></p>
                                             )
                                         }
                                     </div>
