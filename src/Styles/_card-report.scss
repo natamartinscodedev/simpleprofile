@@ -31,11 +31,6 @@
 }
 
 .cardf_report-infouser {
-    // display: flex;
-    // align-items: center;
-    // gap: 1.5rem;
-
-
     img {
         width: 50px;
         height: 50px;
@@ -105,7 +100,6 @@
 
 .carrosel_infinit-loop {
     display: flex;
-    // flex-direction: column;
 
     div {
         display: flex;
@@ -113,6 +107,7 @@
     }
 }
 
+// animation
 @keyframes carroselRepostsLeft {
     from {
         transform: translateX(0);
@@ -121,4 +116,15 @@
     to {
         transform: translateX(-100%);
     }
+}
+
+// Rsponsive
+@media (max-width: 600px) {
+    .container_reports-title {
+        width: 100%;
+        max-width: 40rem;
+        font-size: 1.5rem;
+
+    }
+    
 }
