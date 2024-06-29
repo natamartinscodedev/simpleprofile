@@ -2,15 +2,17 @@
 import React, { useRef, useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import BoardContext from '@/components/Board/context';
+import CardLink from '../ComponentLink';
+import CardImgVideo from '../ComponentImage';
 
-const ListItem = ({ name, index }) => {
-    const ID = name.id;
+const ListItem = ({ date, index }) => {
+    const ID = date.id;
     const ref = useRef();
     const { move } = useContext(BoardContext);
 
     const [{ isDragging }, dragRef] = useDrag({
         type: 'CARD',
-        item: { ID, index, id: name.id },
+        item: { ID, index, id: date.id },
         collect: monitor => ({
             isDragging: monitor.isDragging(),
         }),
@@ -47,9 +49,12 @@ const ListItem = ({ name, index }) => {
 
     dragRef(dropRef(ref));
 
+    console.log("Type cards ==>", date.type)
+
     return (
         <div ref={ref} className={`card_is-dragging ${isDragging ? 'dragging' : ''}`}>
-            <h2>{name.text}{isDragging && "📂"}</h2>
+            {date.type === 'linkCard' && <CardLink link={date.link} />}
+            {date.type === 'imgCard' && <CardImgVideo url={date.url} />}
         </div>
     );
 };

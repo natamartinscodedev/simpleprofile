@@ -45,12 +45,12 @@ export async function GET() {
     }
 }
 
-// export async function DELETE(req) {
-//     const id = req.nextUrl.searchParams.get("id")
+export async function DELETE(req) {
+    const id = req.nextUrl.searchParams.get("id")
 
-//     await connectToDatabase();
-//     await User.findByIdAndDelete(id);
+    await ConnectToDatabase();
+    await User.findByIdAndDelete(id);
 
-//     return NextResponse.json({ message: "Top deleted!!!" }, { status: 200 });
-// } 
+    return NextResponse.json({ message: "Top deleted!!!" }, { status: 200 });
+}
 
