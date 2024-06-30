@@ -9,13 +9,13 @@ import BoardContext from '@/components/Board/context'
 import Image from 'next/image';
 import { SaveInfoUser } from '@/utils/saveInfoUser';
 import { Login } from '@/auth/authServices';
+import NavbarBottom from '@/components/NavBarBottom';
 
 const User = () => {
+    const { user, loadin } = Login()
     const [image, setImage]: any = useState(null);
     const [name, setName] = useState('');
     const [bio, setBio] = useState('');
-
-    const { user, loadin } = Login()
 
     const handleImageChange = (e: any) => {
         const file = e.target.files[0];
@@ -32,11 +32,14 @@ const User = () => {
         { id: 4, text: 'Item 4' },
         { id: 5, text: 'Item 5' },
         { id: 6, text: 'Item 5' },
-        { id: 7, text: 'Item 5' },
     ]
 
-    const [lists, setLists] = useState(data)
-    // save position of cards animations
+    const [lists, setLists] = useState([data])
+    const [link, setLink] = useState('');
+    const [imgCard, setImgCard]: any = useState(null)
+    // console.log("img Card ==>", imgCard)
+
+
     function move(from: any, to: any) {
         setLists(produce(lists, draft => {
             const dragged = draft[from];
@@ -46,6 +49,38 @@ const User = () => {
 
         }))
     }
+
+    const addCard = async () => {
+        // const cardData: any = await fetchCardData(link);
+        setLists(produce(lists, draft => {
+            draft.push({ id: 0, type: 'linkCard', link: link })
+        }));
+        setLink('');
+    };
+
+
+    const addCardImgVideo = async () => {
+        if (imgCard) {
+            console.log("img Card ==>", imgCard)
+            setLists(produce(lists, draft => {
+                draft.push({ id: 0, type: 'imgCard', url: imgCard });
+            }));
+        }
+        setImgCard("")
+    };
+    if (imgCard) {
+        addCardImgVideo()
+    }
+
+
+
+    // const fetchCardData = async (url: any) => {
+    //     return {
+    //         url,
+    //         title: 'Título do Card',
+    //         description: 'Descrição do Card',
+    //     };
+    // };
 
     useEffect(() => {
         SaveInfoUser({
@@ -62,64 +97,72 @@ const User = () => {
                 loadin ? (
                     <p>Loading....</p>
                 ) : (
-                    <div>
-                        {
-                            user && (
-                                <div className='container_user container'>
-                                    <div className='box-infor_user'>
-                                        <div className='box_info-user'>
-                                            <div className='box_img-user'>
-                                                {image ? (
-                                                    <div>
-                                                        <Image src={image} alt="Selected" width={200} height={200} />
-                                                    </div>
-                                                ) : (
-                                                    <input
-                                                        type="file"
-                                                        id="imageInput"
-                                                        accept="image/*"
-                                                        onChange={handleImageChange}
-                                                    />
-                                                )}
-                                            </div>
-                                            <h1>
-                                                <input
-                                                    type="text"
-                                                    id="nameInput"
-                                                    value={name}
-                                                    onChange={(e: any) => setName(e.target.value)}
-                                                    placeholder='Seu nome...'
-                                                />
-                                            </h1>
-                                            <p>
-                                                <input
-                                                    type="text"
-                                                    id="bioInput"
-                                                    value={bio}
-                                                    onChange={(e: any) => setBio(e.target.value)}
-                                                    placeholder='Sua bio...'
-                                                />
-                                            </p>
-                                        </div>
-                                        {/* <button onClick={handleLogout}>Sair</button> */}
-                                    </div>
-                                    <div className='container_info-user'>
-                                        <BoardContext.Provider value={{ lists, move }}>
-                                            <DndProvider backend={HTML5Backend}>
-                                                <div className='board_container '>
-                                                    <ul>
-                                                        {lists && lists.map((item, index) => (
-                                                            <Card key={item.id} index={index} name={item} />
-                                                        ))}
-                                                    </ul>
+                    <>
+                        <div>
+                            {
+                                !user && (
+                                    <div className='container_user container'>
+                                        <div className='box-infor_user'>
+                                            <div className='box_info-user'>
+                                                <div className='box_img-user'>
+                                                    {image ? (
+                                                        <div>
+                                                            <Image src={image} alt="Selected" width={200} height={200} />
+                                                        </div>
+                                                    ) : (
+                                                        <input
+                                                            type="file"
+                                                            id="imageInput"
+                                                            accept="image/*"
+                                                            onChange={handleImageChange}
+                                                        />
+                                                    )}
                                                 </div>
-                                            </DndProvider>
-                                        </BoardContext.Provider>
+                                                <h1>
+                                                    <input
+                                                        type="text"
+                                                        id="nameInput"
+                                                        value={name}
+                                                        onChange={(e: any) => setName(e.target.value)}
+                                                        placeholder='Seu nome...'
+                                                    />
+                                                </h1>
+                                                <p>
+                                                    <input
+                                                        type="text"
+                                                        id="bioInput"
+                                                        value={bio}
+                                                        onChange={(e: any) => setBio(e.target.value)}
+                                                        placeholder='Sua bio...'
+                                                    />
+                                                </p>
+                                            </div>
+                                            {/* <button onClick={handleLogout}>Sair</button> */}
+                                        </div>
+                                        <div className='container_info-user'>
+                                            <BoardContext.Provider value={{ lists, move }}>
+                                                <DndProvider backend={HTML5Backend}>
+                                                    <div className='board_container '>
+                                                        <ul>
+                                                            {lists && lists.map((date: any, index) => (
+                                                                <Card key={index} index={index} date={date} />
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                </DndProvider>
+                                            </BoardContext.Provider>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        }
-                    </div>
+                                )
+                            }
+                        </div>
+                        <NavbarBottom
+                            addCard={addCard}
+                            setLink={setLink}
+                            setImgCard={setImgCard}
+                            addCardImgVideo={addCardImgVideo}
+                        />
+                    </>
                 )
             }
         </>
