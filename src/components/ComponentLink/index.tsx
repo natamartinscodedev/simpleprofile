@@ -1,19 +1,40 @@
 'use client'
-
-
 import React, { useEffect, useState } from 'react';
 import { fetchDateNameLink } from '@/utils/fetchDateNameLinks';
 import Image from 'next/image';
+// import { Link: A } from 'lucide-react';
+import ImgLinkedin from '@/Images/linkedinCard.png'
+import ImgGithub from '@/Images/githubCard.png'
+import ImgInstagram from '@/Images/instagramCard.png'
+import Link from 'next/link';
 
-const CardLink = ({ link }: any) => {
+
+const CardLink = ({ link}: any) => {
     const [date, setDate]: any = useState('')
-    console.log(date)
+    const [webNameLink, setWebNameLink]: any = useState('')
+
+    console.log("Name Web ==>", webNameLink)
+
+    const CardGithub = () => {
+        return (
+            <>
+                <div>
+                    <span className={webNameLink === 'GitHub' ? 'black' : ''} />
+                    <Image src={ImgGithub} alt='' />
+                    <h2>{date.name}</h2>
+                </div>
+                <Link href='' >Seguir</Link>
+            </>
+        )
+    }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { dateLink } = await fetchDateNameLink(link)
+                const { dateLink, WebName } = await fetchDateNameLink(link)
+
                 setDate(dateLink)
+                setWebNameLink(WebName)
             } catch (error) {
                 console.error('Error fetching metadata', error);
             }
@@ -24,38 +45,33 @@ const CardLink = ({ link }: any) => {
 
     return (
         <div className='card-link'>
-            <div>
-                <Image src={date.avatar_url} alt='' width={100} height={100} />
-                <h2>{date.name}</h2>
-            </div>
-            <p>{date.bio}</p>
+            {webNameLink === 'GitHub' && CardGithub()}
+            {
+                webNameLink === 'LinkedIn' && (
+                    <>
+                        <div>
+                            <span className={webNameLink === 'LinkedIn' ? 'bluer' : ''} />
+                            <Image src={ImgLinkedin} alt='' />
+                            <p>{webNameLink}.com</p>
+                        </div>
+                        <Link href=''>Seguir</Link>
+                    </>
+                )
+            }
+            {
+                webNameLink === 'Instagram' && (
+                    <>
+                        <div>
+                            <span className={webNameLink === 'Instagram' ? 'linear' : ''} />
+                            <Image src={ImgInstagram} alt='' />
+                            <p>{webNameLink}.com</p>
+                        </div>
+                        <Link href=''>Seguir</Link>
+                    </>
+                )
+            }
         </div>
-    );
-};
-
-const styles: any = {
-    card: {
-
-    },
-    image: {
-        width: '100px',
-        height: '100px',
-        objectFit: 'cover',
-        marginRight: '16px',
-    },
-    content: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    title: {
-        fontSize: '18px',
-        fontWeight: 'bold',
-        margin: '0 0 8px 0',
-    },
-    url: {
-        color: '#0070f3',
-        textDecoration: 'none',
-    },
-};
+    )
+}
 
 export default CardLink;

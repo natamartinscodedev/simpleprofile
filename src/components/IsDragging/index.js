@@ -1,11 +1,13 @@
 'use client'
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import BoardContext from '@/components/Board/context';
 import CardLink from '../ComponentLink';
 import CardImgVideo from '../ComponentImage';
+import Link from 'next/link';
 
 const ListItem = ({ date, index }) => {
+    const [linkCard, setLinkCard] = useState("")
     const ID = date.id;
     const ref = useRef();
     const { move } = useContext(BoardContext);
@@ -52,10 +54,10 @@ const ListItem = ({ date, index }) => {
     console.log("Type cards ==>", date.type)
 
     return (
-        <div ref={ref} className={`card_is-dragging ${isDragging ? 'dragging' : ''}`}>
+        <Link href={`${date.link}`} ref={ref} className={`card_is-dragging ${isDragging ? 'dragging' : ''}`}>
             {date.type === 'linkCard' && <CardLink link={date.link} />}
             {date.type === 'imgCard' && <CardImgVideo url={date.url} />}
-        </div>
+        </Link>
     );
 };
 

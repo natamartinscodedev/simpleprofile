@@ -7,9 +7,18 @@ export const fetchNameLinks = (link: any) => {
 
     const username = nameLink.split('/').filter(Boolean).pop()
 
-    if (nameLink.startsWith('https://')) {
+    if (nameLink.startsWith('https://www.')) {
+        nameLink = nameLink.slice(12);
+    } else if (nameLink.startsWith('https://')) {
         nameLink = nameLink.slice(8);
+    } else if (nameLink.startsWith('http://www.')) {
+        nameLink = nameLink.slice(11);
+    } else if (nameLink.startsWith('http://')) {
+        nameLink = nameLink.slice(7);
     }
+
+
+    nameLink.replace('www.', '')
     nameLink = nameLink.split('.')[0];
 
     const siteNameMap: any = {
