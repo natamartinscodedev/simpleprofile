@@ -128,13 +128,19 @@ const User = () => {
                                                     />
                                                 </h1>
                                                 <p>
-                                                    <input
+                                                    <textarea
+                                                        id="bioInput"
+                                                        value={bio}
+                                                        onChange={(e: any) => setBio(e.target.value)}
+                                                        placeholder='Sua bio...'
+                                                    ></textarea>
+                                                    {/* <input
                                                         type="text"
                                                         id="bioInput"
                                                         value={bio}
                                                         onChange={(e: any) => setBio(e.target.value)}
                                                         placeholder='Sua bio...'
-                                                    />
+                                                    /> */}
                                                 </p>
                                             </div>
                                             {/* <button onClick={handleLogout}>Sair</button> */}

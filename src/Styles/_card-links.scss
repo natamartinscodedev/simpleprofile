@@ -1,13 +1,61 @@
 .card-link {
+    height: 100%;
+    position: relative;
+    z-index: 900px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    color: #fff;
 
-    p {
-        font-size: 10px;
+
+    h2 {
+        font-size: 15px;
     }
-    // div {
-    //     display: flex;
-    //     align-items: center;
-    // }
+
+    div {
+        img {
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    a {
+        width: 90px;
+        color: #ADADAD;
+        text-decoration: none;
+        padding: 5px 15px;
+        border-radius: 10px;
+        border: 2px solid #ADADAD;
+        outline: none;
+
+    }
+
+    span {
+        width: 35px;
+        height: 35px;
+        filter: blur(5px);
+        border-radius: 10px;
+        position: absolute;
+        z-index: -1;
+        top: -0.3rem;
+        left: -0.3rem;
+    }
+}
+
+.black {
+    background-color: #000;
+}
+
+.bluer {
+    background-color: #0078D4;
+}
+
+.linear {
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
