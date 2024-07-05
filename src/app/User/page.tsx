@@ -100,7 +100,7 @@ const User = () => {
                     <>
                         <div>
                             {
-                                !user && (
+                                user && (
                                     <div className='container_user container'>
                                         <div className='box-infor_user'>
                                             <div className='box_info-user'>

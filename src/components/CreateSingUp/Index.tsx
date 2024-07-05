@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { sendSignInLinkToEmail } from 'firebase/auth';
 import { auth } from '@/firebase/firebase'
 import { checkEmailAvailability } from '@/utils/verificEmail';
-import { Post } from '@/utils/createUser'
+import { FetchPost } from '@/utils/createUser'
 import Image from 'next/image';
 import ImageIconPage from '@/Images/image_pages.png'
 import Plans from '@/app/Plans/index'
@@ -26,7 +26,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
 
     try {
       if (email) {
-        await Post({ nameLink, email, plans: 'free' });
+        await FetchPost({ nameLink, email, plans: 'free' });
         await sendSignInLinkToEmail(auth, email, {
           url: 'http://localhost:3000/User',
           handleCodeInApp: true,

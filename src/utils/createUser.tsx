@@ -4,25 +4,23 @@ interface TypeInfo {
     plans: string
 }
 
-export async function Post({ nameLink, email, plans }: TypeInfo) {
+export async function FetchPost({ nameLink, email, plans }: TypeInfo) {
     try {
         const res = await fetch("/api/task/task", {
             method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
             body: JSON.stringify({
                 nameLink,
                 email,
-                plans,
+                plans
             })
         })
+        const data = await res.json()
 
         if (!res.ok) {
             throw Error("Faled to fetc topics")
         }
 
-        return res.json()
+        return data
     } catch (err) {
         console.log("Ops! Erro in method POST! 😒")
     }
