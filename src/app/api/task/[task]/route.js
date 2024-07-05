@@ -1,32 +1,32 @@
-import { ConnectToDatabase } from '@/db/mongodb'
+import { connectToDatabase } from '@/db/mongodb'
 import { NextResponse } from 'next/server';
-import User from '@/models/Users'
+import User from '../../../../models/User'
 
 export async function POST(req) {
     try {
-        const {
-            nameLink,
-            email,
-            name,
-            bio,
-            image,
-            lists
+        const { nameLink, email, name, bio, image, lists, plans } = await req.json()
 
-        } = await req.json()
+        if (!nameLink || !email || !plans) {
+            return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
+        }
 
-        await ConnectToDatabase()
-        await User.create(
-            {
-                nameLink,
-                email,
-                name,
-                bio,
-                image,
-                lists
-            }
-        )
+        await connectToDatabase()
+        try {
+            const newUser = await User.create(
+                {
+                    nameLink,
+                    email,
+                    name, bio,
+                    image, lists,
+                    plans
+                }
+            )
 
-        return NextResponse.json({ message: "NameLink Created!!!" }, { status: 200 })
+            return NextResponse.json({ message: "NameLink Created!!!", user: newUser }, { status: 200 });
+        } catch (err) {
+            console.error("Error creating/saving user:", err);
+            return NextResponse.json({ message: "Error creating user", error: err.message }, { status: 500 });
+        }
     } catch (error) {
         console.error("Error in /api/session:", error);
         return NextResponse.error({ status: 500, body: "Internal Server Error" });
@@ -35,7 +35,7 @@ export async function POST(req) {
 
 export async function GET() {
     try {
-        await ConnectToDatabase();
+        await connectToDatabase();
         const topics = await User.find();
 
         return NextResponse.json({ topics });
@@ -48,7 +48,7 @@ export async function GET() {
 export async function DELETE(req) {
     const id = req.nextUrl.searchParams.get("id")
 
-    await ConnectToDatabase();
+    await connectToDatabase();
     await User.findByIdAndDelete(id);
 
     return NextResponse.json({ message: "Top deleted!!!" }, { status: 200 });

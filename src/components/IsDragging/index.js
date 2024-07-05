@@ -7,7 +7,6 @@ import CardImgVideo from '../ComponentImage';
 import Link from 'next/link';
 
 const ListItem = ({ date, index }) => {
-    const [linkCard, setLinkCard] = useState("")
     const ID = date.id;
     const ref = useRef();
     const { move } = useContext(BoardContext);
