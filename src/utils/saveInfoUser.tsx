@@ -8,10 +8,8 @@ interface TypeInfo {
 export async function SaveInfoUser({ name, bio, image, lists }: TypeInfo) {
     try {
         const res = await fetch("/api/task/task", {
+            cache: 'no-cache',
             method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
             body: JSON.stringify({
                 name,
                 bio,

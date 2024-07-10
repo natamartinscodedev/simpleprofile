@@ -1,86 +1,75 @@
 "use client"
+
+
 import React, { useEffect, useState } from 'react'
-// import { auth } from '@/firebase/firebase'
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { produce } from 'immer';
-import Card from '@/components/IsDragging/index';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { produce } from 'immer'
+import Card from '@/components/IsDragging/index'
 import BoardContext from '@/components/Board/context'
-import Image from 'next/image';
-import { SaveInfoUser } from '@/utils/saveInfoUser';
-import { Login } from '@/auth/authServices';
-import NavbarBottom from '@/components/NavBarBottom';
+import Image from 'next/image'
+import { SaveInfoUser } from '@/utils/saveInfoUser'
+import { GetDataUser } from '@/utils/fetchGetDataUser'
+import { Login } from '@/auth/authServices'
+import NavbarBottom from '@/components/NavBarBottom'
+
+const data = [
+    { id: 1, text: 'Item 1' },
+    { id: 2, text: 'Item 2' },
+    { id: 3, text: 'Item 3' },
+    { id: 4, text: 'Item 4' },
+    { id: 5, text: 'Item 5' },
+    { id: 6, text: 'Item 5' },
+]
 
 const User = () => {
     const { user, loadin } = Login()
-    const [image, setImage]: any = useState(null);
-    const [name, setName] = useState('');
-    const [bio, setBio] = useState('');
+    // const { plan }: any = GetDataUser(user)
+    // console.log("Data ===>", plan)
+    const [image, setImage]: any = useState(null)
+    const [name, setName] = useState('')
+    const [bio, setBio] = useState('')
+    const [lists, setLists] = useState([data])
+    const [link, setLink] = useState('')
+    const [imgCard, setImgCard]: any = useState(null)
 
     const handleImageChange = (e: any) => {
-        const file = e.target.files[0];
+        const file = e.target.files[0]
         if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setImage(imageUrl);
+            const imageUrl = URL.createObjectURL(file)
+            setImage(imageUrl)
         }
-    };
-
-    const data = [
-        { id: 1, text: 'Item 1' },
-        { id: 2, text: 'Item 2' },
-        { id: 3, text: 'Item 3' },
-        { id: 4, text: 'Item 4' },
-        { id: 5, text: 'Item 5' },
-        { id: 6, text: 'Item 5' },
-    ]
-
-    const [lists, setLists] = useState([data])
-    const [link, setLink] = useState('');
-    const [imgCard, setImgCard]: any = useState(null)
-    // console.log("img Card ==>", imgCard)
-
+    }
 
     function move(from: any, to: any) {
         setLists(produce(lists, draft => {
-            const dragged = draft[from];
+            const dragged = draft[from]
 
-            draft.splice(from, 1);
-            draft.splice(to, 0, dragged);
+            draft.splice(from, 1)
+            draft.splice(to, 0, dragged)
 
         }))
     }
 
     const addCard = async () => {
-        // const cardData: any = await fetchCardData(link);
-        setLists(produce(lists, draft => {
+        setLists(produce(lists, (draft: any) => {
             draft.push({ id: 0, type: 'linkCard', link: link })
-        }));
-        setLink('');
-    };
-
+        }))
+        setLink("")
+    }
 
     const addCardImgVideo = async () => {
         if (imgCard) {
-            console.log("img Card ==>", imgCard)
-            setLists(produce(lists, draft => {
-                draft.push({ id: 0, type: 'imgCard', url: imgCard });
-            }));
+            setLists(produce(lists, (draft: any) => {
+                draft.push({ id: 0, type: 'imgCard', url: imgCard })
+            }))
         }
         setImgCard("")
-    };
+    }
+
     if (imgCard) {
         addCardImgVideo()
     }
-
-
-
-    // const fetchCardData = async (url: any) => {
-    //     return {
-    //         url,
-    //         title: 'Título do Card',
-    //         description: 'Descrição do Card',
-    //     };
-    // };
 
     useEffect(() => {
         SaveInfoUser({
@@ -134,13 +123,6 @@ const User = () => {
                                                         onChange={(e: any) => setBio(e.target.value)}
                                                         placeholder='Sua bio...'
                                                     ></textarea>
-                                                    {/* <input
-                                                        type="text"
-                                                        id="bioInput"
-                                                        value={bio}
-                                                        onChange={(e: any) => setBio(e.target.value)}
-                                                        placeholder='Sua bio...'
-                                                    /> */}
                                                 </p>
                                             </div>
                                             {/* <button onClick={handleLogout}>Sair</button> */}
@@ -164,6 +146,7 @@ const User = () => {
                         </div>
                         <NavbarBottom
                             addCard={addCard}
+                            link={link}
                             setLink={setLink}
                             setImgCard={setImgCard}
                             addCardImgVideo={addCardImgVideo}

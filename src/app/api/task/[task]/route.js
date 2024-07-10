@@ -16,8 +16,10 @@ export async function POST(req) {
                 {
                     nameLink,
                     email,
-                    name, bio,
-                    image, lists,
+                    name,
+                    bio,
+                    image,
+                    lists,
                     plans
                 }
             )
