@@ -5,7 +5,7 @@ import Midia from '@/Images/icons/image.png'
 import Text from '@/Images/icons/text.png'
 import Map from '@/Images/icons/map.png'
 
-const NavbarBottom = ({ addCard, setImgCard, setLink,}: any) => {
+const NavbarBottom = ({ addCard, setImgCard, setLink, link}: any) => {
 
     const handleImageChange = (e: any) => {
         const file = e.target.files[0];
@@ -25,6 +25,7 @@ const NavbarBottom = ({ addCard, setImgCard, setLink,}: any) => {
                     imgBoolean={false}
                     openModalType='link'
                     addCard={addCard}
+                    link={link}
                     setLink={setLink}
                 />
                 <div className='card_imgvideo'>

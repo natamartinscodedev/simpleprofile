@@ -1,17 +1,24 @@
 interface TypeInfo {
     nameLink: string,
     email: string,
-    plans: string
+    plans: string,
+    name: string,
+    bio: string,
+    image: any,
 }
 
-export async function FetchPost({ nameLink, email, plans }: TypeInfo) {
+export async function FetchPost({ nameLink, email, plans, name, bio, image }: TypeInfo) {
     try {
         const res = await fetch("/api/task/task", {
+            cache: 'no-cache',
             method: "POST",
             body: JSON.stringify({
                 nameLink,
                 email,
-                plans
+                plans,
+                name,
+                bio,
+                image
             })
         })
         const data = await res.json()

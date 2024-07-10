@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
 import '@/Styles/style.scss'
 import { Roboto } from "next/font/google";
-// import { i18n, type Locale } from "../../i18n";
-
-// export async function generateStaticParams() {
-//   return i18n.locales.map((locale) => ({ lang: locale }));
-// }
-
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,10 +14,8 @@ const roboto = Roboto({
 
 export default async function LocaleLayout({
   children,
-  // params
 }: {
   children: React.ReactNode;
-  // params: { locale: Locale };
 }) {
 
   return (

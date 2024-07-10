@@ -65,7 +65,7 @@ const SingUp = () => {
                                         )
                                     }
                                 </form>
-                                <Link href='/pages/Login'>Faça login</Link>
+                                <Link href='/Login'>Faça login</Link>
                             </div>
                             <div className='box_info-image'>
                                 <Image src={ImageIconPage} alt='' />
