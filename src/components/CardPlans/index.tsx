@@ -7,15 +7,15 @@ interface typePlans {
     price: any,
     state: boolean,
     children: any,
-    idPlans: string,
+    idPlans?: string,
     email?: string,
-    nameLink: string
+    nameLink?: any,
+    disable?: boolean,
 }
 
-const Url = process.env.NEXT_PUBLIC_API_URL
-console.log("URL ==>", `${Url}/User`)
+const Url = process.env.NEXT_PUBLIC_VERCEL_ENV
 
-const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink }: typePlans) => {
+const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink, disable }: typePlans) => {
     const [loading, setLoading] = useState(false);
 
     async function handleclick() {
@@ -43,8 +43,6 @@ const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink }
                 alert("Link de login enviado para seu E-mail! 🤠")
             }
             setLoading(false)
-
-            return console.log("Chegou aqui ==>")
         } catch (err) {
             console.error('Erro ao enviar o link de autenticação:', err);
         }
@@ -53,7 +51,7 @@ const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink }
     return (
         <div className={state ? 'box_plans-state' : 'box_plans'}>
             {
-                state && <span>Mais popular</span>
+                state && <span>{disable ? "Indisponivel no momento!!!" : "Mais popular"}</span>
             }
             <p>{tipePlan}</p>
             <h3>${price} {state && <b>/mes</b>}</h3>

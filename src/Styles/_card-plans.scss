@@ -97,14 +97,16 @@
     border-radius: 10px;
 
     span {
+        width: 100%;
         position: absolute;
         top: -20px;
-        left: 5.5rem;
+        left: -1.2rem;
 
         background-color: #FFD88D;
         border: 5px solid #fff;
         border-radius: 20px;
         padding: 10px 1rem;
+        text-align: center;
     }
 
     p {

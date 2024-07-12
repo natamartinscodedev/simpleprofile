@@ -1,15 +1,25 @@
-.card_pubi {
-    display: flex;
+.container_loop {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
     height: 5rem;
     background-color: #6A65FF;
-    // margin-top: -9rem;
     z-index: 800;
-    overflow: hidden;
     white-space: nowrap;
+}
+
+.card_pubi {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
 
     ul {
         display: flex;
+        gap: 5rem;
         align-items: center;
         justify-items: center;
         justify-content: space-between;
@@ -21,7 +31,7 @@
     font-size: 25px;
     font-weight: bold;
     text-transform: uppercase;
-    animation: rollText 10s linear infinite;
+    animation: rollText 5s linear infinite;
     /* Aplicar animação */
 }
 
@@ -35,13 +45,13 @@
 }
 
 @keyframes rollText {
-    0% {
-        transform: translateX(100%);
+    from {
+        transform: translateX(-100%);
         /* Começar fora da tela à direita */
     }
 
-    100% {
-        transform: translateX(-100%);
+    to {
+        transform: translateX(0);
         /* Rolar para fora da tela à esquerda */
     }
 }

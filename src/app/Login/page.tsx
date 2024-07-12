@@ -15,8 +15,6 @@ const Index = () => {
     const [email, setEmail] = useState("")
     const [showAlert, setShowAlert] = useState(false);
 
-    console.log("HAck i kwno you==>", auth)
-
     const handleEmail = () => {
         try {
             if (user.email === email) {

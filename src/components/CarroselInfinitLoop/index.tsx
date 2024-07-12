@@ -7,98 +7,100 @@ import BluerRight from '@/Images/Ellipse 7.svg'
 
 const CardInfinitLoop = () => {
     return (
-        <div className='carrosel_reports carrosel_infinit-loop'>
+        <div className='carrosel_reports '>
             <span className='blur_left'>
                 <Image src={BluerLeft} alt='' />
             </span>
-            <div className='left'>
-                <div>
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                </div>
-                <div>
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
-                    <CardReport
-                        img={ImageHomePage}
-                        name='Naythan'
-                        level='Desenvolvedor Frontend'
-                        description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
-                    />
+            <div className='container_loop-left'>
+                <div className='carrosel_infinit-loop-left'>
+                    <div>
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                    </div>
+                    <div>
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                        <CardReport
+                            img={ImageHomePage}
+                            name='Naythan'
+                            level='Desenvolvedor Frontend'
+                            description='Simplismente o melhor site para organizar e mostrar minha jornada profissional em um só lugar! e ainda mais com um link personalizado unico...🚀'
+                        />
+                    </div>
                 </div>
             </div>
             <span className='blur_right'>

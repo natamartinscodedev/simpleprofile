@@ -8,15 +8,10 @@ import ImageIconPage from '@/Images/image_pages.png'
 import Plans from '@/app/Plans/index'
 import { Mail, MoveLeft } from 'lucide-react';
 import Link from 'next/link';
-import { FetchPost } from '@/utils/createUser';
-import { sendSignInLinkToEmail } from 'firebase/auth';
-import { auth } from '@/firebase/firebase'
 interface TypeProps {
   changeState: any,
   nameLink: string,
 }
-
-const Url = process.env.NEXT_PUBLIC_API_URL
 
 const Index = ({ changeState, nameLink }: TypeProps) => {
   const [email, setEmail] = useState<string | ''>('')
