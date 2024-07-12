@@ -8,10 +8,15 @@ import ImageIconPage from '@/Images/image_pages.png'
 import Plans from '@/app/Plans/index'
 import { Mail, MoveLeft } from 'lucide-react';
 import Link from 'next/link';
+import { FetchPost } from '@/utils/createUser';
+import { sendSignInLinkToEmail } from 'firebase/auth';
+import { auth } from '@/firebase/firebase'
 interface TypeProps {
   changeState: any,
   nameLink: string,
 }
+
+const Url = process.env.NEXT_PUBLIC_API_URL
 
 const Index = ({ changeState, nameLink }: TypeProps) => {
   const [email, setEmail] = useState<string | ''>('')
@@ -25,6 +30,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
     e.preventDefault()
     changeState(!!false)
   }
+
 
   useEffect(() => {
     const checkEmail = async () => {
@@ -45,6 +51,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
       {
         openPlan ?
           (
+            // Card Plans
             <div className='card_plans-change'>
               <button onClick={() => setOpenPlan(false)}>Voltar</button>
               <Plans email={email} nameLink={nameLink} />
@@ -60,7 +67,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
                   <b>Crie sua conta de forma rapida, insira apenas o seu
                     email para se cadastrar!</b>
                 </div>
-                <form onSubmit={createUserPlan} className='box_input-form'>
+                <form className='box_input-form'>
                   {/* add zood for validation in all forms*/}
                   <div>
                     <span><Mail /></span>
@@ -74,7 +81,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
                     />
                   </div>
 
-                  <button>Escolher Plano</button>
+                  <button onClick={() => createUserPlan()}>Escolher Plano</button>
                 </form>
                 <div className='box_link-login'>
                   <p> ------------ OR ------------ </p>
