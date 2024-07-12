@@ -17,11 +17,11 @@ const Index = () => {
 
     const handleEmail = () => {
         try {
-            if (user.email === email) {
+            if (user && user.email === email) {
                 loginMagicLink(email)
-                return setShowAlert(!false);
+                return setShowAlert(true);
             } else {
-                return setShowAlert(!false);
+                return setShowAlert(true);
             }
         } catch (err) {
             console.log("ERR ==>", err)
