@@ -12,6 +12,8 @@ interface typePlans {
     nameLink: string
 }
 
+const Url = process.env.NEXT_PUBLIC_API_URL
+
 const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink }: typePlans) => {
     const [loading, setLoading] = useState(false);
 
@@ -28,7 +30,7 @@ const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink }
                     image: '',
                 });
                 await sendSignInLinkToEmail(auth, email, {
-                    url: `${process.env.NEXT_PUBLIC_APP_URL}/User`,
+                    url: `${Url}/User`,
                     handleCodeInApp: true,
                 }).then(() => {
                     window.localStorage.setItem('emailForSignIn', email);
