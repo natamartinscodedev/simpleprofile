@@ -1,10 +1,12 @@
 import { sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from '@/firebase/firebase'
 
+const Url = process.env.NEXT_PUBLIC_API_URL
+
 export function loginMagicLink(email: string) {
     try {
         sendSignInLinkToEmail(auth, email, {
-            url: `${process.env.NEXT_PUBLIC_APP_URL}/User`,
+            url: `${Url}/User`,
             handleCodeInApp: true,
         }).then(() => {
             window.localStorage.setItem('emailForSignIn', email);

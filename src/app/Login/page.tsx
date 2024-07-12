@@ -19,7 +19,6 @@ const Index = () => {
         try {
             if (user.email === email) {
                 loginMagicLink(email)
-
                 return setShowAlert(!false);
             } else {
                 return setShowAlert(!false);
