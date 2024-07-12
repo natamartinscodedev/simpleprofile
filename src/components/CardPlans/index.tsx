@@ -13,6 +13,7 @@ interface typePlans {
 }
 
 const Url = process.env.NEXT_PUBLIC_API_URL
+console.log("URL ==>", `${Url}/User`)
 
 const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink }: typePlans) => {
     const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink }
                     bio: '',
                     image: '',
                 });
+
                 await sendSignInLinkToEmail(auth, email, {
                     url: `${Url}/User`,
                     handleCodeInApp: true,
