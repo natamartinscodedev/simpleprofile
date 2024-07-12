@@ -1,3 +1,13 @@
+.container_loop-left {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 800;
+    // white-space: nowrap;
+}
+
 .container_reports {
     display: flex;
     flex-direction: column;
@@ -68,8 +78,19 @@
     gap: 2rem;
 }
 
-.left {
-    animation: carroselRepostsLeft 40s linear infinite;
+.carrosel_infinit-loop-left {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    div {
+        display: flex;
+        gap: 2rem;
+    }
+
+    animation: carroselRepostsLeft 70s linear infinite;
 
     &:hover {
         animation-play-state: paused;
@@ -98,14 +119,6 @@
     rotate: 180deg;
 }
 
-.carrosel_infinit-loop {
-    display: flex;
-
-    div {
-        display: flex;
-        gap: 2rem;
-    }
-}
 
 // animation
 @keyframes carroselRepostsLeft {
@@ -126,5 +139,5 @@
         font-size: 1.5rem;
 
     }
-    
+
 }

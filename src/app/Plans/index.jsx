@@ -29,6 +29,7 @@ const Plans = ({ email, nameLink }) => {
                 idPlans='id_plans-gold'
                 email={email}
                 nameLink={nameLink}
+                disable={true}
             >
                 <li><CircleCheck size={20} />tsete01</li>
                 <li><CircleCheck size={20} />teste02</li>

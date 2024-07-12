@@ -29,13 +29,21 @@ const Home = () => {
                     </div>
                 </section>
                 <section>
-                    <div className='card_pubi'>
-                        <ul className='container'>
-                            <li className='text-animation01'>Simple Profile</li>
-                            <li className='text-animation02'>Simple Profile</li>
-                            <li className='text-animation01'>Simple Profile</li>
-                            <li className='text-animation02'>Simple Profile</li>
-                        </ul>
+                    <div className='container_loop'>
+                        <div className='card_pubi'>
+                            <ul className='container'>
+                                <li className='text-animation01'>Simple Profile</li>
+                                <li className='text-animation02'>Simple Profile</li>
+                                <li className='text-animation01'>Simple Profile</li>
+                                <li className='text-animation02'>Simple Profile</li>
+                            </ul>
+                            <ul className='container'>
+                                <li className='text-animation01'>Simple Profile</li>
+                                <li className='text-animation02'>Simple Profile</li>
+                                <li className='text-animation01'>Simple Profile</li>
+                                <li className='text-animation02'>Simple Profile</li>
+                            </ul>
+                        </div>
                     </div>
                     <div className='container_reports'>
                         <p className='container_reports-title'>O que as pessoas estão dizendo sobre o Simple Profile...🚀</p>
@@ -66,6 +74,7 @@ const Home = () => {
                             tipePlan='Gold'
                             price={'149,99'}
                             state={true}
+                            disable={true}
                         >
                             <li><CircleCheck size={20} />tsete01</li>
                             <li><CircleCheck size={20} />teste02</li>

@@ -1,7 +1,7 @@
 import { sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from '@/firebase/firebase'
 
-const Url = process.env.NEXT_PUBLIC_API_URL
+const Url = process.env.NEXT_PUBLIC_VERCEL_ENV
 
 export function loginMagicLink(email: string) {
     try {
