@@ -1,20 +1,26 @@
 'use client'
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 interface typeParams {
   text: string,
-  state?: any
+  state?: any,
+  open?: any,
 }
 
-export default function Modal({ text, state }: typeParams) {
+export default function Modal({ text, state, open }: typeParams) {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => {
     setIsOpen(!isOpen);
-  };
+  }
 
   useEffect(() => {
-    if (state === true) {
+    if (open === true) {
       setIsOpen(true)
+      if (!state) {
+        router.push('/LinkPersonalize')
+      }
     } else {
       setIsOpen(false)
     }

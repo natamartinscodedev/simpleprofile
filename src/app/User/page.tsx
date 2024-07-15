@@ -13,14 +13,12 @@ import { GetDataUser } from '@/utils/fetchGetDataUser'
 import { Login } from '@/auth/authServices'
 import NavbarBottom from '@/components/NavBarBottom'
 import { useRouter } from 'next/navigation'
-import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth'
-
+// import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth'
 
 const User = () => {
     const { user, loadin } = Login()
-    console.log("User ==>", user)
-    // const { plan }: any = GetDataUser(user)
-    // console.log("Data ===>", plan)
+    // console.log("User ==>", user)
+    const router = useRouter();
     const [image, setImage]: any = useState(null)
     const [name, setName] = useState('')
     const [bio, setBio] = useState('')
@@ -67,7 +65,7 @@ const User = () => {
     }
 
     useEffect(() => {
-        SaveInfoUser({
+                SaveInfoUser({
             name,
             bio,
             image,
