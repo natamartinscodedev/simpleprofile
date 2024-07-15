@@ -1,16 +1,14 @@
 import { fetchMongodb } from "./fetchMongodb";
 
-export const GetDataUser = async ({ email }: any) => {
+export async function GetDataUser(email: any) {
+    console.log("Chegou aqui", email)
     try {
         const { topics } = await fetchMongodb();
+        const res = topics.filter((user: any) => user.email === email)
+        const User = res[0]
 
-        if (topics) {
-            topics.some((topic: any) => topic.email === email);
-            console.log("Welcome...🚀")
-
-            return {
-                plan: topics[0].plans,
-            }
+        if (User) {
+            return { User }
         } else {
             console.log("Topics don't exist")
         }

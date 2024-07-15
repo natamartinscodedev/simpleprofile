@@ -1,7 +1,7 @@
 "use client"
 
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase/firebase'
 import loginMagicLink from '@/utils/login';
@@ -9,15 +9,17 @@ import Link from 'next/link';
 import NavBar from '@/components/Navbar/index'
 import { MoveLeft } from 'lucide-react';
 import CardAlert from '@/components/components/cardAlert'
+import { GetDataUser } from '@/utils/fetchGetDataUser'
 
 const Index = () => {
     const [user, loading, error]: any = useAuthState(auth)
     const [email, setEmail] = useState("")
     const [showAlert, setShowAlert] = useState(false)
 
-    const handleEmail = () => {
+    const handleEmail = async () => {
         try {
-            if (user && user.email === email) {
+            const { User }: any = await GetDataUser(email)
+            if (user && User.email === email) {
                 loginMagicLink(email)
                 return setShowAlert(true)
             } else {
@@ -43,8 +45,10 @@ const Index = () => {
                                 <input id='email' type="email" placeholder='Digite seu E-Mail...' onChange={(e: any) => setEmail(e.target.value)} />
                             </form>
                             <button onClick={handleEmail}>Login</button>
-                            {showAlert && <CardAlert state={true}
-                                text={user && user.email === email ?
+                            {showAlert && <CardAlert
+                                state={user}
+                                open={true}
+                                text={user ?
                                     "Link Enviado ao seu email!🚀" :
                                     "Voce não possue conta com este email! Crie já sua conta no Simple Prifile🚀"
                                 } />}
