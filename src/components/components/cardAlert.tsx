@@ -1,8 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import styles from './Modal.module.css'; // Importe seus estilos CSS
-
 interface typeParams {
   text: string,
   state?: any
@@ -10,8 +8,6 @@ interface typeParams {
 
 export default function Modal({ text, state }: typeParams) {
   const [isOpen, setIsOpen] = useState(false);
-
-
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };

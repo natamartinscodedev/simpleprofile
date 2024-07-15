@@ -1,13 +1,13 @@
 .card-link {
+    width: 100%;
     height: 100%;
     position: relative;
-    z-index: 900px;
+    z-index: 900;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 1rem;
     color: #fff;
-
 
     h2 {
         font-size: 15px;
@@ -34,16 +34,19 @@
 
     }
 
-    span {
-        width: 35px;
-        height: 35px;
-        filter: blur(5px);
-        border-radius: 10px;
-        position: absolute;
-        z-index: -1;
-        top: -0.3rem;
-        left: -0.3rem;
-    }
+    // div {
+    //     span {
+    //         position: absolute;
+    //         z-index: -1;
+    //         top: -0.3rem;
+    //         left: -0.3rem;
+
+    //         width: 35px;
+    //         height: 35px;
+    //         // filter: blur(5px);
+    //         border-radius: 10px;
+    //     }
+    // }
 }
 
 .black {
