@@ -12,24 +12,19 @@ import { SaveInfoUser } from '@/utils/saveInfoUser'
 import { GetDataUser } from '@/utils/fetchGetDataUser'
 import { Login } from '@/auth/authServices'
 import NavbarBottom from '@/components/NavBarBottom'
+import { useRouter } from 'next/navigation'
+import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth'
 
-const data = [
-    { id: 1, text: 'Item 1' },
-    { id: 2, text: 'Item 2' },
-    { id: 3, text: 'Item 3' },
-    { id: 4, text: 'Item 4' },
-    { id: 5, text: 'Item 5' },
-    { id: 6, text: 'Item 5' },
-]
 
 const User = () => {
     const { user, loadin } = Login()
+    console.log("User ==>", user)
     // const { plan }: any = GetDataUser(user)
     // console.log("Data ===>", plan)
     const [image, setImage]: any = useState(null)
     const [name, setName] = useState('')
     const [bio, setBio] = useState('')
-    const [lists, setLists] = useState([data])
+    const [lists, setLists] = useState([])
     const [link, setLink] = useState('')
     const [imgCard, setImgCard]: any = useState(null)
 
@@ -78,7 +73,7 @@ const User = () => {
             image,
             lists
         })
-    }, [name, bio, image, lists])
+    }, [name, bio, image, lists,])
 
     return (
         <>
@@ -134,6 +129,7 @@ const User = () => {
                                                         <ul>
                                                             {lists && lists.map((date: any, index) => (
                                                                 <Card key={index} index={index} date={date} />
+
                                                             ))}
                                                         </ul>
                                                     </div>

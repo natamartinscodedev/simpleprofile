@@ -11,17 +11,17 @@ import { MoveLeft } from 'lucide-react';
 import CardAlert from '@/components/components/cardAlert'
 
 const Index = () => {
-    const [user, loading, error]: any = useAuthState(auth);
+    const [user, loading, error]: any = useAuthState(auth)
     const [email, setEmail] = useState("")
-    const [showAlert, setShowAlert] = useState(false);
+    const [showAlert, setShowAlert] = useState(false)
 
     const handleEmail = () => {
         try {
             if (user && user.email === email) {
                 loginMagicLink(email)
-                return setShowAlert(true);
+                return setShowAlert(true)
             } else {
-                return setShowAlert(true);
+                return setShowAlert(true)
             }
         } catch (err) {
             console.log("ERR ==>", err)
@@ -43,7 +43,11 @@ const Index = () => {
                                 <input id='email' type="email" placeholder='Digite seu E-Mail...' onChange={(e: any) => setEmail(e.target.value)} />
                             </form>
                             <button onClick={handleEmail}>Login</button>
-                            {showAlert && <CardAlert state={true} text={user && user.email === email ? "Link Enviado ao seu email!🚀" : "Voce não possue conta com este email! Crie já sua conta no Simple Prifile🚀"} />}
+                            {showAlert && <CardAlert state={true}
+                                text={user && user.email === email ?
+                                    "Link Enviado ao seu email!🚀" :
+                                    "Voce não possue conta com este email! Crie já sua conta no Simple Prifile🚀"
+                                } />}
                         </div>
                     )
                 }
