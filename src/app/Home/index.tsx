@@ -72,7 +72,7 @@ const Home = () => {
                         </CardPlan>
                         <CardPlan
                             tipePlan='Gold'
-                            price={'149,99'}
+                            price={'89,99'}
                             state={true}
                             disable={true}
                         >
