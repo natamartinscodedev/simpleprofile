@@ -1,16 +1,18 @@
 interface TypeInfo {
+    nameLink: string,
     name: string,
     bio: string,
     image: string,
     lists: any
 }
 
-export async function SaveInfoUser({ name, bio, image, lists }: TypeInfo) {
+export async function updateInfoUser({ nameLink, name, bio, image, lists }: TypeInfo) {
     try {
         const res = await fetch("/api/task/task", {
             cache: 'no-cache',
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify({
+                nameLink,
                 name,
                 bio,
                 image,
@@ -27,6 +29,6 @@ export async function SaveInfoUser({ name, bio, image, lists }: TypeInfo) {
 
         return data
     } catch (err) {
-        console.log("Ops! Erro in method POST! 😒 ===>", err)
+        console.log("Ops! Erro in method PUT! 😒 ===>", err)
     }
 }

@@ -2,29 +2,33 @@
 
 
 import React, { useEffect, useState } from 'react'
+import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+import { auth } from '@/firebase/firebase'
+import { SaveKeyLocalStorage, VerificarChaveValida } from '@/utils/saveKeyLocalStorage';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { produce } from 'immer'
 import Card from '@/components/IsDragging/index'
 import BoardContext from '@/components/Board/context'
 import Image from 'next/image'
-import { SaveInfoUser } from '@/utils/saveInfoUser'
-import { GetDataUser } from '@/utils/fetchGetDataUser'
+import { updateInfoUser } from '@/utils/updateInfoUser'
 import { Login } from '@/auth/authServices'
 import NavbarBottom from '@/components/NavBarBottom'
-import { useRouter } from 'next/navigation'
-// import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth'
+import { useSearchParams, useRouter } from "next/navigation";
 
-const User = () => {
+const User = ({ params }: any) => {
+    const nameLink = params.username
+    const searchParams = useSearchParams();
+    const router = useRouter()
+    const apiKey = searchParams.get('apiKey')
     const { user, loadin } = Login()
-    // console.log("User ==>", user)
-    const router = useRouter();
-    const [image, setImage]: any = useState(null)
+
+    const [image, setImage]: any = useState('')
     const [name, setName] = useState('')
     const [bio, setBio] = useState('')
     const [lists, setLists] = useState([])
     const [link, setLink] = useState('')
-    const [imgCard, setImgCard]: any = useState(null)
+    const [imgCard, setImgCard]: any = useState('')
 
     const handleImageChange = (e: any) => {
         const file = e.target.files[0]
@@ -65,13 +69,42 @@ const User = () => {
     }
 
     useEffect(() => {
-                SaveInfoUser({
+        SaveKeyLocalStorage(apiKey, 1200)
+        // 1200 minutos = 20 horas
+        const handleSignInWithEmailLink = async () => {
+            let email = window.localStorage.getItem('emailForSignIn');
+            if (!email) {
+                alert('E-mail para login não encontrado, Faça login novamente!')
+                return router.push('/Login');
+            }
+
+            try {
+                await signInWithEmailLink(auth, email, window.location.href)
+                return router.replace(`/User/${nameLink}`)
+            } catch (error) {
+                console.error('Erro ao completar o login com link mágico:', error);
+                router.push('/error'); // Redireciona para página de erro em caso de erro no login
+            }
+        }
+
+        if (VerificarChaveValida(apiKey)) {
+            // Chave válida, loga na conta do usuario
+            handleSignInWithEmailLink()
+        } else {
+            router.push('/Login');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    // 
+    useEffect(() => {
+        updateInfoUser({
+            nameLink,
             name,
             bio,
             image,
             lists
         })
-    }, [name, bio, image, lists,])
+    }, [name, bio, image, lists, nameLink])
 
     return (
         <>
@@ -96,6 +129,7 @@ const User = () => {
                                                             type="file"
                                                             id="imageInput"
                                                             accept="image/*"
+                                                            value={image}
                                                             onChange={handleImageChange}
                                                         />
                                                     )}
@@ -127,7 +161,6 @@ const User = () => {
                                                         <ul>
                                                             {lists && lists.map((date: any, index) => (
                                                                 <Card key={index} index={index} date={date} />
-
                                                             ))}
                                                         </ul>
                                                     </div>
