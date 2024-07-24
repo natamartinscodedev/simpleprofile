@@ -1,6 +1,6 @@
 import { sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from '@/firebase/firebase'
-import { GetDataUser } from "./fetchGetDataUser";
+import { GetDataUser } from "./getInfoUser";
 
 const Url = process.env.NEXT_PUBLIC_VERCEL_ENV
 

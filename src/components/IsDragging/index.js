@@ -1,15 +1,17 @@
 'use client'
-import React, { useRef, useContext, useState } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
-import BoardContext from '@/components/Board/context';
-import CardLink from '../ComponentLink';
-import CardImgVideo from '../ComponentImage';
-import Link from 'next/link';
+import React, { useRef, useContext, useState } from 'react'
+import { useDrag, useDrop } from 'react-dnd'
+import BoardContext from '@/components/Board/context'
+import CardLink from '../ComponentLink'
+import CardImgVideo from '../ComponentImage'
+import Link from 'next/link'
+import { Trash2 } from 'lucide-react'
 
-const ListItem = ({ date, index }) => {
-    const ID = date.id;
-    const ref = useRef();
-    const { move } = useContext(BoardContext);
+const ListItem = ({ date, index, lists, setLists }) => {
+    const ID = index
+    const ref = useRef()
+    const { move } = useContext(BoardContext)
+    const [cardList, setCardList] = useState(lists)
 
     const [{ isDragging }, dragRef] = useDrag({
         type: 'CARD',
@@ -17,47 +19,69 @@ const ListItem = ({ date, index }) => {
         collect: monitor => ({
             isDragging: monitor.isDragging(),
         }),
-    });
+    })
+
+    const handleDeletCrd = () => {
+        const updatedCards = [...cardList];
+        updatedCards.splice(index, 1);
+        setLists(updatedCards)
+    }
 
     const [, dropRef] = useDrop({
         accept: 'CARD',
         hover(item, monitor) {
-            const draggedIndex = item.index;
-            const targetIndex = index;
+            const draggedIndex = item.index
+            const targetIndex = index
 
             if (draggedIndex === targetIndex) {
-                return;
+                return
             }
 
-            const targetSize = ref.current.getBoundingClientRect();
-            const targetCenter = (targetSize.bottom - targetSize.top) / 2;
+            const targetSize = ref.current.getBoundingClientRect()
+            const targetCenter = (targetSize.bottom - targetSize.top) / 2
 
-            const draggedOffset = monitor.getClientOffset();
-            const draggedTop = draggedOffset.y - targetSize.top;
+            const draggedOffset = monitor.getClientOffset()
+            const draggedTop = draggedOffset.y - targetSize.top
 
             if (draggedIndex < targetIndex && draggedTop < targetCenter) {
-                return;
+                return
             }
 
             if (draggedIndex > targetIndex && draggedTop > targetCenter) {
-                return;
+                return
             }
 
-            move(draggedIndex, targetIndex);
-            item.index = targetIndex;
+            move(draggedIndex, targetIndex)
+            item.index = targetIndex
         },
-    });
-
-    dragRef(dropRef(ref));
-
-    console.log("Type cards ==>", date.type)
-
+    })
+    dragRef(dropRef(ref))
+    console.log('ID ==>', date)
     return (
-        <Link href={`${date.link}`} ref={ref} className={`card_is-dragging ${isDragging ? 'dragging' : ''}`}>
-            {date.type === 'linkCard' && <CardLink link={date.link} />}
-            {date.type === 'imgCard' && <CardImgVideo url={date.url} />}
-        </Link>
-    );
-};
+        <>
+            {
+                date.type === 'linkCard' && (
+                    <Link href={`${date.link}`} target='__blenck' ref={ref} className={`card_is-dragging ${isDragging ? 'dragging' : ''}`}>
+                        {date.type === 'linkCard' && <CardLink link={date.link} />}
+                        <div className='card_remove'>
+                            <span><Trash2 color='white' /></span>
+                        </div>
+                    </Link>
+                )
+            }
+            {
+                date.type === 'imgCard' && (
+                    <div ref={ref} className={`card_is-dragging ${isDragging ? 'dragging' : ''}`}>
+                        {date.type === 'imgCard' && <CardImgVideo url={date.url} />}
+                        <div className='card_remove' onClick={() => handleDeletCrd()}>
+                            <span><Trash2 color='white' /></span>
+                        </div>
+                    </div>
+                )
+            }
 
-export default ListItem;
+        </>
+    )
+}
+
+export default ListItem

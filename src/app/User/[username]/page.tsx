@@ -2,7 +2,7 @@
 
 
 import React, { useEffect, useState } from 'react'
-import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+import { signInWithEmailLink } from "firebase/auth";
 import { auth } from '@/firebase/firebase'
 import { SaveKeyLocalStorage, VerificarChaveValida } from '@/utils/saveKeyLocalStorage';
 import { DndProvider } from 'react-dnd'
@@ -15,10 +15,13 @@ import { updateInfoUser } from '@/utils/updateInfoUser'
 import { Login } from '@/auth/authServices'
 import NavbarBottom from '@/components/NavBarBottom'
 import { useSearchParams, useRouter } from "next/navigation";
+import { GetDataUser } from '@/utils/getInfoUser';
+import { BadgePlus } from 'lucide-react';
 
 const User = ({ params }: any) => {
     const nameLink = params.username
     const searchParams = useSearchParams();
+    console.log("All Path ==>", searchParams.get('oobCode'))
     const router = useRouter()
     const apiKey = searchParams.get('apiKey')
     const { user, loadin } = Login()
@@ -28,7 +31,7 @@ const User = ({ params }: any) => {
     const [bio, setBio] = useState('')
     const [lists, setLists] = useState([])
     const [link, setLink] = useState('')
-    const [imgCard, setImgCard]: any = useState('')
+    const [imgCard, setImgCard]: any = useState()
 
     const handleImageChange = (e: any) => {
         const file = e.target.files[0]
@@ -69,8 +72,8 @@ const User = ({ params }: any) => {
     }
 
     useEffect(() => {
-        SaveKeyLocalStorage(apiKey, 1200)
-        // 1200 minutos = 20 horas
+        SaveKeyLocalStorage(apiKey) // 1200 mt = 20hr
+
         const handleSignInWithEmailLink = async () => {
             let email = window.localStorage.getItem('emailForSignIn');
             if (!email) {
@@ -83,20 +86,30 @@ const User = ({ params }: any) => {
                 return router.replace(`/User/${nameLink}`)
             } catch (error) {
                 console.error('Erro ao completar o login com link mágico:', error);
-                router.push('/error'); // Redireciona para página de erro em caso de erro no login
+                router.push('/error');
             }
         }
 
         if (VerificarChaveValida(apiKey)) {
-            // Chave válida, loga na conta do usuario
             handleSignInWithEmailLink()
         } else {
             router.push('/Login');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    // 
+
+    // save date in realtime
+    const getUser = async () => {
+        const { User }: any = await GetDataUser(nameLink)
+        if (User) {
+            setImage(User.image)
+            setName(User.name)
+            setBio(User.bio)
+            setLists(User.lists)
+        }
+    }
     useEffect(() => {
+        getUser()
         updateInfoUser({
             nameLink,
             name,
@@ -104,6 +117,7 @@ const User = ({ params }: any) => {
             image,
             lists
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name, bio, image, lists, nameLink])
 
     return (
@@ -115,23 +129,32 @@ const User = ({ params }: any) => {
                     <>
                         <div>
                             {
-                                user && (
+                                !user && (
                                     <div className='container_user container'>
                                         <div className='box-infor_user'>
                                             <div className='box_info-user'>
                                                 <div className='box_img-user'>
                                                     {image ? (
                                                         <div>
+                                                            <span><BadgePlus size={30} /></span>
+                                                            <input
+                                                                type="file"
+                                                                id="imageInput"
+                                                                accept="image/*"
+                                                                onChange={handleImageChange}
+                                                            />
                                                             <Image src={image} alt="Selected" width={200} height={200} />
                                                         </div>
                                                     ) : (
-                                                        <input
-                                                            type="file"
-                                                            id="imageInput"
-                                                            accept="image/*"
-                                                            value={image}
-                                                            onChange={handleImageChange}
-                                                        />
+                                                        <div>
+                                                            <input
+                                                                type="file"
+                                                                id="imageInput"
+                                                                accept="image/*"
+                                                                value={image}
+                                                                onChange={handleImageChange}
+                                                            />
+                                                        </div>
                                                     )}
                                                 </div>
                                                 <h1>
@@ -160,7 +183,13 @@ const User = ({ params }: any) => {
                                                     <div className='board_container '>
                                                         <ul>
                                                             {lists && lists.map((date: any, index) => (
-                                                                <Card key={index} index={index} date={date} />
+                                                                <Card
+                                                                    key={index}
+                                                                    index={index}
+                                                                    date={date}
+                                                                    lists={lists}
+                                                                    setLists={setLists}
+                                                                />
                                                             ))}
                                                         </ul>
                                                     </div>

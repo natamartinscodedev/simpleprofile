@@ -1,7 +1,7 @@
 "use client"
 
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase/firebase'
 import loginMagicLink from '@/utils/login';
@@ -9,12 +9,16 @@ import Link from 'next/link';
 import NavBar from '@/components/Navbar/index'
 import { MoveLeft } from 'lucide-react';
 import CardAlert from '@/components/components/cardAlert'
-import { GetDataUser } from '@/utils/fetchGetDataUser'
+import { GetDataUser } from '@/utils/getInfoUser'
+import { VerificarChaveValida } from '@/utils/saveKeyLocalStorage';
+import { signInWithEmailLink } from 'firebase/auth';
+import { useRouter } from "next/navigation";
 
 const Index = () => {
     const [user, loading, error]: any = useAuthState(auth)
     const [email, setEmail] = useState("")
     const [showAlert, setShowAlert] = useState(false)
+    const router = useRouter()
 
     const handleEmail = async () => {
         try {
@@ -29,6 +33,34 @@ const Index = () => {
             console.log("ERR ==>", err)
         }
     }
+
+    useEffect(() => {
+        const confirmApiKey = localStorage.getItem('apiKey');
+        console.log("Confirm ==>", confirmApiKey)
+
+        async function loginUser() {
+            if (VerificarChaveValida(confirmApiKey)) {
+                let email = window.localStorage.getItem('emailForSignIn');
+                const { User }: any = await GetDataUser(email)
+                if (!email) {
+                    alert('E-mail para login não encontrado, Faça login novamente!')
+                    return router.push('/Login');
+                }
+
+                console.log('Email ==>', email)
+                console.log('User ==>', User.nameLink)
+                try {
+                    // await signInWithEmailLink(auth, email, window.location.href)
+                    // return router.replace(`/User/${User.nameLink}`)
+                } catch (error) {
+                    console.error('Erro ao completar o login com link mágico:', error);
+                    router.push('/error');
+                }
+            }
+        }
+        loginUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
