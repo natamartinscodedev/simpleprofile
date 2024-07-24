@@ -1,11 +1,11 @@
 // Função para armazenar a chave e a data de expiração no localStorage
-export function SaveKeyLocalStorage(apiKey: any, tempoExpiracaoMinutos: any) {
-    const Now = new Date();
-    const expiration: any = new Date(Now.getTime() + tempoExpiracaoMinutos * 60000)
+export function SaveKeyLocalStorage(apiKey: any) {
+    const now = new Date().getTime();
+    const expiryTime: any = now + 20 * 60 * 60 * 1000;
     // 60000 ms = 1 minuto
 
     localStorage.setItem('apiKey', apiKey);
-    localStorage.setItem('expiryTime', expiration.getTime());
+    localStorage.setItem('expiryTime', expiryTime);
 }
 
 // Função para verificar se a chave no localStorage está válida
