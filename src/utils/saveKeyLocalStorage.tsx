@@ -18,23 +18,21 @@ export function VerificarChaveValida(apiKey: any) {
     }
 
     try {
-        const intervalId = setInterval(() => {
-            const Now = new Date().getTime()
-            const timeRemaining = expiryTime - Now
-            const oneMinuteInMilliseconds = 1 * 60 * 1000
+        // const intervalId = setInterval(() => {
+        const Now = new Date().getTime()
+        const timeRemaining = expiryTime - Now
+        const oneMinuteInMilliseconds = 1 * 60 * 1000
 
-            if (timeRemaining <= 0) {
-                window.localStorage.removeItem('emailForSignIn')
-                window.localStorage.removeItem('apiKey')
-                window.localStorage.removeItem('expiryTime')
-                clearInterval(intervalId)
-                console.log('Dados removidos do localStorage devido à expiração do time.')
-            }
+        if (timeRemaining <= oneMinuteInMilliseconds) {
+            window.localStorage.removeItem('emailForSignIn')
+            window.localStorage.removeItem('apiKey')
+            window.localStorage.removeItem('expiryTime')
+        }
+        // }, 1000)
 
-            if (confirmApiKey === apiKey && timeRemaining > oneMinuteInMilliseconds) {
-                return true;
-            }
-        }, 1000)
+        if (confirmApiKey === apiKey) {
+            return true;
+        }
     } catch (err) {
         console.log('Err ==>', err)
     }

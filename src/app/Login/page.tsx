@@ -38,6 +38,7 @@ const Index = () => {
     useEffect(() => {
         // try login altomatic if true keys
         AltologinUser(router)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -56,7 +57,7 @@ const Index = () => {
                                     <label htmlFor="email">Email</label>
                                     <input id='email' type="email" placeholder='Digite seu E-Mail...' onChange={(e: any) => setEmail(e.target.value)} />
                                 </form>
-                                <button onClick={handleEmail}>Login</button>
+                                <button onClick={handleEmail} disabled={user === true}>Login</button>
                                 {showAlert && <CardAlert
                                     state={user}
                                     open={true}
