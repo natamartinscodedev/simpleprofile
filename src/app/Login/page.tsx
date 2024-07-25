@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation"
 import Image from 'next/image'
 import { AltologinUser } from '@/utils/altoLogin'
 
-const Login = () => {
+const Index = () => {
     const [user, loading, error]: any = useAuthState(auth)
     const [email, setEmail] = useState("")
     const [showAlert, setShowAlert] = useState(false)
@@ -77,4 +77,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Index
