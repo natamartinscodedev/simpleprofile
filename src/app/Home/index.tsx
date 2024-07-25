@@ -5,6 +5,7 @@ import React from 'react'
 import Image from 'next/image'
 import CardLink from '@/components/components/cardLink'
 import ImageHomePage from '@/Images/Logo_Home.svg'
+import Logo from '@/Images/Logo.svg'
 import { CircleCheck, Mail } from 'lucide-react'
 import NavBar from '@/components/Navbar'
 import CardPlan from '@/components/CardPlans'
@@ -54,7 +55,7 @@ const Home = () => {
                 </section>
                 <section className='container card_plans'>
                     <div className=''>
-                        <h2>Preços dos Planos</h2>
+                        <h2>Preço dos Planos</h2>
                         <p></p>
                     </div>
                     <div className='container_plans'>
@@ -89,7 +90,9 @@ const Home = () => {
             <footer className='container'>
                 <section className='container_footer'>
                     <div className='container_footer-box-info'>
-                        <p>Simple Profile</p>
+                        <Link href='/'>
+                            <Image src={Logo} width={200} alt='logo' />
+                        </Link>
                         <div>
                             <ul>
                                 <li><Link href=''>About </Link></li>

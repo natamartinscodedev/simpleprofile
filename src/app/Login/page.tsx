@@ -8,11 +8,13 @@ import loginMagicLink from '@/utils/login';
 import Link from 'next/link';
 import NavBar from '@/components/Navbar/index'
 import { MoveLeft } from 'lucide-react';
+import ImageIconPage from '@/Images/image_pages.png'
 import CardAlert from '@/components/components/cardAlert'
 import { GetDataUser } from '@/utils/getInfoUser'
 import { VerificarChaveValida } from '@/utils/saveKeyLocalStorage';
 import { signInWithEmailLink } from 'firebase/auth';
 import { useRouter } from "next/navigation";
+import Image from 'next/image';
 
 const Index = () => {
     const [user, loading, error]: any = useAuthState(auth)
@@ -36,7 +38,6 @@ const Index = () => {
 
     useEffect(() => {
         const confirmApiKey = localStorage.getItem('apiKey');
-        console.log("Confirm ==>", confirmApiKey)
 
         async function loginUser() {
             if (VerificarChaveValida(confirmApiKey)) {
@@ -47,8 +48,6 @@ const Index = () => {
                     return router.push('/Login');
                 }
 
-                console.log('Email ==>', email)
-                console.log('User ==>', User.nameLink)
                 try {
                     // await signInWithEmailLink(auth, email, window.location.href)
                     // return router.replace(`/User/${User.nameLink}`)
@@ -59,7 +58,7 @@ const Index = () => {
             }
         }
         loginUser()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -70,21 +69,27 @@ const Index = () => {
                     loading ? (
                         <p>Loading...</p>
                     ) : (
-                        <div className='card_login-info'>
-                            <Link href='/'><MoveLeft /></Link>
-                            <form>
-                                <label htmlFor="email">Email</label>
-                                <input id='email' type="email" placeholder='Digite seu E-Mail...' onChange={(e: any) => setEmail(e.target.value)} />
-                            </form>
-                            <button onClick={handleEmail}>Login</button>
-                            {showAlert && <CardAlert
-                                state={user}
-                                open={true}
-                                text={user ?
-                                    "Link Enviado ao seu email!🚀" :
-                                    "Voce não possue conta com este email! Crie já sua conta no Simple Prifile🚀"
-                                } />}
+                        <div className='container_login'>
+                            <div className='card_login-info'>
+                                <Link href='/'><MoveLeft /></Link>
+                                <form>
+                                    <label htmlFor="email">Email</label>
+                                    <input id='email' type="email" placeholder='Digite seu E-Mail...' onChange={(e: any) => setEmail(e.target.value)} />
+                                </form>
+                                <button onClick={handleEmail}>Login</button>
+                                {showAlert && <CardAlert
+                                    state={user}
+                                    open={true}
+                                    text={user ?
+                                        "Link Enviado ao seu email!🚀" :
+                                        "Voce não possue conta com este email! Crie já sua conta no Simple Prifile🚀"
+                                    } />}
+                            </div>
+                            <div>
+                                <Image src={ImageIconPage} width={400} alt='logo login' />
+                            </div>
                         </div>
+
                     )
                 }
             </div>
