@@ -1,35 +1,35 @@
-// callback.tsx
-import { useEffect } from 'react';
-import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
-import { useRouter } from 'next/router';
-import { auth } from '@/firebase/firebase';
+// // callback.tsx
+// import { useEffect } from 'react';
+// import { getAuth, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
+// import { useRouter } from 'next/router';
+// import { auth } from '@/firebase/firebase';
 
-const Callback = () => {
-    const router = useRouter();
+// const Callback = () => {
+//     const router = useRouter();
 
-    useEffect(() => {
-        const handleSignIn = async () => {
-            if (isSignInWithEmailLink(auth, window.location.href)) {
-                let email: any = window.localStorage.getItem('emailForSignIn');
-                if (!email) {
-                    email = window.prompt('Por favor, confirme seu e-mail para entrar.');
-                }
+//     useEffect(() => {
+//         const handleSignIn = async () => {
+//             if (isSignInWithEmailLink(auth, window.location.href)) {
+//                 let email: any = window.localStorage.getItem('emailForSignIn');
+//                 if (!email) {
+//                     email = window.prompt('Por favor, confirme seu e-mail para entrar.');
+//                 }
 
-                try {
-                    await signInWithEmailLink(auth, email, window.location.href);
-                    console.log('Usuário autenticado com sucesso!');
-                } catch (error) {
-                    console.error('Erro ao autenticar usuário:', error);
-                }
-            }
+//                 try {
+//                     await signInWithEmailLink(auth, email, window.location.href);
+//                     console.log('Usuário autenticado com sucesso!');
+//                 } catch (error) {
+//                     console.error('Erro ao autenticar usuário:', error);
+//                 }
+//             }
 
-            router.push('/');
-        };
+//             router.push('/');
+//         };
 
-        handleSignIn();
-    }, [router]);
+//         handleSignIn();
+//     }, [router]);
 
-    return <div>Processando...</div>;
-};
+//     return <div>Processando...</div>;
+// };
 
-export default Callback;
+// export default Callback;

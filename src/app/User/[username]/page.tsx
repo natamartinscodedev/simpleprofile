@@ -2,8 +2,6 @@
 
 
 import React, { useEffect, useState } from 'react'
-import { signInWithEmailLink } from "firebase/auth";
-import { auth } from '@/firebase/firebase'
 import { SaveKeyLocalStorage, VerificarChaveValida } from '@/utils/saveKeyLocalStorage';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -17,13 +15,14 @@ import NavbarBottom from '@/components/NavBarBottom'
 import { useSearchParams, useRouter } from "next/navigation";
 import { GetDataUser } from '@/utils/getInfoUser';
 import { BadgePlus } from 'lucide-react';
+import { handleSignInWithEmailLink } from '@/utils/loginEmailLink';
 
 const User = ({ params }: any) => {
     const nameLink = params.username
     const searchParams = useSearchParams();
-    console.log("All Path ==>", searchParams.get('oobCode'))
     const router = useRouter()
     const apiKey = searchParams.get('apiKey')
+    const oobCode = searchParams.get('oobCode')
     const { user, loadin } = Login()
 
     const [image, setImage]: any = useState('')
@@ -72,26 +71,9 @@ const User = ({ params }: any) => {
     }
 
     useEffect(() => {
-        SaveKeyLocalStorage(apiKey) // 1200 mt = 20hr
-
-        const handleSignInWithEmailLink = async () => {
-            let email = window.localStorage.getItem('emailForSignIn');
-            if (!email) {
-                alert('E-mail para login não encontrado, Faça login novamente!')
-                return router.push('/Login');
-            }
-
-            try {
-                await signInWithEmailLink(auth, email, window.location.href)
-                return router.replace(`/User/${nameLink}`)
-            } catch (error) {
-                console.error('Erro ao completar o login com link mágico:', error);
-                router.push('/error');
-            }
-        }
-
+        SaveKeyLocalStorage(apiKey, oobCode) // 1200 mt = 20hr
         if (VerificarChaveValida(apiKey)) {
-            handleSignInWithEmailLink()
+            handleSignInWithEmailLink(router, nameLink)
         } else {
             router.push('/Login');
         }
@@ -129,7 +111,7 @@ const User = ({ params }: any) => {
                     <>
                         <div>
                             {
-                                !user && (
+                                user && (
                                     <div className='container_user container'>
                                         <div className='box-infor_user'>
                                             <div className='box_info-user'>

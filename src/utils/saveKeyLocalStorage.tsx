@@ -1,41 +1,40 @@
 // Função para armazenar a chave e a data de expiração no localStorage
-export function SaveKeyLocalStorage(apiKey: any) {
+export function SaveKeyLocalStorage(apiKey: any, oobCode: any) {
     const now = new Date().getTime();
     const expiryTime: any = now + 20 * 60 * 60 * 1000;
-    // 60000 ms = 1 minuto
 
+    localStorage.setItem('oobCode', oobCode);
     localStorage.setItem('apiKey', apiKey);
     localStorage.setItem('expiryTime', expiryTime);
 }
 
-// Função para verificar se a chave no localStorage está válida
 export function VerificarChaveValida(apiKey: any) {
+    const confirmOobCode = localStorage.getItem('oobCode');
     const confirmApiKey = localStorage.getItem('apiKey');
     const expiryTime: any = localStorage.getItem('expiryTime');
 
-    if (!confirmApiKey || !expiryTime) {
-        // Chave ou tempo de expiração não estão presentes
-        return false;
-    }
-
-    const Now = new Date().getTime();
-    const timeRemaining = expiryTime - Now
-    const tenMinutesInMilliseconds = 10 * 60 * 1000;
-
-    if (timeRemaining <= tenMinutesInMilliseconds) {
-        // Chave expirou
-        window.localStorage.removeItem('emailForSignIn');
-        window.localStorage.removeItem('apiKey');
-        window.localStorage.removeItem('expiryTime');
-
+    if (!confirmOobCode || !confirmApiKey || !expiryTime) {
         return false;
     }
 
     try {
-        if (confirmApiKey === apiKey && timeRemaining > tenMinutesInMilliseconds) {
-            // Chave válida
-            return true;
-        }
+        const intervalId = setInterval(() => {
+            const Now = new Date().getTime()
+            const timeRemaining = expiryTime - Now
+            const oneMinuteInMilliseconds = 1 * 60 * 1000
+
+            if (timeRemaining <= 0) {
+                window.localStorage.removeItem('emailForSignIn')
+                window.localStorage.removeItem('apiKey')
+                window.localStorage.removeItem('expiryTime')
+                clearInterval(intervalId)
+                console.log('Dados removidos do localStorage devido à expiração do time.')
+            }
+
+            if (confirmApiKey === apiKey && timeRemaining > oneMinuteInMilliseconds) {
+                return true;
+            }
+        }, 1000)
     } catch (err) {
         console.log('Err ==>', err)
     }
