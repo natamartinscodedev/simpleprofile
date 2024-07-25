@@ -3,12 +3,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchDateNameLink } from '@/utils/fetchDateNameLinks';
-import Image from 'next/image';
-// import { Link as Ancora } from 'lucide-react';
-import ImgLinkedin from '@/Images/linkedinCard.png'
-import ImgGithub from '@/Images/githubCard.png'
-import ImgInstagram from '@/Images/instagramCard.png'
 import Link from 'next/link';
+import { Github, Instagram, Linkedin } from 'lucide-react';
 
 const CardLink = ({ link }: any) => {
     const [date, setDate]: any = useState('')
@@ -18,7 +14,8 @@ const CardLink = ({ link }: any) => {
             <>
                 <div>
                     <span className={webNameLink === 'GitHub' ? 'black' : ''} />
-                    <Image src={ImgGithub} alt='' />
+                    {/* <Image src={ImgGithub} alt='' /> */}
+                    <Github size={50} />
                     <h2>{date.name}</h2>
                 </div>
                 <Link href='' >Seguir</Link>
@@ -49,7 +46,8 @@ const CardLink = ({ link }: any) => {
                     <>
                         <div>
                             <span className={webNameLink === 'LinkedIn' ? 'bluer' : ''} />
-                            <Image src={ImgLinkedin} alt='' />
+                            {/* <Image src={ImgLinkedin} alt='' /> */}
+                            <Linkedin size={50} />
                             <p>{webNameLink}.com</p>
                         </div>
                         <Link href=''>Seguir</Link>
@@ -61,7 +59,8 @@ const CardLink = ({ link }: any) => {
                     <>
                         <div>
                             <span className={webNameLink === 'Instagram' ? 'linear' : ''} />
-                            <Image src={ImgInstagram} alt='' />
+                            {/* <Image src={ImgInstagram} alt='' /> */}
+                            <Instagram size={50} />
                             <p>{webNameLink}.com</p>
                         </div>
                         <Link href=''>Seguir</Link>
