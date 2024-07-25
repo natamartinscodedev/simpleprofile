@@ -2,21 +2,20 @@
 
 
 import React, { useEffect, useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/firebase'
-import loginMagicLink from '@/utils/login';
-import Link from 'next/link';
+import loginMagicLink from '@/utils/login'
+import Link from 'next/link'
 import NavBar from '@/components/Navbar/index'
-import { MoveLeft } from 'lucide-react';
+import { MoveLeft } from 'lucide-react'
 import ImageIconPage from '@/Images/image_pages.png'
 import CardAlert from '@/components/components/cardAlert'
 import { GetDataUser } from '@/utils/getInfoUser'
-import { VerificarChaveValida } from '@/utils/saveKeyLocalStorage';
-import { signInWithEmailLink } from 'firebase/auth';
-import { useRouter } from "next/navigation";
-import Image from 'next/image';
+import { useRouter } from "next/navigation"
+import Image from 'next/image'
+import { AltologinUser } from '@/utils/altoLogin'
 
-const Index = () => {
+const Login = () => {
     const [user, loading, error]: any = useAuthState(auth)
     const [email, setEmail] = useState("")
     const [showAlert, setShowAlert] = useState(false)
@@ -37,27 +36,8 @@ const Index = () => {
     }
 
     useEffect(() => {
-        const confirmApiKey = localStorage.getItem('apiKey');
-
-        async function loginUser() {
-            if (VerificarChaveValida(confirmApiKey)) {
-                let email = window.localStorage.getItem('emailForSignIn');
-                const { User }: any = await GetDataUser(email)
-                if (!email) {
-                    alert('E-mail para login não encontrado, Faça login novamente!')
-                    return router.push('/Login');
-                }
-
-                try {
-                    // await signInWithEmailLink(auth, email, window.location.href)
-                    // return router.replace(`/User/${User.nameLink}`)
-                } catch (error) {
-                    console.error('Erro ao completar o login com link mágico:', error);
-                    router.push('/error');
-                }
-            }
-        }
-        loginUser()
+        // try login altomatic if true keys
+        AltologinUser(router)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -85,7 +65,7 @@ const Index = () => {
                                         "Voce não possue conta com este email! Crie já sua conta no Simple Prifile🚀"
                                     } />}
                             </div>
-                            <div>
+                            <div className='card_img-login'>
                                 <Image src={ImageIconPage} width={400} alt='logo login' />
                             </div>
                         </div>
@@ -97,4 +77,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default Login

@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { sendSignInLinkToEmail } from 'firebase/auth';
 import { auth } from '@/firebase/firebase'
 import { FetchPost } from '@/utils/createUser';
+import { useRouter } from "next/navigation";
 interface typePlans {
     tipePlan: string,
     price: any,
     state: boolean,
+    stateLink: boolean,
     children: any,
     idPlans?: string,
     email?: string,
@@ -15,10 +17,13 @@ interface typePlans {
 
 const Url = process.env.NEXT_PUBLIC_VERCEL_ENV
 
-const CardPlan = ({ tipePlan, price, state, children, idPlans, email, nameLink, disable }: typePlans) => {
+const CardPlan = ({ tipePlan, price, state, children, idPlans, stateLink, email, nameLink, disable }: typePlans) => {
     const [loading, setLoading] = useState(false);
+    const router = useRouter()
 
     async function handleclick() {
+        if (stateLink === true) { router.push('/Login') }
+
         try {
             setLoading(true)
             if (email) {

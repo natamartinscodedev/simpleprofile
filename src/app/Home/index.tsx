@@ -63,6 +63,7 @@ const Home = () => {
                             tipePlan='Simple'
                             price={'Free'}
                             state={false}
+                            stateLink={true}
 
                         >
                             <li><CircleCheck size={20} />tsete01</li>
@@ -76,6 +77,7 @@ const Home = () => {
                             price={'89,99'}
                             state={true}
                             disable={true}
+                            stateLink={true}
                         >
                             <li><CircleCheck size={20} />tsete01</li>
                             <li><CircleCheck size={20} />teste02</li>

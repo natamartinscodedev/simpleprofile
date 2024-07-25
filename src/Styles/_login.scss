@@ -62,3 +62,9 @@
         }
     }
 }
+
+@media (max-width: 850px) {
+    .card_img-login {
+        display: none;
+    }
+}

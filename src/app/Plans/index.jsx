@@ -15,6 +15,8 @@ const Plans = ({ email, nameLink }) => {
                 idPlans='id_plans-free'
                 email={email}
                 nameLink={nameLink}
+                stateLink={false}
+
             >
                 <li><CircleCheck size={20} />tsete01</li>
                 <li><CircleCheck size={20} />teste02</li>
@@ -30,6 +32,7 @@ const Plans = ({ email, nameLink }) => {
                 email={email}
                 nameLink={nameLink}
                 disable={true}
+                stateLink={false}
             >
                 <li><CircleCheck size={20} />tsete01</li>
                 <li><CircleCheck size={20} />teste02</li>
