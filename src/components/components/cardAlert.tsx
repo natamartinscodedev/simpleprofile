@@ -32,7 +32,7 @@ export default function Modal({ text, state, open }: typeParams) {
       {isOpen && (
         <div className="modalBackground">
           <div className="modalContent">
-            <button className="closeButton" onClick={toggleModal}>
+            <button className="closeButton"  onClick={toggleModal}>
               Fechar
             </button>
             <p>{text}</p>

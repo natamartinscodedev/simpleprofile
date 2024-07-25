@@ -93,7 +93,7 @@ const Home = () => {
                 <section className='container_footer'>
                     <div className='container_footer-box-info'>
                         <Link href='/'>
-                            <Image src={Logo} width={200} alt='logo' />
+                            <Image src={Logo} width={150} alt='logo' />
                         </Link>
                         <div>
                             <ul>

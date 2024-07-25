@@ -15,7 +15,8 @@ import NavbarBottom from '@/components/NavBarBottom'
 import { useSearchParams, useRouter } from "next/navigation";
 import { GetDataUser } from '@/utils/getInfoUser';
 import { BadgePlus } from 'lucide-react';
-import { handleSignInWithEmailLink } from '@/utils/loginEmailLink';
+import { signInWithEmailLink } from 'firebase/auth';
+import { auth } from '@/firebase/firebase';
 
 const User = ({ params }: any) => {
     const nameLink = params.username
@@ -71,12 +72,38 @@ const User = ({ params }: any) => {
     }
 
     useEffect(() => {
-        SaveKeyLocalStorage(apiKey, oobCode) // 1200 mt = 20hr
-        if (VerificarChaveValida(apiKey)) {
-            handleSignInWithEmailLink(router, nameLink)
-        } else {
+        SaveKeyLocalStorage(apiKey, oobCode)
+
+        const handleSignInWithEmailLink = async () => {
+            let email = window.localStorage.getItem('emailForSignIn')
+
+            if (!email) {
+                alert('E-mail para login não encontrado, Faça login novamente!')
+                return router.push('/Login')
+            }
+
+            try {
+                await signInWithEmailLink(auth, email, window.location.href)
+                return router.replace(`/User/${nameLink}`)
+            } catch (error) {
+                console.error('Erro ao completar o login com link mágico:', error)
+                router.push('/error')
+            }
+        }
+
+        try {
+            if (VerificarChaveValida(apiKey)) {
+                handleSignInWithEmailLink()
+            }
+        } catch (err: any) {
+            window.localStorage.removeItem('emailForSignIn')
+            window.localStorage.removeItem('apiKey')
+            window.localStorage.removeItem('expiryTime')
+            window.localStorage.removeItem('oobCode')
+
             router.push('/Login');
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

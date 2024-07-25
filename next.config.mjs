@@ -1,17 +1,20 @@
-import createNextIntlPlugin from 'next-intl/plugin';
+import createNextIntlPlugin from 'next-intl/plugin'
 
 const withNextIntl = createNextIntlPlugin()
 
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    swcMinify: true,
+    optimizeFonts: true,
     images: {
         remotePatterns: [
             {
                 protocol: 'https',
                 hostname: 'avatars.githubusercontent.com'
             },
-        ]
+        ],
+        minimumCacheTTL: 1500000,
     },
     async rewrites() {
         return [
@@ -23,11 +26,7 @@ const nextConfig = {
                 source: '/app/callback',
                 destination: '/callback', // ou 'pages/callback'
             },
-            // {
-            //     source: '/api/:path*',
-            //     destination: '/api/:path*'
-            // }
-        ];
+        ]
     },
     typescript: {
         ignoreBuildErrors: true,
@@ -40,11 +39,6 @@ const nextConfig = {
         NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
         NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     },
-    // i18n: {
-    //     locales: ['en', 'pt'],
-    //     defaultLocale: 'pt',
-    // }
-};
+}
 
-// export default withNextIntl(nextConfig);
 export default withNextIntl(nextConfig)

@@ -22,7 +22,7 @@ const NavBar = ({ state }: typeState) => {
     return (
         <header className="container">
             <nav className=' container card_navbar'>
-                <Link href='/' ><Image src={Logo} width={110} alt='logo' /></Link>
+                <Link href='/' ><Image src={Logo} width={70} alt='logo' /></Link>
                 <ul>
                     <li><DarkMode /></li>
                     {
