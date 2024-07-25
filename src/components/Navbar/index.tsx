@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import DarkMode from '@/components/ButtonDark/Index'
 import CardLink from '@/components/components/cardLink'
+import Image from 'next/image'
+import Logo from '@/Images/Logo.svg'
+import Link from 'next/link'
 // import Langues from '@/components/ChangeLeangue/language-switcher'
 
 interface typeState {
@@ -19,7 +22,7 @@ const NavBar = ({ state }: typeState) => {
     return (
         <header className="container">
             <nav className=' container card_navbar'>
-                <p>SimpleP</p>
+                <Link href='/' ><Image src={Logo} width={110} alt='logo' /></Link>
                 <ul>
                     <li><DarkMode /></li>
                     {
