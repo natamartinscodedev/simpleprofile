@@ -4,7 +4,7 @@ import { GetDataUser } from "./getInfoUser";
 
 const Url = process.env.NEXT_PUBLIC_VERCEL_ENV
 
-export async function loginMagicLink(email: string) {
+export async function loginMagicLink(email: any) {
     const { User }: any = await GetDataUser(email)
     const nameUrl = User.nameLink
 
