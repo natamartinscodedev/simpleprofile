@@ -55,7 +55,7 @@ const NavbarBottom = ({ addCard, setImgCard, setLink, link}: any) => {
                     openModalType='map'
                 />
             </ul>
-            <div>
+            <div className='btn-responsive'>
                 <button>Desktop</button>
                 <button>Mobile</button>
             </div>
