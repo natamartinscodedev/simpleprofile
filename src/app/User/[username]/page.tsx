@@ -27,13 +27,14 @@ const User = ({ params }: any) => {
   const apiKey = searchParams.get("apiKey");
   const oobCode = searchParams.get("oobCode");
   const { user, loadin } = Login();
+  const email = window.localStorage.getItem("emailForSignIn");
 
   const [dataUser, setDataUser]: any = useState("");
   console.log("User on? ==>", dataUser);
 
-  const [image, setImage]: any = useState("");
-  const [name, setName]: any = useState("");
-  const [bio, setBio]: any = useState("");
+  const [image, setImage]: any = useState();
+  const [name, setName] = useState();
+  const [bio, setBio] = useState();
   const [lists, setLists] = useState([]);
   const [link, setLink] = useState("");
   const [imgCard, setImgCard]: any = useState();
@@ -43,6 +44,8 @@ const User = ({ params }: any) => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImage(imageUrl);
+
+      updateInfoUser({ image });
     }
   };
 
@@ -55,6 +58,7 @@ const User = ({ params }: any) => {
         draft.splice(to, 0, dragged);
       })
     );
+    updateInfoUser({ lists });
   }
 
   const addCard = async () => {
@@ -63,6 +67,7 @@ const User = ({ params }: any) => {
         draft.push({ id: 0, type: "linkCard", link: link });
       })
     );
+    updateInfoUser({ lists });
     setLink("");
   };
 
@@ -74,37 +79,38 @@ const User = ({ params }: any) => {
         })
       );
     }
-    setImgCard("");
+    updateInfoUser({ lists });
   };
 
   if (imgCard) {
     addCardImgVideo();
+    setImgCard("");
   }
 
   useEffect(() => {
     SaveKeyLocalStorage(apiKey, oobCode);
 
-    // const handleSignInWithEmailLink = async () => {
-    //   let email = window.localStorage.getItem("emailForSignIn");
+    const handleSignInWithEmailLink = async () => {
+      let email = window.localStorage.getItem("emailForSignIn");
 
-    //   if (!email) {
-    //     alert("E-mail para login não encontrado, Faça login novamente!");
-    //     return router.push("/Login");
-    //   }
+      if (!email) {
+        alert("E-mail para login não encontrado, Faça login novamente!");
+        return router.push("/Login");
+      }
 
-    //   try {
-    //     await signInWithEmailLink(auth, email, window.location.href);
-    //     return router.replace(`/User/${nameLink}`);
-    //   } catch (error) {
-    //     console.error("Erro ao completar o login com link mágico:", error);
-    //     router.push("/error");
-    //   }
-    // };
+      try {
+        await signInWithEmailLink(auth, email, window.location.href);
+        return router.replace(`/User/${nameLink}`);
+      } catch (error) {
+        console.error("Erro ao completar o login com link mágico:", error);
+        router.push("/error");
+      }
+    };
 
     try {
-      // if (VerificarChaveValida(apiKey)) {
-      //     handleSignInWithEmailLink()
-      // }
+      if (VerificarChaveValida(apiKey)) {
+        handleSignInWithEmailLink();
+      }
     } catch (err: any) {
       window.localStorage.removeItem("emailForSignIn");
       window.localStorage.removeItem("apiKey");
@@ -117,26 +123,34 @@ const User = ({ params }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // save date in realtime
+  // get date and update in realtime on inputs
   const getUser = async () => {
-    const email = window.localStorage.getItem("emailForSignIn");
-    const User: any = await GetDataUser(email);
-    const data = User.User;
-    setDataUser(data);
+    if (email) {
+      const User: any = await GetDataUser(email);
+      const data = User.User;
+      setDataUser(data);
+
+      setName(data.name);
+      setBio(data.bio);
+      setImage(data.image);
+      setLists(data.lists);
+    }
+  };
+
+  const handleChangeName = (e: any) => {
+    setName(e.target.value);
+    updateInfoUser({ name });
+  };
+
+  const handleChangeBio = (e: any) => {
+    setBio(e.target.value);
+    updateInfoUser({ bio });
   };
 
   useEffect(() => {
     getUser();
-
-    updateInfoUser({
-      nameLink,
-      name,
-      bio,
-      image,
-      lists,
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, bio, image, lists, nameLink]);
+  }, []);
 
   return (
     <>
@@ -145,7 +159,7 @@ const User = ({ params }: any) => {
       ) : (
         <>
           <div>
-            {!user && (
+            {user && (
               <div className="container_user container">
                 <div className="box-infor_user">
                   <div className="box_info-user">
@@ -184,16 +198,16 @@ const User = ({ params }: any) => {
                       <input
                         type="text"
                         id="nameInput"
-                        value={dataUser.email}
-                        onChange={(e: any) => setName(e.target.value)}
+                        value={name}
+                        onChange={(e: any) => handleChangeName(e)}
                         placeholder="Seu nome..."
                       />
                     </h1>
                     <p>
                       <textarea
                         id="bioInput"
-                        value={dataUser.email}
-                        onChange={(e: any) => setBio(e.target.value)}
+                        value={bio}
+                        onChange={(e: any) => handleChangeBio(e)}
                         placeholder="Sua bio..."
                       ></textarea>
                     </p>
@@ -205,6 +219,7 @@ const User = ({ params }: any) => {
                     <DndProvider backend={HTML5Backend}>
                       <div className="board_container ">
                         <ul>
+                          {/* dataUser.lists  */}
                           {lists &&
                             lists.map((date: any, index) => (
                               <Card
