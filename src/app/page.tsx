@@ -1,10 +1,9 @@
-import Home from './Home';
+import Home from "./Home";
 
 export default async function Index() {
-
   return (
     <>
       <Home />
     </>
-  )
+  );
 }

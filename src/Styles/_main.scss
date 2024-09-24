@@ -1,97 +1,95 @@
 main {
-    overflow: hidden;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+  overflow: hidden;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 .box_main {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    gap: 1rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 1rem;
 }
 
 .box_main-info {
+  max-width: 50rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+
+  div {
     max-width: 50rem;
-    width: 100%;
+  }
+
+  img {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 1rem;
-    text-align: center;
+  }
 
-    div {
-        max-width: 50rem;
+  h3 {
+    font-size: 15px;
+    color: #858585;
+  }
+
+  p:nth-child(4) {
+    margin-bottom: 3rem;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    color: #8b8b8b;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+
+    &:hover {
+      color: #3d3d3d;
     }
-
-    img {
-        width: 5rem;
-        height: 5rem;
-        margin-bottom: 1rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-    }
-
-    h3 {
-        font-size: 15px;
-        color: #858585;
-    }
-
-    p:nth-child(4) {
-        margin-bottom: 3rem;
-    }
-
-
-    button {
-        background-color: transparent;
-        border: none;
-        color: #8B8B8B;
-        font-weight: bold;
-        font-size: 11px;
-        cursor: pointer;
-
-        &:hover {
-            color: #3d3d3d;
-        }
-    }
+  }
 }
 
-
 .box_main-image {
-    margin-bottom: -2rem;
-    z-index: -1;
+  margin-bottom: -2rem;
+  z-index: -1;
 
-    img {
-        object-fit: cover;
-    }
+  img {
+    object-fit: cover;
+  }
 }
 
 // Theme dark
 .dark {
-    .box_main-info {
-        button {
-            &:hover {
-                color: #f2f2f2;
-            }
-        }
+  .box_main-info {
+    button {
+      &:hover {
+        color: #f2f2f2;
+      }
     }
+  }
 }
 
 // Responsive
 
 @media (max-width: 600px) {
-    .box_main-info {
-        h1 {
-            font-size: 2rem;
-        }
+  .box_main-info {
+    h1 {
+      font-size: 2rem;
     }
+  }
 }

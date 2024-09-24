@@ -1,11 +1,10 @@
 // VideoComponent.js
-import React from 'react';
+import React from "react";
 
 const VideoComponent = () => {
-
   return (
-    <div className='box-video'>
-      <video src='/' controls />
+    <div className="box-video">
+      <video src="/" controls />
     </div>
   );
 };

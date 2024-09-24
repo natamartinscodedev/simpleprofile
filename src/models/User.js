@@ -1,7 +1,8 @@
 // models/Users.ts
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     nameLink: { type: String, required: true },
     email: { type: String, required: true },
     plans: { type: String, required: true },
@@ -10,8 +11,10 @@ const userSchema = new mongoose.Schema({
     image: { type: String, required: false },
     lists: { type: [String], required: false },
     // add more items in future!
-}, {
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
-export default mongoose.models.User || mongoose.model('User', userSchema);
+export default mongoose.models.User || mongoose.model("User", userSchema);

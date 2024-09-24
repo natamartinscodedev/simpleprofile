@@ -1,12 +1,8 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 
 const Index = () => {
-  return (
-    <div className='container_image-login'>
-      {/* images */}
-    </div>
-  )
-}
+  return <div className="container_image-login">{/* images */}</div>;
+};
 
-export default Index
+export default Index;

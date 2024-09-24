@@ -37,7 +37,6 @@ const Index = () => {
   useEffect(() => {
     // try login altomatic if true keys
     // AltologinUser(router);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

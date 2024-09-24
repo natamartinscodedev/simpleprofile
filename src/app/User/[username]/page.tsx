@@ -27,71 +27,77 @@ const User = ({ params }: any) => {
   const apiKey = searchParams.get("apiKey");
   const oobCode = searchParams.get("oobCode");
   const { user, loadin } = Login();
-  const email = window.localStorage.getItem("emailForSignIn");
 
-  const [dataUser, setDataUser]: any = useState("");
-  console.log("User on? ==>", dataUser);
-
-  const [image, setImage]: any = useState();
-  const [name, setName] = useState();
-  const [bio, setBio] = useState();
-  const [lists, setLists] = useState([]);
-  const [link, setLink] = useState("");
-  const [imgCard, setImgCard]: any = useState();
+  const [image, setImage] = useState<string | undefined>();
+  const [name, setName] = useState<string | undefined>();
+  const [bio, setBio] = useState<string | undefined>();
+  const [lists, setLists] = useState<any[]>([]);
+  const [link, setLink] = useState<string>("");
+  const [imgCard, setImgCard] = useState<string>("");
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      const imageUrl: any = URL.createObjectURL(file);
 
-      updateInfoUser({ image });
+      setImage(imageUrl);
+      updateInfoUser({ image: imageUrl });
     }
   };
 
   function move(from: any, to: any) {
-    setLists(
-      produce(lists, (draft) => {
-        const dragged = draft[from];
+    const newList = produce(lists, (draft: any) => {
+      const dragged = draft[from];
 
-        draft.splice(from, 1);
-        draft.splice(to, 0, dragged);
-      })
-    );
-    updateInfoUser({ lists });
+      draft.splice(from, 1);
+      draft.splice(to, 0, dragged);
+    });
+
+    setLists(newList);
+    updateInfoUser({ lists: newList });
   }
 
   const addCard = async () => {
-    setLists(
-      produce(lists, (draft: any) => {
-        draft.push({ id: 0, type: "linkCard", link: link });
-      })
-    );
-    updateInfoUser({ lists });
+    const newList = produce(lists, (draft: any) => {
+      draft.push({ id: 0, type: "linkCard", link: link });
+    });
+
+    setLists(newList);
+    updateInfoUser({ lists: newList });
     setLink("");
   };
 
   const addCardImgVideo = async () => {
     if (imgCard) {
-      setLists(
-        produce(lists, (draft: any) => {
-          draft.push({ id: 0, type: "imgCard", url: imgCard });
-        })
-      );
+      const newList = produce(lists, (draft: any) => {
+        draft.push({ id: 0, type: "imgCard", url: imgCard });
+      });
+
+      setLists(newList);
+      updateInfoUser({ lists: lists });
+      setImgCard("");
     }
-    updateInfoUser({ lists });
   };
 
-  if (imgCard) {
-    addCardImgVideo();
-    setImgCard("");
-  }
+  // if (imgCard) {
+  //   addCardImgVideo();
+  // }
+
+  const handleChangeName = (newName: string) => {
+    setName(newName);
+    updateInfoUser({ name: newName });
+  };
+
+  const handleChangeBio = (newBio: string) => {
+    setBio(newBio);
+    updateInfoUser({ bio: newBio });
+  };
 
   useEffect(() => {
     SaveKeyLocalStorage(apiKey, oobCode);
 
     const handleSignInWithEmailLink = async () => {
-      let email = window.localStorage.getItem("emailForSignIn");
+      const email = window.localStorage.getItem("emailForSignIn");
 
       if (!email) {
         alert("E-mail para login não encontrado, Faça login novamente!");
@@ -125,26 +131,18 @@ const User = ({ params }: any) => {
 
   // get date and update in realtime on inputs
   const getUser = async () => {
+    const email = window.localStorage.getItem("emailForSignIn");
+
     if (email) {
       const User: any = await GetDataUser(email);
-      const data = User.User;
-      setDataUser(data);
+      const { name, bio, image, lists } = User?.User;
 
-      setName(data.name);
-      setBio(data.bio);
-      setImage(data.image);
-      setLists(data.lists);
+      setName(name);
+      setBio(bio);
+      setImage(image);
+      setLists(lists);
+      updateInfoUser({ nameLink: nameLink });
     }
-  };
-
-  const handleChangeName = (e: any) => {
-    setName(e.target.value);
-    updateInfoUser({ name });
-  };
-
-  const handleChangeBio = (e: any) => {
-    setBio(e.target.value);
-    updateInfoUser({ bio });
   };
 
   useEffect(() => {
@@ -188,7 +186,7 @@ const User = ({ params }: any) => {
                             type="file"
                             id="imageInput"
                             accept="image/*"
-                            value={image}
+                            value={image || ""}
                             onChange={handleImageChange}
                           />
                         </div>
@@ -198,16 +196,16 @@ const User = ({ params }: any) => {
                       <input
                         type="text"
                         id="nameInput"
-                        value={name}
-                        onChange={(e: any) => handleChangeName(e)}
+                        value={name || ""}
+                        onChange={(e: any) => handleChangeName(e.target.value)}
                         placeholder="Seu nome..."
                       />
                     </h1>
                     <p>
                       <textarea
                         id="bioInput"
-                        value={bio}
-                        onChange={(e: any) => handleChangeBio(e)}
+                        value={bio || ""}
+                        onChange={(e: any) => handleChangeBio(e.target.value)}
                         placeholder="Sua bio..."
                       ></textarea>
                     </p>
@@ -221,7 +219,7 @@ const User = ({ params }: any) => {
                         <ul>
                           {/* dataUser.lists  */}
                           {lists &&
-                            lists.map((date: any, index) => (
+                            lists.map((date: any, index: any) => (
                               <Card
                                 key={index}
                                 index={index}
@@ -243,6 +241,7 @@ const User = ({ params }: any) => {
             link={link}
             setLink={setLink}
             setImgCard={setImgCard}
+            imageChange={imgCard}
             addCardImgVideo={addCardImgVideo}
           />
         </>
