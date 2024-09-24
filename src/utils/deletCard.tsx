@@ -1,17 +1,17 @@
 export async function deleteCard(id: any) {
-    try {
-        const res = await fetch(`/api/task/task?id=${id}`, {
-            method: "DELETE"
-        });
+  try {
+    const res = await fetch(`/api/task/task?id=${id}`, {
+      method: "DELETE",
+    });
 
-        const data = await res.json();
+    const data = await res.json();
 
-        if (!res.ok) {
-            throw new Error("Failed to delete card");
-        }
-
-        return data;
-    } catch (err) {
-        console.log("Ops! Error in DELETE method! 😒", err);
+    if (!res.ok) {
+      throw new Error("Failed to delete card");
     }
+
+    return data;
+  } catch (err) {
+    console.log("Ops! Error in DELETE method! 😒", err);
+  }
 }

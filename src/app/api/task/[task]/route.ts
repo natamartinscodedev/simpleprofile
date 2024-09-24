@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import User from "../../../../models/User";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: any) {
   try {
     if (req.method === "POST") {
       const { nameLink, email, name, bio, image, lists, plans } = req.body;
@@ -63,7 +63,7 @@ export async function GET() {
   }
 }
 
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+export async function DELETE(req: any, res: any) {
   const { id } = req.query;
 
   console.log("ID API ==>", id);
@@ -77,36 +77,47 @@ export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
   return NextResponse.json({ message: "Top deleted!!!" });
 }
 
-export async function PUT(req: NextApiRequest) {
+export async function PUT(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { nameLink, email, name, bio, image, lists, plans } = req.body;
+    if (req.method === "PUT") {
+      const { name, bio, image, lists, plans } = req.body;
 
-    await connectToDatabase();
-    const updatedUser = await User.updateOne(
-      { nameLink }, // Filtro para encontrar o usuário
-      {
-        $set: {
-          email,
-          name,
-          bio,
-          image,
-          lists,
-          plans,
-        },
+      console.log("Body recebido no PUT:", {
+        name: name,
+        bio: bio,
+        image: image,
+        plans: plans,
+      });
+
+      const nameLink = "Naytham";
+      console.log("PUT ==>", name, image);
+
+      await connectToDatabase();
+
+      const updatedUser = await User.updateOne(
+        { nameLink: nameLink }, // Filtro para encontrar o usuário
+        {
+          $set: {
+            // email: email,
+            name: name,
+            bio: "🐺Don't think just do it'1%",
+            image: image,
+            lists: lists,
+            plans: plans,
+          },
+        }
+      );
+      // Verificar se a atualização foi bem-sucedida
+      if (updatedUser.modifiedCount === 0) {
+        return NextResponse.json({
+          message: "No changes made or user not found",
+        });
       }
-    );
-    // Verificar se a atualização foi bem-sucedida
-    if (updatedUser.modifiedCount === 0) {
       return NextResponse.json(
-        { message: "No changes made or user not found" },
-        { status: 404 }
+        { message: "User updated successfully", userUpdate: updatedUser },
+        { status: 200 }
       );
     }
-
-    return NextResponse.json(
-      { message: "User updated successfully", userUpdate: updatedUser },
-      { status: 200 }
-    );
   } catch (error: any) {
     console.error("Error updating user:", error);
     return NextResponse.json(

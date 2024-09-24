@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface AlertProps {
-    message: string;
+  message: string;
 }
 
 const Alert: React.FC<AlertProps> = ({ message }) => {
-    const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(true);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setVisible(false);
-        }, 5000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 5000);
 
-        return () => clearTimeout(timer);
-    }, []);
+    return () => clearTimeout(timer);
+  }, []);
 
-    return (
-        <div className={`alert ${visible ? 'visible' : ''}`}>
-            <p>{message}</p>
-            <style jsx>{`
+  return (
+    <div className={`alert ${visible ? "visible" : ""}`}>
+      <p>{message}</p>
+      <style jsx>{`
         .alert {
           position: fixed;
           bottom: 20px;
@@ -39,8 +39,8 @@ const Alert: React.FC<AlertProps> = ({ message }) => {
           opacity: 1;
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Alert;

@@ -1,25 +1,24 @@
 .card_btn {
-    background-color: #6A65FF;
-    color: #f1f1f1;
-    border-radius: 5px;
-    padding: 0.3rem 1.5rem;
-    text-decoration: none;
-    font-size: 12px;
-    margin-bottom: 1rem;
-    font-weight: bold;
+  background-color: #6a65ff;
+  color: #f1f1f1;
+  border-radius: 5px;
+  padding: 0.3rem 1.5rem;
+  text-decoration: none;
+  font-size: 12px;
+  margin-bottom: 1rem;
+  font-weight: bold;
 
-    &:hover {
-        background-color: #777877;
-        color: #f1f1f1;
-    }
+  &:hover {
+    background-color: #777877;
+    color: #f1f1f1;
+  }
 }
 
 .dark {
-    .card_btn {
-        &:hover {
-            color: #f2f2f2;
-             background-color: #4efc4b;
-        }
-
+  .card_btn {
+    &:hover {
+      color: #f2f2f2;
+      background-color: #4efc4b;
     }
+  }
 }

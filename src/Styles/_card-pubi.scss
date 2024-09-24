@@ -1,57 +1,57 @@
 .container_loop {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    height: 5rem;
-    background-color: #6A65FF;
-    z-index: 800;
-    white-space: nowrap;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 5rem;
+  background-color: #6a65ff;
+  z-index: 800;
+  white-space: nowrap;
 }
 
 .card_pubi {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
 
-    ul {
-        display: flex;
-        gap: 5rem;
-        align-items: center;
-        justify-items: center;
-        justify-content: space-between;
-    }
+  ul {
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+  }
 }
 
 .text-animation01,
 .text-animation02 {
-    font-size: 25px;
-    font-weight: bold;
-    text-transform: uppercase;
-    animation: rollText 5s linear infinite;
-    /* Aplicar animação */
+  font-size: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  animation: rollText 5s linear infinite;
+  /* Aplicar animação */
 }
 
 .text-animation01 {
-    color: #fff;
+  color: #fff;
 }
 
 .text-animation02 {
-    color: transparent;
-    -webkit-text-stroke: 1px #ffffff;
+  color: transparent;
+  -webkit-text-stroke: 1px #ffffff;
 }
 
 @keyframes rollText {
-    from {
-        transform: translateX(-100%);
-        /* Começar fora da tela à direita */
-    }
+  from {
+    transform: translateX(-100%);
+    /* Começar fora da tela à direita */
+  }
 
-    to {
-        transform: translateX(0);
-        /* Rolar para fora da tela à esquerda */
-    }
+  to {
+    transform: translateX(0);
+    /* Rolar para fora da tela à esquerda */
+  }
 }
