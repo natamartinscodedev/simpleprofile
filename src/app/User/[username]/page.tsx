@@ -28,9 +28,9 @@ const User = ({ params }: any) => {
   const oobCode = searchParams.get("oobCode");
   const { user, loadin } = Login();
 
-  const [image, setImage] = useState<string | undefined>();
-  const [name, setName] = useState<string | undefined>();
-  const [bio, setBio] = useState<string | undefined>();
+  const [image, setImage] = useState<string>();
+  const [name, setName] = useState<string>();
+  const [bio, setBio] = useState<string>();
   const [lists, setLists] = useState<any[]>([]);
   const [link, setLink] = useState<string>("");
   const [imgCard, setImgCard] = useState<string>("");
@@ -157,7 +157,7 @@ const User = ({ params }: any) => {
       ) : (
         <>
           <div>
-            {user && (
+            {!user && (
               <div className="container_user container">
                 <div className="box-infor_user">
                   <div className="box_info-user">

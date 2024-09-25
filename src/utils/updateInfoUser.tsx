@@ -22,16 +22,16 @@ export async function updateInfoUser({
       lists,
     });
 
-    const res = await fetch("/api/task/task", {
+    const res = await fetch("/api/updateInfo/put", {
       cache: "no-cache",
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nameLink: nameLink || "",
-        name: name || "",
-        bio: bio || "",
+        nameLink: nameLink || null,
+        name: name || null,
+        bio: bio || null,
         image: image || null,
         lists: lists || [],
       }),
