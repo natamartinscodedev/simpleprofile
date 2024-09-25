@@ -80,7 +80,8 @@ export async function DELETE(req: any, res: any) {
 export async function PUT(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === "PUT") {
-      const { name, bio, image, lists, plans } = req.body;
+      const { nameLink, name, bio, image, lists, plans } = req.body;
+      console.log("PUT ==>", req.body);
 
       console.log("Body recebido no PUT:", {
         name: name,
@@ -89,8 +90,7 @@ export async function PUT(req: NextApiRequest, res: NextApiResponse) {
         plans: plans,
       });
 
-      const nameLink = "Naytham";
-      console.log("PUT ==>", name, image);
+      // const nameLink = "Naytham";
 
       await connectToDatabase();
 

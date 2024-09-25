@@ -5,6 +5,7 @@ import CardPlan from "@/components/CardPlans";
 import { CircleCheck } from "lucide-react";
 
 const Plans = ({ email, nameLink }) => {
+
   return (
     <div className="container_plans">
       <CardPlan
