@@ -1,49 +1,54 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-import { checkEmailAvailability } from "@/utils/verificEmail";
-import Image from "next/image";
-import ImageIconPage from "@/Images/image_pages.png";
-import Plans from "@/app/Plans/index";
-import { Mail, MoveLeft } from "lucide-react";
-import Link from "next/link";
+import React, { useEffect, useState } from 'react'
+import { checkEmailAvailability } from '@/utils/verificEmail'
+import Image from 'next/image'
+import ImageIconPage from '@/Images/image_pages.png'
+import Plans from '@/app/Plans/index'
+import { Mail, MoveLeft } from 'lucide-react'
+import Link from 'next/link'
 interface TypeProps {
-  changeState: any;
-  nameLink: string;
+  changeState: any
+  nameLink: string
 }
 
 const Index = ({ changeState, nameLink }: TypeProps) => {
-  const [email, setEmail] = useState<string | "">("");
-  const [openPlan, setOpenPlan] = useState(false);
+  const [email, setEmail] = useState<string | ''>('')
+  const [openPlan, setOpenPlan] = useState(false)
 
   function createUserPlan() {
-    setOpenPlan(true);
+    setOpenPlan(true)
   }
 
   const backPage = (e: any) => {
-    e.preventDefault();
-    changeState(!!false);
-  };
+    e.preventDefault()
+    changeState(!!false)
+  }
 
   useEffect(() => {
     const checkEmail = async () => {
       if (email) {
         try {
-          await checkEmailAvailability({ email });
+          await checkEmailAvailability({ email })
         } catch (err) {
-          console.log("Erro ao verificar disponibilidade do e-mail:", err);
+          console.log('Erro ao verificar disponibilidade do e-mail:', err)
         }
       }
-    };
-    checkEmail();
-  }, [email]);
+    }
+    checkEmail()
+  }, [email])
 
   return (
     <>
       {openPlan ? (
         // Card Plans
-        <div className="card_plans-change">
-          <button onClick={() => setOpenPlan(false)}>Voltar</button>
+        <div className="card_plans-change container">
+          <button
+            onClick={() => setOpenPlan(false)}
+            className="card_plans-change-btn-back"
+          >
+            <MoveLeft />
+          </button>
           <Plans email={email} nameLink={nameLink} />
         </div>
       ) : (
@@ -51,7 +56,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
           <div className="container_sing-up-info">
             <div className="box_info">
               <button onClick={backPage}>
-                {" "}
+                {' '}
                 <MoveLeft />
               </button>
               <p>
@@ -74,6 +79,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
                   type="email"
                   name="email"
                   id="email"
+                  required
                   value={email}
                   onChange={(e: any) => setEmail(e.target.value)}
                   placeholder="Digite seu email."
@@ -93,7 +99,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

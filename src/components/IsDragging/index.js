@@ -12,6 +12,7 @@ const ListItem = ({ date, index, lists, setLists }) => {
   const ref = useRef();
   const { move } = useContext(BoardContext);
   const [cardList, setCardList] = useState(lists);
+  // console.log("List is Dragging ==>", cardList);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: "CARD",
@@ -56,7 +57,7 @@ const ListItem = ({ date, index, lists, setLists }) => {
     },
   });
   dragRef(dropRef(ref));
-  console.log("ID ==>", date);
+  // console.log("ID ==>", date);
   return (
     <>
       {date.type === "linkCard" && (

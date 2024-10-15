@@ -13,7 +13,8 @@
   display: flex;
   align-items: center;
   align-content: center;
-  justify-content: space-between;
+  justify-content: start;
+  gap: 5rem;
 
   div {
     display: flex;
@@ -52,6 +53,12 @@
     align-items: center;
     gap: 0.3rem;
   }
+}
+
+.social_midia {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 @media (max-width: 600px) {

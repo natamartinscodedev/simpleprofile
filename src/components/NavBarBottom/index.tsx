@@ -12,7 +12,7 @@ const NavbarBottom = ({
   setImgCard,
   setLink,
   link,
-  imgCard,
+  imageChange,
   addCardImgVideo,
 }: any) => {
   const handleImageChange = (e: any) => {
@@ -23,7 +23,7 @@ const NavbarBottom = ({
       setImgCard(imageUrl);
     }
 
-    if (imgCard) {
+    if (imageChange) {
       addCardImgVideo();
     }
   };
