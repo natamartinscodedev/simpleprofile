@@ -1,31 +1,32 @@
-"use client";
+'use client'
 
-import { checkNameAvailability } from "@/utils/verificNameLink";
-import React, { useEffect, useState } from "react";
-import NavBar from "@/components/Navbar/index";
-import CreateUserSingUp from "@/components/CreateSingUp/Index";
-import Image from "next/image";
-import ImageIconPage from "@/Images/image_pages.png";
-import Link from "next/link";
-import { Check, MoveLeft, X } from "lucide-react";
+import React, { useEffect, useState } from 'react'
+import { Check, MoveLeft, X } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useForm } from 'react-hook-form'
+import { checkNameAvailability } from '@/utils/verificNameLink'
+import NavBar from '@/components/Navbar/index'
+import CreateUserSingUp from '@/components/CreateSingUp/Index'
+import ImageIconPage from '@/Images/image_pages.png'
 
 const SingUp = () => {
-  const [changeComponents, setChangeComponents] = useState(false);
-  const [nameLink, setNameLink] = useState("");
-  const [load, setLoad] = useState(null);
+  const { register, handleSubmit } = useForm()
+  const [changeComponents, setChangeComponents] = useState(false)
+  const [nameLink, setNameLink] = useState('')
+  const [load, setLoad] = useState(null)
 
-  const handlePush = async (e: any) => {
-    e.preventDefault();
+  const handlePush = async (data: any) => {
     if (nameLink) {
-      setChangeComponents(!false);
+      setChangeComponents(!false)
     }
-  };
+  }
 
   useEffect(() => {
     if (nameLink) {
-      checkNameAvailability({ nameLink, setLoad });
+      checkNameAvailability({ nameLink, setLoad })
     }
-  }, [nameLink]);
+  }, [nameLink])
 
   return (
     <>
@@ -41,14 +42,19 @@ const SingUp = () => {
                 <h2>Primeiro, insira seu nome no link unico!</h2>
                 <p>Os bons ainda estão disponíveis!</p>
               </div>
-              <form onSubmit={handlePush} className="box_input-namelink">
+              <form
+                onSubmit={handleSubmit(handlePush)}
+                className="box_input-namelink"
+              >
                 <div className="box_input-namelink-input">
                   <span>simpleprofile.me/</span>
                   <input
                     type="text"
                     placeholder="seu-nome"
+                    required
                     value={nameLink}
-                    onChange={(e) => setNameLink(e.target.value)}
+                    {...register('name')}
+                    onChange={e => setNameLink(e.target.value)}
                   />
                   <div>
                     {load && nameLink ? (
@@ -78,7 +84,7 @@ const SingUp = () => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default SingUp;
+export default SingUp

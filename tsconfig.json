@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/pages/index.js", "src/utils/Post.js", "src/app/api/task/[task]/route.ts", "src/app/api/fetchLinks/links/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/pages/index.js", "src/utils/Post.js", "src/app/api/task/[task]/route.ts", "src/app/api/fetchLinks/links/route.js", "src/db/adapterEmailTrap.ts", "src/app/api/auth/[...nextauth]/route.js"],
   "exclude": ["node_modules"]
 }
