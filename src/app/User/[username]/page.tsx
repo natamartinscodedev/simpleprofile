@@ -70,7 +70,7 @@ const User = ({ params }: any) => {
       setLists(newImgVd)
 
       UpdateInfoUser({ lists: newImgVd, nameLink })
-      setImgCard('')
+      // setImgCard('')
     }
   }
 
@@ -108,6 +108,7 @@ const User = ({ params }: any) => {
       // User.email === email
       setJoinUser(!joinUser)
     } else {
+      alert('Você não possue uma conta! Tente novamente com os dados correto!')
       router.push('/Login')
     }
   }
@@ -133,7 +134,9 @@ const User = ({ params }: any) => {
               {/* <button onClick={() => signOut()}>Sair</button> */}
               <div className="box-infor_user">
                 <div className="box_info-user">
-                  <div className="box_img-user">
+                  <div
+                    className={`box_img-user ${hideNavbar && 'hiderHoover'}`}
+                  >
                     {image ? (
                       <div>
                         <span>
@@ -165,21 +168,29 @@ const User = ({ params }: any) => {
                     )}
                   </div>
                   <h1>
-                    <input
-                      type="text"
-                      id="nameInput"
-                      value={name}
-                      onChange={(e: any) => handleChangeName(e.target.value)}
-                      placeholder="Seu nome..."
-                    />
+                    {!hideNavbar ? (
+                      <input
+                        type="text"
+                        id="nameInput"
+                        value={name}
+                        onChange={(e: any) => handleChangeName(e.target.value)}
+                        placeholder="Seu nome..."
+                      />
+                    ) : (
+                      <>{name}</>
+                    )}
                   </h1>
                   <p>
-                    <textarea
-                      id="bioInput"
-                      value={bio}
-                      onChange={(e: any) => handleChangeBio(e.target.value)}
-                      placeholder="Sua bio..."
-                    ></textarea>
+                    {!hideNavbar ? (
+                      <textarea
+                        id="bioInput"
+                        value={bio}
+                        onChange={(e: any) => handleChangeBio(e.target.value)}
+                        placeholder="Sua bio..."
+                      ></textarea>
+                    ) : (
+                      <>{bio}</>
+                    )}
                   </p>
                 </div>
               </div>
@@ -212,7 +223,7 @@ const User = ({ params }: any) => {
                 link={link}
                 setLink={setLink}
                 setImgCard={setImgCard}
-                imageChange={imgCard}
+                imgCard={imgCard}
                 addCardImgVideo={addCardImgVideo}
                 setChangWidth={setChangWidth}
                 nameLink={nameLink}

@@ -1,18 +1,18 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import React from "react";
+import Image from 'next/image'
+import React from 'react'
 
 interface typeImgVd {
-  url: string;
+  url: string
 }
 
 const ImageComponent = ({ url }: typeImgVd) => {
   return (
     <div className="box-img">
-      <Image src={url} alt={url} width={100} height={100} />
+      <Image src={url && url} alt={url} width={100} height={100} />
     </div>
-  );
-};
+  )
+}
 
-export default ImageComponent;
+export default ImageComponent

@@ -1,6 +1,7 @@
 'use client'
 import React, { useRef, useContext, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { useSearchParams } from 'next/navigation'
 import BoardContext from '@/components/Board/context'
 import CardLink from '../ComponentLink'
 import CardImgVideo from '../ComponentImage'
@@ -8,6 +9,9 @@ import { Trash2 } from 'lucide-react'
 import { UpdateInfoUser } from '@/utils/updateInfoUser'
 
 const ListItem = ({ date, index, lists, nameLink }) => {
+  const searchParams = useSearchParams()
+  const hideNavbar = searchParams.get('active')
+
   const ID = index
   const ref = useRef()
   const { move } = useContext(BoardContext)
@@ -64,9 +68,8 @@ const ListItem = ({ date, index, lists, nameLink }) => {
         <div
           // href={`${date.link}`}
           ref={ref}
-          className={`card_is-dragging  card_is-dragging-links ${
-            isDragging ? 'dragging' : ''
-          }`}
+          className={`card_is-dragging-links ${isDragging ? 'dragging' : ''} 
+            ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
         >
           {date.type === 'linkCard' && <CardLink link={date.link} />}
           <div className="card_remove">
@@ -79,7 +82,8 @@ const ListItem = ({ date, index, lists, nameLink }) => {
       {date && date.type === 'imgCard' && (
         <div
           ref={ref}
-          className={`card_is-dragging ${isDragging ? 'dragging' : ''}`}
+          className={` ${isDragging ? 'dragging' : ''} 
+          ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
         >
           {date && date.type === 'imgCard' && <CardImgVideo url={date.url} />}
           <div className="card_remove">

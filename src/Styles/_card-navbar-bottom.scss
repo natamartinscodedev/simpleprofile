@@ -146,26 +146,19 @@
 
 .card_imgvideo input {
   position: absolute;
+  z-index: 200;
   top: 0;
   bottom: 0;
-  max-width: 30px;
+  // max-width: 30px;
   width: 100%;
   height: 30px;
   background-color: red;
   border-radius: 7px;
   cursor: pointer;
-  z-index: -1;
   opacity: 0;
 
   &:hover {
     scale: 1.5;
-    // .card_btn-links {
-    //   &:hover {
-    //     span {
-    //       display: flex;
-    //     }
-    //   }
-    // }
   }
 }
 
@@ -189,25 +182,41 @@
 }
 
 .modalShareLink {
+  max-width: 30rem;
+  width: 100%;
+  height: auto;
+
   position: absolute;
-  top: -500%;
+  top: -600%;
   right: 0;
   left: 0;
-  // bottom: 0;
   z-index: 200;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   text-align: center;
-  max-width: 20rem;
-  width: 100%;
-  height: 10rem;
   background-color: #f1f1f1;
   padding: 1rem;
   border-radius: 5px;
 
   button {
     cursor: pointer;
+  }
+}
+
+#btn_copy {
+  background-color: #484848;
+  color: #f1f1f1;
+  border-radius: 5px;
+  width: 10rem;
+  padding: 10px 1rem;
+  border: none;
+
+  &:hover {
+    scale: 1.03;
   }
 }
 

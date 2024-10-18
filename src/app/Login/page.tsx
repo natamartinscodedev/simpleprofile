@@ -20,16 +20,10 @@ const Index = () => {
   const handleEmail = async () => {
     try {
       const { User }: any = await GetDataUser(email)
-      // && User.password === password
-      if (
-        email &&
-        password &&
-        User &&
-        User.email === email &&
-        User.password === password
-      ) {
+      if (User.email === email && User.password === password) {
         window.localStorage.setItem('emailForSignIn', email)
         setShowAlert(true)
+
         return router.push(`/User/${User.nameLink}`)
       } else {
         return setShowAlert(false)
@@ -38,12 +32,6 @@ const Index = () => {
       console.log('ERR ==>', err)
     }
   }
-
-  useEffect(() => {
-    // try login altomatic if true keys
-    // AltologinUser(router);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <>
