@@ -15,6 +15,7 @@ export async function UpdateInfoUser({
   lists,
   plans
 }: TypeInfo) {
+  console.log('List ==>', lists)
   try {
     const res = await fetch('/api/task/task', {
       method: 'PATCH',

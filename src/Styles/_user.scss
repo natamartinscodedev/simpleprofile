@@ -11,7 +11,7 @@
 .box_info-user {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 10px;
 
   h1 input,
   p input {
@@ -26,12 +26,13 @@
   }
 
   p textarea {
-    width: 450px;
-    height: 180px;
-    background-color: #d9d9d90d;
+    max-width: 350px;
+    width: 100%;
+    height: 200px;
+    
+
+    background-color: transparent;
     color: #fff;
-    border-radius: 10px;
-    padding: 1rem;
     border: none;
     outline: none;
   }
@@ -99,7 +100,6 @@
 
       &:hover {
         cursor: pointer;
-        background-color: red;
         max-width: 13rem;
         width: 100%;
         height: 13rem;
@@ -108,6 +108,58 @@
   }
 }
 
+// change width
+.change_width-desktop {
+  width: 100%;
+}
+
+.change_width-mobile {
+  max-width: 50%;
+  width: 100%;
+  margin: auto;
+
+  .container_user {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .box_info-user {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+
+    input {
+      text-align: center;
+    }
+  }
+}
+
+.box_login-shared-user {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #d8d8d8;
+  
+  a {
+    background-color: rgb(70, 70, 70);
+    color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px 1rem;
+    text-decoration: none;
+
+    &:hover {
+      scale: 1.03;
+    }
+  }
+}
+
+// mobile
 @media (max-width: 600px) {
   .box_info-user {
     align-items: center;

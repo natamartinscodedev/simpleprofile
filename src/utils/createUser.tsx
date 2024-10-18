@@ -1,7 +1,7 @@
 interface TypeInfo {
-  nameLink?: string
-  email?: string
-  password?: any
+  nameLink: string
+  email: string
+  password: any
   plans?: string
   name?: string
   bio?: string

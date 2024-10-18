@@ -1,23 +1,17 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '@/firebase/firebase'
-import loginMagicLink from '@/utils/login'
 import Link from 'next/link'
-import NavBar from '@/components/Navbar/index'
-import { MoveLeft } from 'lucide-react'
-import ImageIconPage from '@/Images/image_pages.png'
-import CardAlert from '@/components/components/cardAlert'
-import { GetDataUser } from '@/utils/getInfoUser'
-import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
-
 import Image from 'next/image'
-// import { AltologinUser } from "@/utils/altoLogin";
+import { MoveLeft } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import NavBar from '@/components/Navbar/index'
+import ImageIconPage from '@/Images/image_pages.png'
+import { GetDataUser } from '@/utils/getInfoUser'
 
 const Index = () => {
-  // const [user, loading, error]: any = useAuthState(auth)
+  const { register, handleSubmit } = useForm()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showAlert, setShowAlert] = useState(false)
@@ -26,15 +20,18 @@ const Index = () => {
   const handleEmail = async () => {
     try {
       const { User }: any = await GetDataUser(email)
-      // await signIn('email', { email, redirect: false })
-      console.log('User ==>', User)
-
       // && User.password === password
-      if (User && User.email === email) {
-        router.push(`/User/${User.nameLink}`)
-        return setShowAlert(true)
+      if (
+        email &&
+        password &&
+        User &&
+        User.email === email &&
+        User.password === password
+      ) {
+        setShowAlert(true)
+        return router.push(`/User/${User.nameLink}`)
       } else {
-        return setShowAlert(true)
+        return setShowAlert(false)
       }
     } catch (err) {
       console.log('ERR ==>', err)
@@ -51,46 +48,36 @@ const Index = () => {
     <>
       <NavBar state={false} />
       <div className="card_login container">
-        {/* {loading ? (
-          <p>Loading...</p>
-        ) : ( */}
         <div className="container_login">
           <div className="card_login-info">
             <Link href="/">
               <MoveLeft />
             </Link>
-            <form>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Digite seu E-Mail..."
-                value={email}
-                onChange={(e: any) => setEmail(e.target.value)}
-                required
-              />
-              <label htmlFor="email">Password</label>
-              <input
-                id="password"
-                type="text"
-                placeholder="Digite sua Senha..."
-                value={password}
-                onChange={(e: any) => setPassword(e.target.value)}
-                required
-              />
-            </form>
-            <button onClick={() => handleEmail()}>Login</button>
-            {/* {showAlert && (
-                <CardAlert
-                  state={user}
-                  open={true}
-                  text={
-                    user
-                      ? 'Link Enviado ao seu email!🚀'
-                      : 'Voce não possue conta com este email! Crie já sua conta no Simple Prifile🚀'
-                  }
+            <form onSubmit={handleSubmit(handleEmail)}>
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  placeholder="Digite seu E-Mail..."
+                  value={email}
+                  {...register('email')}
+                  onChange={(e: any) => setEmail(e.target.value)}
                 />
-              )} */}
+              </div>
+              <div>
+                <label htmlFor="email">Password</label>
+                <input
+                  type="text"
+                  placeholder="Digite sua Senha..."
+                  value={password}
+                  {...register('password')}
+                  onChange={(e: any) => setPassword(e.target.value)}
+                />
+              </div>
+              <button type="submit">
+                {showAlert ? 'Carregando...' : 'Entrar'}
+              </button>
+            </form>
           </div>
           <div className="card_img-login">
             <Image src={ImageIconPage} width={400} alt="logo login" />
