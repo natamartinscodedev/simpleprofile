@@ -104,7 +104,8 @@ const User = ({ params }: any) => {
     const email = window.localStorage.getItem('emailForSignIn')
     const { User }: any = await GetDataUser(email)
 
-    if (User && User.email === email) {
+    if (User && User.email) {
+      // User.email === email
       setJoinUser(!joinUser)
     } else {
       router.push('/Login')
