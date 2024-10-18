@@ -1,39 +1,39 @@
 'use client'
 
 import { Link, MonitorSmartphone, TabletSmartphone, X } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import BtnLinks from './buttomLinks'
 import Midia from '@/Images/icons/image.png'
 import Text from '@/Images/icons/text.png'
 import Map from '@/Images/icons/map.png'
+import QRCodeGenerator from '../QRCodeGenerator'
 
 const NavbarBottom = ({
   addCard,
   setImgCard,
   setLink,
   link,
-  imageChange,
+  imgCard,
   addCardImgVideo,
   setChangWidth,
   nameLink
 }: any) => {
-  const router: any = useRouter()
+  // const router: any = useRouter()
   const [openModal, setOpenMadl] = useState(false)
   const [linkShared, setLinkShared] = useState('')
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0]
-
     if (file) {
       const imageUrl = URL.createObjectURL(file)
       setImgCard(imageUrl)
     }
-
-    if (imageChange) {
-      addCardImgVideo()
-    }
   }
+
+  useEffect(() => {
+    addCardImgVideo()
+  }, [imgCard])
 
   const handleLinkUser = () => {
     setOpenMadl(!openModal)
@@ -80,12 +80,12 @@ const NavbarBottom = ({
             openModalType="img&video"
           />
         </div>
-        <BtnLinks
+        {/* <BtnLinks
           icon$img={Text}
           nameHover="Text"
           imgBoolean={true}
           openModalType="text"
-        />
+        /> */}
         <BtnLinks
           icon$img={Map}
           nameHover="Mapa"
@@ -104,12 +104,15 @@ const NavbarBottom = ({
       {openModal && (
         <>
           <div className="modalShareLink">
-            <button id='closed' onClick={() => setOpenMadl(!openModal)}>
+            <button id="closed" onClick={() => setOpenMadl(!openModal)}>
               <X />
             </button>
             <h2>Compartilhe seu perfil com quem você quiser!</h2>
+            <QRCodeGenerator linkQrcode={linkShared} />
             <p>link: {linkShared}</p>
-            <button onClick={() => handleCopy()}>Copiar link</button>
+            <button id="btn_copy" onClick={() => handleCopy()}>
+              Copiar link
+            </button>
           </div>
         </>
       )}
