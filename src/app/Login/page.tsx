@@ -28,6 +28,7 @@ const Index = () => {
         User.email === email &&
         User.password === password
       ) {
+        window.localStorage.setItem('emailForSignIn', email)
         setShowAlert(true)
         return router.push(`/User/${User.nameLink}`)
       } else {
