@@ -1,37 +1,25 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import {
-  SaveKeyLocalStorage,
-  VerificarChaveValida
-} from '@/utils/saveKeyLocalStorage'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { produce } from 'immer'
-import Card from '@/components/IsDragging/index'
-import BoardContext from '@/components/Board/context'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
-import { UpdateInfoUser } from '@/utils/updateInfoUser'
-import { Login } from '@/auth/authServices'
-import NavbarBottom from '@/components/NavBarBottom'
-import { useSearchParams, useRouter } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
 import { BadgePlus } from 'lucide-react'
-import { signInWithEmailLink } from 'firebase/auth'
-import { auth } from '@/firebase/firebase'
-import { useSession, signOut } from 'next-auth/react'
+import ListItem from '@/components/IsDragging/index'
+import BoardContext from '@/components/Board/context'
+import { UpdateInfoUser } from '@/utils/updateInfoUser'
+import NavbarBottom from '@/components/NavBarBottom'
+import Link from 'next/link'
 
 const User = ({ params }: any) => {
   const nameLink: any = params.username
-  console.log('Params =>', nameLink)
-  const searchParams = useSearchParams()
   const router = useRouter()
-  const apiKey = searchParams.get('apiKey')
-  const oobCode = searchParams.get('oobCode')
+  const searchParams = useSearchParams()
+  const hideNavbar: any = searchParams.get('active')
   const [joinUser, setJoinUser] = useState(false)
-  // const { user, loadin } = Login()
-  // email trap
-  // const { data: session, status } = useSession()
 
   const [image, setImage] = useState<string>()
   const [name, setName] = useState<string>()
@@ -39,7 +27,7 @@ const User = ({ params }: any) => {
   const [lists, setLists] = useState<any[]>([])
   const [link, setLink] = useState<string>('')
   const [imgCard, setImgCard] = useState<string>('')
-  // console.log("List page User ==>", lists)
+  const [changWidth, setChangWidth] = useState('desktop')
 
   const handleImageChangeUser = (e: any) => {
     const file = e.target.files[0]
@@ -47,7 +35,7 @@ const User = ({ params }: any) => {
       const imageUrl: any = URL.createObjectURL(file)
 
       setImage(imageUrl)
-      UpdateInfoUser({ image: imageUrl })
+      UpdateInfoUser({ image: imageUrl, nameLink })
     }
   }
 
@@ -60,77 +48,41 @@ const User = ({ params }: any) => {
     })
 
     setLists(newList)
-    UpdateInfoUser({ lists: newList })
+    UpdateInfoUser({ lists: newList, nameLink })
   }
 
   const addCard = async () => {
     const newList = produce(lists, (draft: any) => {
-      draft.push({ id: 0, type: 'linkCard', link: link })
+      draft.push({ id: Date.now(), type: 'linkCard', link: link })
     })
 
     setLists(newList)
-    UpdateInfoUser({ lists: newList })
+    UpdateInfoUser({ lists: newList, nameLink })
     setLink('')
   }
 
   const addCardImgVideo = async () => {
-    // console.log("Log add img&vd ==>", imgCard);
     if (imgCard) {
       const newImgVd = produce(lists, (draft: any) => {
-        draft.push({ id: 0, type: 'imgCard', url: imgCard })
+        draft.push({ id: Date.now(), type: 'imgCard', url: imgCard })
       })
 
       setLists(newImgVd)
-      UpdateInfoUser({ lists: newImgVd })
+
+      UpdateInfoUser({ lists: newImgVd, nameLink })
       setImgCard('')
     }
   }
 
   const handleChangeName = (newName: string) => {
     setName(newName)
-    UpdateInfoUser({ name: newName })
+    UpdateInfoUser({ name: newName, nameLink })
   }
 
   const handleChangeBio = (newBio: string) => {
     setBio(newBio)
-    UpdateInfoUser({ bio: newBio })
+    UpdateInfoUser({ bio: newBio, nameLink })
   }
-
-  // useEffect(() => {
-  //   SaveKeyLocalStorage(apiKey, oobCode)
-
-  //   const handleSignInWithEmailLink = async () => {
-  //     const email = window.localStorage.getItem('emailForSignIn')
-  //     console.log('Email page User ==>', email)
-  //     if (!email) {
-  //       alert('E-mail para login não encontrado, Faça login novamente!')
-  //       return router.push('/Login')
-  //     }
-
-  //     try {
-  //       console.log('Chegou no try de create ==>', auth)
-  //       await signInWithEmailLink(auth, email, window.location.href)
-  //       // return router.replace(`/User/${nameLink}`)
-  //     } catch (error) {
-  //       console.error('Erro ao completar o login com link mágico:', error)
-  //       router.push('/error')
-  //     }
-  //   }
-
-  //   if (VerificarChaveValida(apiKey)) {
-  //     handleSignInWithEmailLink()
-  //   } else {
-  //     window.localStorage.removeItem('emailForSignIn')
-  //     window.localStorage.removeItem('apiKey')
-  //     window.localStorage.removeItem('expiryTime')
-  //     window.localStorage.removeItem('oobCode')
-
-  //     router.push('/Login')
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [])
-
-  // get date and update in realtime on inputs
 
   const getUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
@@ -167,15 +119,17 @@ const User = ({ params }: any) => {
 
   return (
     <>
-      {/* {loadin ? (
-        <p>Loading....</p>
-      ) : ( */}
-      <>
-        <div>
-          {joinUser === true && (
+      {joinUser === true && (
+        <>
+          <div
+            className={
+              changWidth === 'desktop'
+                ? 'change_width-desktop'
+                : 'change_width-mobile'
+            }
+          >
             <div className="container_user container">
               {/* <button onClick={() => signOut()}>Sair</button> */}
-
               <div className="box-infor_user">
                 <div className="box_info-user">
                   <div className="box_img-user">
@@ -191,7 +145,7 @@ const User = ({ params }: any) => {
                           onChange={handleImageChangeUser}
                         />
                         <Image
-                          src={image}
+                          src={image && image}
                           alt="Selected"
                           width={200}
                           height={200}
@@ -227,22 +181,20 @@ const User = ({ params }: any) => {
                     ></textarea>
                   </p>
                 </div>
-                {/* <button onClick={handleLogout}>Sair</button> */}
               </div>
               <div className="container_info-user">
                 <BoardContext.Provider value={{ lists, move }}>
                   <DndProvider backend={HTML5Backend}>
                     <div className="board_container ">
                       <ul>
-                        {/* dataUser.lists  */}
                         {lists &&
                           lists.map((date: any, index: any) => (
-                            <Card
+                            <ListItem
                               key={index}
                               index={index}
                               date={date}
                               lists={lists}
-                              setLists={setLists}
+                              nameLink={nameLink}
                             />
                           ))}
                       </ul>
@@ -251,18 +203,34 @@ const User = ({ params }: any) => {
                 </BoardContext.Provider>
               </div>
             </div>
-          )}
-        </div>
-        <NavbarBottom
-          addCard={addCard}
-          link={link}
-          setLink={setLink}
-          setImgCard={setImgCard}
-          imageChange={imgCard}
-          addCardImgVideo={addCardImgVideo}
-        />
-      </>
-      {/* )} */}
+          </div>
+          <>
+            {!hideNavbar ? (
+              <NavbarBottom
+                addCard={addCard}
+                link={link}
+                setLink={setLink}
+                setImgCard={setImgCard}
+                imageChange={imgCard}
+                addCardImgVideo={addCardImgVideo}
+                setChangWidth={setChangWidth}
+                nameLink={nameLink}
+              />
+            ) : (
+              <>
+                <div className="box_login-shared-user">
+                  <Link href="/LinkPersonalize" target="__blank">
+                    Criar conta
+                  </Link>
+                  <Link href="/Login" target="__blank">
+                    Logar
+                  </Link>
+                </div>
+              </>
+            )}
+          </>
+        </>
+      )}
     </>
   )
 }

@@ -19,29 +19,27 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
     // if (stateLink === true) {
     //   router.push('/Login')
     // }
-
-    try {
-      if (email) {
-        // create user in mongoDB and firebase
+    if (password && email) {
+      try {
         await FetchPost({
           nameLink,
           email,
-          password,
+          password: password,
           plans: price,
-          name: 'Seu nome...',
-          bio: 'sua bio...',
+          name: '',
+          bio: '',
           image: '',
           lists: []
         })
-        window.localStorage.setItem('emailForSignIn', email)
 
+        window.localStorage.setItem('emailForSignIn', email)
         alert(
           `Criado com sucesso🤠 ${nameLink}! Monte seu perfil da forma ideal!..🚀`
         )
         router.push(`/User/${nameLink}`)
+      } catch (err) {
+        console.error('Erro ao enviar o link de autenticação:', err)
       }
-    } catch (err) {
-      console.error('Erro ao enviar o link de autenticação:', err)
     }
   }
 
@@ -50,16 +48,16 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
       <div className="container_password">
         <h2>Crie uma super senha de segurança!</h2>
 
-        <label htmlFor="email">Password</label>
-        <input
-          type="text"
-          name="password"
-          id="password"
-          placeholder="passwoed123"
-          required
-          value={password}
-          onChange={(e: any) => setPasswor(e.target.value)}
-        />
+        <div className="form_password">
+          <label htmlFor="email">Password</label>
+          <input
+            type="text"
+            placeholder="Password..."
+            value={password}
+            onChange={(e: any) => setPasswor(e.target.value)}
+          />
+        </div>
+
         <button onClick={() => handleSubmit()}>Cadastrar</button>
 
         <div>login auth google and github</div>

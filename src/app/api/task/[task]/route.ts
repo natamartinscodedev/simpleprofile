@@ -74,18 +74,16 @@ export async function PATCH(req: Request) {
     try {
       await connectToDatabase()
 
-      const updatedUser = await User.updateOne(
-        { nameLink }, // Filtro para encontrar o usuário
+      const updatedUser = await User.findOneAndUpdate(
+        { nameLink },
         {
-          $set: {
-            name,
-            bio,
-            image,
-            lists,
-            plans
-          }
+          name,
+          bio,
+          image,
+          lists,
+          plans
         },
-        { upsert: true }
+        { new: true }
       )
       // Verificar se a atualização foi bem-sucedida
       if (updatedUser.modifiedCount === 0) {
@@ -94,7 +92,7 @@ export async function PATCH(req: Request) {
         })
       }
       return NextResponse.json(
-        { message: 'User updated successfully', User: updatedUser },
+        { message: 'User updated successfully', updatedUser },
         { status: 200 }
       )
     } catch (error: any) {

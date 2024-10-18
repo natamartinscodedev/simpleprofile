@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: false },
     bio: { type: String, required: false },
     image: { type: String, required: false },
-    lists: { type: [String], required: false }
+    lists: { type: [], required: false }
     // add more items in future!
   },
   {
