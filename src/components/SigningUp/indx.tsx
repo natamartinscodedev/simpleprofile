@@ -3,22 +3,20 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { FetchPost } from '@/utils/createUser'
+import { useSession, signIn } from 'next-auth/react'
 
 interface typeItems {
   price: any
   email: any
   nameLink: string
-  //   stateLink: any
 }
 
 const SigningUp = ({ email, price, nameLink }: typeItems) => {
+  const { data: session }: any = useSession()
   const router = useRouter()
   const [password, setPasswor] = useState('')
 
   const handleSubmit = async () => {
-    // if (stateLink === true) {
-    //   router.push('/Login')
-    // }
     if (password && email) {
       try {
         await FetchPost({
@@ -60,7 +58,11 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
 
         <button onClick={() => handleSubmit()}>Cadastrar</button>
 
-        <div>login auth google and github</div>
+        <div>
+          <p>Cirar com:</p>
+          <button onClick={() => signIn('google')}>Google</button>
+          <button onClick={() => signIn('github')}>Github</button>
+        </div>
       </div>
     </>
   )

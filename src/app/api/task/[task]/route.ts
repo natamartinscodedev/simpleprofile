@@ -1,7 +1,6 @@
 import { connectToDatabase } from '@/db/mongodb'
 import { NextResponse } from 'next/server'
 import User from '../../../../models/User'
-import { NextApiRequest, NextApiResponse } from 'next'
 
 export async function GET() {
   try {
@@ -105,7 +104,7 @@ export async function PATCH(req: Request) {
   }
 }
 
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+export async function DELETE(req: any, res: any) {
   const { id } = req.query
 
   console.log('ID API ==>', id)

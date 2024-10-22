@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import { checkNameAvailability } from '@/utils/verificNameLink'
 import NavBar from '@/components/Navbar/index'
 import CreateUserSingUp from '@/components/CreateSingUp/Index'
-import ImageIconPage from '@/Images/image_pages.png'
+import ImageIconPage from '../../../public/Images/image_pages.png'
 
 const SingUp = () => {
   const { register, handleSubmit } = useForm()
