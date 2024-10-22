@@ -2,11 +2,11 @@
 
 import { Link, MonitorSmartphone, TabletSmartphone, X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import BtnLinks from './buttomLinks'
-import Midia from '@/Images/icons/image.png'
-import Text from '@/Images/icons/text.png'
-import Map from '@/Images/icons/map.png'
+import Midia from '../../../public/Images/icons/image.png'
+// import Text from '../../../public/Images/icons/text.png'
+import Map from '../../../public/Images/icons/map.png'
 import QRCodeGenerator from '../QRCodeGenerator'
 
 const NavbarBottom = ({

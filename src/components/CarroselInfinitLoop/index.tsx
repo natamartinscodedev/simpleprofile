@@ -1,9 +1,9 @@
-import React from "react";
-import CardReport from "@/components/CardReport";
-import ImageHomePage from "@/Images/Logo_Home.svg";
-import Image from "next/image";
-import BluerLeft from "@/Images/Ellipse 7.svg";
-import BluerRight from "@/Images/Ellipse 7.svg";
+import React from 'react'
+import CardReport from '@/components/CardReport'
+import ImageHomePage from '../../../public/Images/Logo_Home.svg'
+import Image from 'next/image'
+import BluerLeft from '../../../public/Images/Ellipse 7.svg'
+import BluerRight from '../../../public/Images/Ellipse 7.svg'
 
 const CardInfinitLoop = () => {
   return (
@@ -107,7 +107,7 @@ const CardInfinitLoop = () => {
         <Image src={BluerRight} alt="" />
       </span>
     </div>
-  );
-};
+  )
+}
 
-export default CardInfinitLoop;
+export default CardInfinitLoop

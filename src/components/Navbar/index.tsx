@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DarkMode from "@/components/ButtonDark/Index";
 import CardLink from "@/components/components/cardLink";
 import Image from "next/image";
-import Logo from "@/Images/Logo.svg";
+import Logo from "../../../public/Images/Logo.svg";
 import Link from "next/link";
 // import Langues from '@/components/ChangeLeangue/language-switcher'
 

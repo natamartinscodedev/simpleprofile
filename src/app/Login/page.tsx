@@ -6,11 +6,14 @@ import Image from 'next/image'
 import { MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { useSession, signIn } from 'next-auth/react'
 import NavBar from '@/components/Navbar/index'
-import ImageIconPage from '@/Images/image_pages.png'
+import ImageIconPage from '../../../public/Images/image_pages.png'
 import { GetDataUser } from '@/utils/getInfoUser'
 
 const Index = () => {
+  const { data: session }: any = useSession()
+
   const { register, handleSubmit } = useForm()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,6 +35,31 @@ const Index = () => {
       console.log('ERR ==>', err)
     }
   }
+
+  const loginAuth = async () => {
+    try {
+      const EmailAuth = session?.user
+      const { User }: any = await GetDataUser(EmailAuth?.email)
+      if (EmailAuth?.email === User.email) {
+        window.localStorage.setItem('emailForSignIn', session.user.email)
+
+        return router.push(`/User/${User.nameLink}`)
+      } else {
+        alert(
+          'O email desta conta, não está cadastrado em nosso banco de dados! Crie uma conta já!'
+        )
+        
+        return router.push(`/LinkPersonalize`)
+      }
+    } catch (err) {
+      console.log('Err ==>', err)
+    }
+  }
+
+  useEffect(() => {
+    loginAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
 
   return (
     <>
@@ -67,12 +95,16 @@ const Index = () => {
                 {showAlert ? 'Carregando...' : 'Entrar'}
               </button>
             </form>
+            <p>----------------- or -----------------</p>
+            <div className="card_login-btn-login">
+              <button onClick={() => signIn('google')}>Google</button>
+              <button onClick={() => signIn('github')}>Github</button>
+            </div>
           </div>
           <div className="card_img-login">
             <Image src={ImageIconPage} width={400} alt="logo login" />
           </div>
         </div>
-        {/* )} */}
       </div>
     </>
   )

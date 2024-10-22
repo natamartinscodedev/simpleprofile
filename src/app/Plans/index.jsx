@@ -59,7 +59,7 @@ const Plans = ({ email, nameLink }) => {
             idPlans="id_plans-gold"
             email={email}
             nameLink={nameLink}
-            disable={true}
+            // disable={false}
             // stateLink={false}
             handleclick={handleclick}
           >

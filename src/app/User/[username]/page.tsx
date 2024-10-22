@@ -1,21 +1,23 @@
 'use client'
 
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { produce } from 'immer'
-import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
+import { BadgePlus, LogOut } from 'lucide-react'
+import { useSession, signOut } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
-import { BadgePlus } from 'lucide-react'
 import ListItem from '@/components/IsDragging/index'
 import BoardContext from '@/components/Board/context'
 import { UpdateInfoUser } from '@/utils/updateInfoUser'
 import NavbarBottom from '@/components/NavBarBottom'
-import Link from 'next/link'
 
 const User = ({ params }: any) => {
   const nameLink: any = params.username
+  const { data: session }: any = useSession()
   const router = useRouter()
   const searchParams = useSearchParams()
   const hideNavbar: any = searchParams.get('active')
@@ -84,6 +86,19 @@ const User = ({ params }: any) => {
     UpdateInfoUser({ bio: newBio, nameLink })
   }
 
+  const HandleSignOut = () => {
+    const EmailAuth = session?.user
+
+    if (!joinUser || EmailAuth) {
+      signOut()
+      // setJoinUser(false)
+      router.push('/')
+      if (session?.user === undefined) {
+        router.push('/')
+      }
+    }
+  }
+
   const getUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
 
@@ -105,7 +120,6 @@ const User = ({ params }: any) => {
     const { User }: any = await GetDataUser(email)
 
     if (User && User.email === email) {
-      // User.email === email
       setJoinUser(!joinUser)
     } else {
       alert('Você não possue uma conta! Tente novamente com os dados correto!')
@@ -130,8 +144,12 @@ const User = ({ params }: any) => {
                 : 'change_width-mobile'
             }
           >
+            <div className="container_nav-link container">
+              <button onClick={() => HandleSignOut()} className="sing-out">
+                <LogOut />
+              </button>
+            </div>
             <div className="container_user container">
-              {/* <button onClick={() => signOut()}>Sair</button> */}
               <div className="box-infor_user">
                 <div className="box_info-user">
                   <div

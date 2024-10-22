@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { checkEmailAvailability } from '@/utils/verificEmail'
 import Image from 'next/image'
-import ImageIconPage from '@/Images/image_pages.png'
+import ImageIconPage from '../../../public/Images/image_pages.png'
 import Plans from '@/app/Plans/index'
 import { Mail, MoveLeft } from 'lucide-react'
 import Link from 'next/link'

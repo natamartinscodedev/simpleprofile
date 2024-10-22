@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+'use client'
+
+import React from 'react'
+import { useRouter } from 'next/navigation'
 
 interface typePlans {
   tipePlan: string
@@ -25,9 +28,10 @@ const CardPlan = ({
   // email,
   // nameLink,
   disable,
-  handleclick,
-  setPlan
-}: typePlans) => {
+  handleclick
+}: // setPlan
+typePlans) => {
+  const router = useRouter()
   return (
     <>
       <div className={state ? 'box_plans-state' : 'box_plans'}>
@@ -42,10 +46,11 @@ const CardPlan = ({
         <ul>{children}</ul>
 
         <button
-          onClick={() => handleclick({ price })}
-          disabled={disable === true && true}
+          // onClick={() => handleclick({ price })}
+          onClick={() => router.push(`/LinkPersonalize`)}
+          // disabled={disable === true && true}
         >
-          Escolher Plano
+          Criar conta já
         </button>
       </div>
     </>

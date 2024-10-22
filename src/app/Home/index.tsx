@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import React from "react";
-import Image from "next/image";
-import CardLink from "@/components/components/cardLink";
-import ImageHomePage from "@/Images/Logo_Home.svg";
-import Logo from "@/Images/Logo.svg";
-import { CircleCheck, Disc3, Instagram, Linkedin, Mail } from "lucide-react";
-import NavBar from "@/components/Navbar";
-import CardPlan from "@/components/CardPlans";
-import CardInfinitLoop from "@/components/CarroselInfinitLoop";
-import Link from "next/link";
+import React from 'react'
+import Image from 'next/image'
+import CardLink from '@/components/components/cardLink'
+import ImageHomePage from '../../../public/Images/Logo_Home.svg'
+import Logo from '../../../public/Images/Logo.svg'
+import { CircleCheck, Disc3, Instagram, Linkedin, Mail } from 'lucide-react'
+import NavBar from '@/components/Navbar'
+import CardPlan from '@/components/CardPlans'
+import CardInfinitLoop from '@/components/CarroselInfinitLoop'
+import Link from 'next/link'
 
 const Home = () => {
   return (
@@ -77,7 +77,7 @@ const Home = () => {
             <div data-aos="fade-right" data-aos-duration="2000">
               <CardPlan
                 tipePlan="Simple"
-                price={"Free"}
+                price={'Free'}
                 state={false}
                 stateLink={true}
               >
@@ -106,7 +106,7 @@ const Home = () => {
             <div data-aos="fade-left" data-aos-duration="2000">
               <CardPlan
                 tipePlan="Gold"
-                price={"89,99"}
+                price={'89,99'}
                 state={true}
                 disable={true}
                 stateLink={true}
@@ -182,7 +182,7 @@ const Home = () => {
                 </li>
                 <li>
                   <Link href="">
-                    <Instagram />{" "}
+                    <Instagram />{' '}
                   </Link>
                 </li>
               </ul>
@@ -197,7 +197,7 @@ const Home = () => {
         </section>
       </footer>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
