@@ -89,10 +89,12 @@ const User = ({ params }: any) => {
 
   const HandleSignOut = () => {
     signOut()
-    router.push('/')
+    if (!EmailAuth) {
+      router.push('/')
+    }
   }
 
-  if (!!joinUser && !EmailAuth) {
+  if (!!joinUser) {
     router.push('/')
   }
 
