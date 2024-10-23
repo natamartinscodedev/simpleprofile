@@ -96,9 +96,9 @@ const User = ({ params }: any) => {
     }
   }
 
-  if (!session?.user && !!joinUser) {
-    router.push('/')
-  }
+  // if (!session?.user && !!joinUser) {
+  //   router.push('/')
+  // }
 
   const getUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
