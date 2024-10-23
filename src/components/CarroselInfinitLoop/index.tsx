@@ -9,7 +9,7 @@ const CardInfinitLoop = () => {
   return (
     <div className="carrosel_reports ">
       <span className="blur_left">
-        <Image src={BluerLeft} alt="" />
+        <Image src={BluerLeft} width={500} height={500} alt="" />
       </span>
       <div className="container_loop-left">
         <div className="carrosel_infinit-loop-left">
@@ -104,7 +104,7 @@ const CardInfinitLoop = () => {
         </div>
       </div>
       <span className="blur_right">
-        <Image src={BluerRight} alt="" />
+        <Image src={BluerRight} width={500} height={500} alt="" />
       </span>
     </div>
   )

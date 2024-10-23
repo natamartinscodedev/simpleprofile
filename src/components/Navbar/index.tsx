@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DarkMode from "@/components/ButtonDark/Index";
 import CardLink from "@/components/components/cardLink";
 import Image from "next/image";
-import Logo from "../../../public/Images/Logo.svg";
+import Logo from "../../../public/Images/LogoBg0.svg";
 import Link from "next/link";
 // import Langues from '@/components/ChangeLeangue/language-switcher'
 
@@ -23,7 +23,7 @@ const NavBar = ({ state }: typeState) => {
     <header className="container">
       <nav className=" container card_navbar">
         <Link href="/">
-          <Image src={Logo} width={70} alt="logo" />
+          <Image src={Logo} width={100} alt="logo" priority/>
         </Link>
         <ul>
           <li>

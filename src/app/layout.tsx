@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Head from 'next/head'
 import '@/Styles/style.scss'
 import { Roboto } from 'next/font/google'
 import Provider from '@/components/Provider'
