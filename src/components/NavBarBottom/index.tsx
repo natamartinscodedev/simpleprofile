@@ -2,10 +2,8 @@
 
 import { Link, MonitorSmartphone, TabletSmartphone, X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-// import { useRouter } from 'next/navigation'
 import BtnLinks from './buttomLinks'
 import Midia from '../../../public/Images/icons/image.png'
-// import Text from '../../../public/Images/icons/text.png'
 import Map from '../../../public/Images/icons/map.png'
 import QRCodeGenerator from '../QRCodeGenerator'
 
@@ -19,7 +17,6 @@ const NavbarBottom = ({
   setChangWidth,
   nameLink
 }: any) => {
-  // const router: any = useRouter()
   const [openModal, setOpenMadl] = useState(false)
   const [linkShared, setLinkShared] = useState('')
 
@@ -33,6 +30,7 @@ const NavbarBottom = ({
 
   useEffect(() => {
     addCardImgVideo()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgCard])
 
   const handleLinkUser = () => {

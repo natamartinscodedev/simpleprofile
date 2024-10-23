@@ -21,6 +21,7 @@ const User = ({ params }: any) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const hideNavbar: any = searchParams.get('active')
+  const EmailAuth = session?.user
   const [joinUser, setJoinUser] = useState(false)
 
   const [image, setImage] = useState<string>()
@@ -36,7 +37,7 @@ const User = ({ params }: any) => {
     if (file) {
       const imageUrl: any = URL.createObjectURL(file)
 
-      setImage(imageUrl)
+      setImage(imageUrl && imageUrl)
       UpdateInfoUser({ image: imageUrl, nameLink })
     }
   }
@@ -87,18 +88,13 @@ const User = ({ params }: any) => {
   }
 
   const HandleSignOut = () => {
-    const EmailAuth = session?.user
-
-    if (!joinUser || EmailAuth) {
-      signOut()
-      // setJoinUser(false)
-      router.push('/')
-    }
+    signOut()
+    router.push('/')
   }
 
-  // if (!session?.user && !!joinUser) {
-  //   router.push('/')
-  // }
+  if (!!joinUser && !EmailAuth) {
+    router.push('/')
+  }
 
   const getUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
@@ -146,15 +142,21 @@ const User = ({ params }: any) => {
             }
           >
             <div className="container_nav-link container">
-              <button onClick={() => HandleSignOut()} className="sing-out">
-                <LogOut />
-              </button>
+              {hideNavbar === null && (
+                <button onClick={() => HandleSignOut()} className="sing-out">
+                  <LogOut />
+                </button>
+              )}
             </div>
             <div className="container_user container">
-              <div className="box-infor_user">
+              <div className="container_infor-user">
                 <div className="box_info-user">
                   <div
-                    className={`box_img-user ${hideNavbar && 'hiderHoover'}`}
+                    className={` ${
+                      hideNavbar === null
+                        ? 'box_img-user'
+                        : 'hider_box-img-user'
+                    }`}
                   >
                     {image ? (
                       <div>
@@ -172,6 +174,7 @@ const User = ({ params }: any) => {
                           alt="Selected"
                           width={200}
                           height={200}
+                          className="img_user-profile"
                         />
                       </div>
                     ) : (

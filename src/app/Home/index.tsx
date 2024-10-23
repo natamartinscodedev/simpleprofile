@@ -2,14 +2,16 @@
 
 import React from 'react'
 import Image from 'next/image'
-import CardLink from '@/components/components/cardLink'
-import ImageHomePage from '../../../public/Images/Logo_Home.svg'
-import Logo from '../../../public/Images/LogoBg0.svg'
+import Link from 'next/link'
 import { CircleCheck, Disc3, Instagram, Linkedin, Mail } from 'lucide-react'
+import CardLink from '@/components/components/cardLink'
 import NavBar from '@/components/Navbar'
 import CardPlan from '@/components/CardPlans'
 import CardInfinitLoop from '@/components/CarroselInfinitLoop'
-import Link from 'next/link'
+import ImageHomePage from '../../../public/Images/Logo_Home.svg'
+import Logo from '../../../public/Images/LogoBg0.svg'
+import imgDesktop from '../../../public/Images/simpleprofileDesktop.jpeg'
+import imgMobile from '../../../public/Images/simpleprofileMobile.png'
 
 const Home = () => {
   return (
@@ -38,6 +40,32 @@ const Home = () => {
               alt="image ilustration page user in home"
               priority
             />
+          </div>
+        </section>
+        <section className="container">
+          <div className="box_img-simpleprofile">
+            <div className="box_img-desktop">
+              <Image
+                src={imgDesktop}
+                alt=""
+                id="dektop"
+                data-aos="fade-right"
+                data-aos-offset="300"
+                data-aos-easing="ease-in-sine"
+                data-aos-duration="1200"
+              />
+            </div>
+            <div className="box_img-mobile">
+              <Image
+                src={imgMobile}
+                alt=""
+                id="mobile"
+                data-aos="fade-left"
+                data-aos-anchor="#example-anchor"
+                data-aos-offset="500"
+                data-aos-duration="1500"
+              />
+            </div>
           </div>
         </section>
         <section>
@@ -84,57 +112,53 @@ const Home = () => {
               >
                 <li>
                   <CircleCheck size={20} />
-                  tsete01
+                  Imagem
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste02
+                  Nota
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste03
+                  Social Didia
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste03
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  teste03
+                  Total de 5 card no plano Free
                 </li>
               </CardPlan>
             </div>
             <div data-aos="fade-left" data-aos-duration="2000">
               <CardPlan
                 tipePlan="Gold"
-                price={'89,99'}
+                price={'49,99'}
                 state={true}
                 disable={true}
                 stateLink={true}
               >
                 <li>
                   <CircleCheck size={20} />
-                  tsete01
+                  Imagens
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste02
+                  Videos
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste03
+                  Location
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste03
+                  Nota
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste03
+                  Social Midias
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  teste03
+                  Infinit card!
                 </li>
               </CardPlan>
             </div>
@@ -145,7 +169,7 @@ const Home = () => {
         <section className="container_footer">
           <div className="container_footer-box-info">
             <Link href="/">
-              <Image src={Logo} width={150} alt="logo"priority />
+              <Image src={Logo} width={150} alt="logo" priority />
             </Link>
             <div>
               <ul>
