@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import CardLink from '@/components/components/cardLink'
 import ImageHomePage from '../../../public/Images/Logo_Home.svg'
-import Logo from '../../../public/Images/Logo.svg'
+import Logo from '../../../public/Images/LogoBg0.svg'
 import { CircleCheck, Disc3, Instagram, Linkedin, Mail } from 'lucide-react'
 import NavBar from '@/components/Navbar'
 import CardPlan from '@/components/CardPlans'
@@ -36,6 +36,7 @@ const Home = () => {
             <Image
               src={ImageHomePage}
               alt="image ilustration page user in home"
+              priority
             />
           </div>
         </section>
@@ -144,7 +145,7 @@ const Home = () => {
         <section className="container_footer">
           <div className="container_footer-box-info">
             <Link href="/">
-              <Image src={Logo} width={150} alt="logo" />
+              <Image src={Logo} width={150} alt="logo"priority />
             </Link>
             <div>
               <ul>

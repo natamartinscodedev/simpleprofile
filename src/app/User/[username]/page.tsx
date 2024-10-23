@@ -93,10 +93,11 @@ const User = ({ params }: any) => {
       signOut()
       // setJoinUser(false)
       router.push('/')
-      if (session?.user === undefined) {
-        router.push('/')
-      }
     }
+  }
+
+  if (!session?.user && !!joinUser) {
+    router.push('/')
   }
 
   const getUser = async () => {
