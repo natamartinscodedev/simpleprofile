@@ -89,14 +89,12 @@ const User = ({ params }: any) => {
 
   const HandleSignOut = () => {
     signOut()
-    if (!EmailAuth) {
-      router.push('/')
-    }
-  }
-
-  if (!!joinUser) {
     router.push('/')
   }
+
+  // if (!!joinUser) {
+  //   router.push('/')
+  // }
 
   const getUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
@@ -172,7 +170,7 @@ const User = ({ params }: any) => {
                           onChange={handleImageChangeUser}
                         />
                         <Image
-                          src={image && image}
+                          src={image}
                           alt="Selected"
                           width={200}
                           height={200}
