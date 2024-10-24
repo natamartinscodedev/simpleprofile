@@ -5,8 +5,8 @@ export async function POST(req: NextRequest) {
   const { testeId, assinatura } = await req.json()
 
   const price = assinatura
-    ? process.env.STRIPE_SUBSCRIPTION_PRICE_ID
-    : process.env.STRIPE_PRICE_ID
+    ? process.env.STRIPE_SUBSCRIPTION_PRICE_ID || ''
+    : process.env.STRIPE_PRICE_ID || ''
 
   try {
     const session = await stripe.checkout.sessions.create({
