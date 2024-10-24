@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { FetchPost } from '@/utils/createUser'
 import { useSession, signIn } from 'next-auth/react'
+import BuyButton from '@/components/button-stripe-payment'
 
 interface typeItems {
   price: any
@@ -55,8 +56,13 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
             onChange={(e: any) => setPasswor(e.target.value)}
           />
         </div>
-
-        <button onClick={() => handleSubmit()}>Cadastrar</button>
+        <>
+          {price === 'Free' ? (
+            <button onClick={() => handleSubmit()}>Cadastrar</button>
+          ) : (
+            <BuyButton />
+          )}
+        </>
 
         <div>
           <p>Cirar com:</p>
