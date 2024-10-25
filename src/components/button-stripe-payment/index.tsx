@@ -3,7 +3,7 @@
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
 
-export default function BuyButton() {
+export default function BuyButton({ nameId, price, handleSubmit }: any) {
   const [isCreatingCheckout, setIsCreatingCheckout] = useState(false)
 
   async function handleClick(testeId: string, assinatura: boolean) {
@@ -15,7 +15,7 @@ export default function BuyButton() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ assinatura, testeId })
+        body: JSON.stringify({ assinatura, testeId, nameId, priceId: price })
       })
 
       const stripeClient = await loadStripe(
@@ -24,7 +24,11 @@ export default function BuyButton() {
 
       if (!stripeClient) throw new Error('Stripe failed to initialize.')
 
-      const { sessionId } = await checkoutResponse.json()
+      const { sessionId, ok } = await checkoutResponse.json()
+      if (ok === 'true') {
+        handleSubmit()
+      }
+
       await stripeClient.redirectToCheckout({ sessionId })
     } catch (error) {
       console.error(error)
@@ -36,8 +40,8 @@ export default function BuyButton() {
   return (
     <button
       disabled={isCreatingCheckout}
-      className=""
-      onClick={() => handleClick('123', true)}
+      className="button_stroe-payment"
+      onClick={() => handleClick('price_golde', true)}
     >
       Assinar
     </button>

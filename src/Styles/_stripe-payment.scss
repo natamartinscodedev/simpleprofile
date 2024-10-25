@@ -1,0 +1,12 @@
+.button_stroe-payment {
+  border: none;
+  padding: 10px 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #333;
+    color: #f1f1f1;
+    scale: 1.1;
+  }
+}

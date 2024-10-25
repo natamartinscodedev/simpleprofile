@@ -7,10 +7,14 @@ import CardLink from '../ComponentLink'
 import CardImgVideo from '../ComponentImage'
 import { Trash2 } from 'lucide-react'
 import { UpdateInfoUser } from '@/utils/updateInfoUser'
+import MapComponent from '../ComponentMap'
+import TextComponent from '../ComponentNote'
 
 const ListItem = ({ date, index, lists, nameLink }) => {
   const searchParams = useSearchParams()
   const hideNavbar = searchParams.get('active')
+
+  console.log('Type Card ==>', date)
 
   const ID = index
   const ref = useRef()
@@ -61,7 +65,7 @@ const ListItem = ({ date, index, lists, nameLink }) => {
     }
   })
   dragRef(dropRef(ref))
-  // console.log("ID ==>", date);
+
   return (
     <>
       {date && date.type === 'linkCard' && (
@@ -86,6 +90,34 @@ const ListItem = ({ date, index, lists, nameLink }) => {
           ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
         >
           {date && date.type === 'imgCard' && <CardImgVideo url={date.url} />}
+          <div className="card_remove">
+            <button onClick={() => handleDeletCrd(index)}>
+              <Trash2 color="white" />
+            </button>
+          </div>
+        </div>
+      )}
+      {date && date.type === 'map' && (
+        <div
+          ref={ref}
+          className={` ${isDragging ? 'dragging' : ''} 
+          ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
+        >
+          {date && date.type === 'map' && <MapComponent />}
+          <div className="card_remove">
+            <button onClick={() => handleDeletCrd(index)}>
+              <Trash2 color="white" />
+            </button>
+          </div>
+        </div>
+      )}
+      {date && date.type === 'text' && (
+        <div
+          ref={ref}
+          className={` ${isDragging ? 'dragging' : ''} 
+          ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
+        >
+          {date && date.type === 'text' && <TextComponent />}
           <div className="card_remove">
             <button onClick={() => handleDeletCrd(index)}>
               <Trash2 color="white" />
