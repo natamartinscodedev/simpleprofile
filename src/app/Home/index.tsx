@@ -12,12 +12,14 @@ import ImageHomePage from '../../../public/Images/Logo_Home.svg'
 import Logo from '../../../public/Images/LogoBg0.svg'
 import imgDesktop from '../../../public/Images/simpleprofileDesktop.jpeg'
 import imgMobile from '../../../public/Images/simpleprofileMobile.png'
+// import BuyButton from '@/components/button-stripe-payment'
 
 const Home = () => {
   return (
     <>
       <NavBar />
       <main>
+      {/* <BuyButton /> */}
         <section className="container box_main">
           <div className="box_main-info">
             <h1 data-aos="zoom-in-up" data-aos-duration="1000">

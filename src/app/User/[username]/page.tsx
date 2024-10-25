@@ -14,6 +14,7 @@ import ListItem from '@/components/IsDragging/index'
 import BoardContext from '@/components/Board/context'
 import { UpdateInfoUser } from '@/utils/updateInfoUser'
 import NavbarBottom from '@/components/NavBarBottom'
+import BuyButton from '@/components/button-stripe-payment'
 
 const User = ({ params }: any) => {
   const nameLink: any = params.username
@@ -21,9 +22,11 @@ const User = ({ params }: any) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const hideNavbar: any = searchParams.get('active')
-  const EmailAuth = session?.user
+  // const EmailAuth = session?.user
   const [joinUser, setJoinUser] = useState(false)
+  const [user, setUser] = useState('')
 
+  const [plan, setPlan] = useState<string>('')
   const [image, setImage] = useState<string>()
   const [name, setName] = useState<string>()
   const [bio, setBio] = useState<string>()
@@ -54,9 +57,29 @@ const User = ({ params }: any) => {
     UpdateInfoUser({ lists: newList, nameLink })
   }
 
-  const addCard = async () => {
+  const addCardLink = async () => {
     const newList = produce(lists, (draft: any) => {
       draft.push({ id: Date.now(), type: 'linkCard', link: link })
+    })
+
+    setLists(newList)
+    UpdateInfoUser({ lists: newList, nameLink })
+    setLink('')
+  }
+
+  const addCardMap = async () => {
+    const newList = produce(lists, (draft: any) => {
+      draft.push({ id: Date.now(), type: 'map', link: link })
+    })
+
+    setLists(newList)
+    UpdateInfoUser({ lists: newList, nameLink })
+    setLink('')
+  }
+
+  const addCardText = async () => {
+    const newList = produce(lists, (draft: any) => {
+      draft.push({ id: Date.now(), type: 'text', link: link })
     })
 
     setLists(newList)
@@ -73,7 +96,7 @@ const User = ({ params }: any) => {
       setLists(newImgVd)
 
       UpdateInfoUser({ lists: newImgVd, nameLink })
-      // setImgCard('')
+      setImgCard('')
     }
   }
 
@@ -101,8 +124,9 @@ const User = ({ params }: any) => {
 
     if (email) {
       const User: any = await GetDataUser(email)
-      const { name, bio, image, lists } = User.User
+      const { name, bio, image, lists, plans } = User.User
 
+      setPlan(plans)
       setName(name)
       setBio(bio)
       setImage(image)
@@ -110,6 +134,7 @@ const User = ({ params }: any) => {
       UpdateInfoUser({ nameLink: nameLink })
     }
   }
+  console.log('Plan ==>', plan)
 
   // join ins User page
   const JoinUser = async () => {
@@ -118,6 +143,7 @@ const User = ({ params }: any) => {
 
     if (User && User.email === email) {
       setJoinUser(!joinUser)
+      setUser(User)
     } else {
       alert('Você não possue uma conta! Tente novamente com os dados correto!')
       router.push('/Login')
@@ -142,6 +168,7 @@ const User = ({ params }: any) => {
             }
           >
             <div className="container_nav-link container">
+              {plan === 'Free' ? <BuyButton /> : ''}
               {hideNavbar === null && (
                 <button onClick={() => HandleSignOut()} className="sing-out">
                   <LogOut />
@@ -241,12 +268,14 @@ const User = ({ params }: any) => {
           <>
             {!hideNavbar ? (
               <NavbarBottom
-                addCard={addCard}
+                addCardLink={addCardLink}
+                addCardText={addCardText}
+                addCardMap={addCardMap}
+                addCardImgVideo={addCardImgVideo}
                 link={link}
                 setLink={setLink}
                 setImgCard={setImgCard}
                 imgCard={imgCard}
-                addCardImgVideo={addCardImgVideo}
                 setChangWidth={setChangWidth}
                 nameLink={nameLink}
               />

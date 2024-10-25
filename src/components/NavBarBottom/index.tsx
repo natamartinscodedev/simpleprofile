@@ -5,10 +5,13 @@ import React, { useEffect, useState } from 'react'
 import BtnLinks from './buttomLinks'
 import Midia from '../../../public/Images/icons/image.png'
 import Map from '../../../public/Images/icons/map.png'
+import Text from '../../../public/Images/icons/text.png'
 import QRCodeGenerator from '../QRCodeGenerator'
 
 const NavbarBottom = ({
-  addCard,
+  addCardLink,
+  addCardText,
+  addCardMap,
   setImgCard,
   setLink,
   link,
@@ -54,13 +57,13 @@ const NavbarBottom = ({
       <button className="btn_mylink" onClick={() => handleLinkUser()}>
         Meu link
       </button>
-      <ul>
+      <ul className='list_buttons-card'>
         <BtnLinks
           icon$img={<Link size={20} color="white" />}
           nameHover="Link"
           imgBoolean={false}
           openModalType="link"
-          addCard={addCard}
+          addCardLink={addCardLink}
           link={link}
           setLink={setLink}
         />
@@ -78,17 +81,19 @@ const NavbarBottom = ({
             openModalType="img&video"
           />
         </div>
-        {/* <BtnLinks
+        <BtnLinks
           icon$img={Text}
           nameHover="Text"
           imgBoolean={true}
           openModalType="text"
-        /> */}
+          addCardText={addCardText}
+        />
         <BtnLinks
           icon$img={Map}
           nameHover="Mapa"
           imgBoolean={true}
           openModalType="map"
+          addCardMap={addCardMap}
         />
       </ul>
       <div className="btn-responsive">

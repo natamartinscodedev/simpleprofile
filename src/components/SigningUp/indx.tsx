@@ -60,7 +60,7 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
           {price === 'Free' ? (
             <button onClick={() => handleSubmit()}>Cadastrar</button>
           ) : (
-            <BuyButton />
+            <BuyButton nameId={nameLink} price={price} handleSubmit={handleSubmit} />
           )}
         </>
 
