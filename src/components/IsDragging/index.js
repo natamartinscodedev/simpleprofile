@@ -10,11 +10,9 @@ import { UpdateInfoUser } from '@/utils/updateInfoUser'
 import MapComponent from '../ComponentMap'
 import TextComponent from '../ComponentNote'
 
-const ListItem = ({ date, index, lists, nameLink }) => {
+const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
   const searchParams = useSearchParams()
   const hideNavbar = searchParams.get('active')
-
-  console.log('Type Card ==>', date)
 
   const ID = index
   const ref = useRef()
@@ -34,6 +32,7 @@ const ListItem = ({ date, index, lists, nameLink }) => {
     updatedCards.splice(index, 1)
 
     UpdateInfoUser({ lists: updatedCards, nameLink })
+    window.location.reload()
   }
 
   const [, dropRef] = useDrop({
@@ -70,7 +69,6 @@ const ListItem = ({ date, index, lists, nameLink }) => {
     <>
       {date && date.type === 'linkCard' && (
         <div
-          // href={`${date.link}`}
           ref={ref}
           className={`card_is-dragging-links ${isDragging ? 'dragging' : ''} 
             ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
@@ -89,7 +87,9 @@ const ListItem = ({ date, index, lists, nameLink }) => {
           className={` ${isDragging ? 'dragging' : ''} 
           ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
         >
-          {date && date.type === 'imgCard' && <CardImgVideo url={date.url} />}
+          {date && date.type === 'imgCard' && (
+            <CardImgVideo url={date.url} changeImgVideo={changeImgVideo} />
+          )}
           <div className="card_remove">
             <button onClick={() => handleDeletCrd(index)}>
               <Trash2 color="white" />

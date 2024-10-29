@@ -18,13 +18,19 @@ const NavbarBottom = ({
   imgCard,
   addCardImgVideo,
   setChangWidth,
-  nameLink
+  nameLink,
+  emailUser,
+  setData
 }: any) => {
   const [openModal, setOpenMadl] = useState(false)
   const [linkShared, setLinkShared] = useState('')
+  const [typeInputMidia, setTypeInputMidia] = useState('')
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0]
+    const typeMidia = e.target.files[0].type
+    setTypeInputMidia(typeMidia)
+
     if (file) {
       const imageUrl = URL.createObjectURL(file)
       setImgCard(imageUrl)
@@ -32,15 +38,15 @@ const NavbarBottom = ({
   }
 
   useEffect(() => {
-    addCardImgVideo()
+    addCardImgVideo(typeInputMidia)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgCard])
 
   const handleLinkUser = () => {
-    setOpenMadl(!openModal)
-
     try {
-      const generatedLink = `${window.location.origin}/User/${nameLink}?active=true`
+      setOpenMadl(!openModal)
+
+      const generatedLink = `${window.location.origin}/${nameLink}`
       setLinkShared(generatedLink)
     } catch (err) {
       console.log('ERR ==>', err)
@@ -57,7 +63,7 @@ const NavbarBottom = ({
       <button className="btn_mylink" onClick={() => handleLinkUser()}>
         Meu link
       </button>
-      <ul className='list_buttons-card'>
+      <ul className="list_buttons-card">
         <BtnLinks
           icon$img={<Link size={20} color="white" />}
           nameHover="Link"
@@ -67,11 +73,13 @@ const NavbarBottom = ({
           link={link}
           setLink={setLink}
         />
+
         <div className="card_imgvideo">
           <input
             type="file"
             id="imageInput"
-            accept="image/*"
+            accept="image/* ,video/*"
+            multiple
             onChange={handleImageChange}
           />
           <BtnLinks
@@ -79,6 +87,9 @@ const NavbarBottom = ({
             nameHover="Image & Video"
             imgBoolean={true}
             openModalType="img&video"
+            typeInputMidia={typeInputMidia}
+            addCardImgVideo={addCardImgVideo}
+            imgCard={imgCard}
           />
         </div>
         <BtnLinks
@@ -104,20 +115,23 @@ const NavbarBottom = ({
           <TabletSmartphone size={20} />
         </button>
       </div>
+
       {openModal && (
-        <>
-          <div className="modalShareLink">
-            <button id="closed" onClick={() => setOpenMadl(!openModal)}>
-              <X />
-            </button>
-            <h2>Compartilhe seu perfil com quem você quiser!</h2>
-            <QRCodeGenerator linkQrcode={linkShared} />
-            <p>link: {linkShared}</p>
-            <button id="btn_copy" onClick={() => handleCopy()}>
-              Copiar link
-            </button>
-          </div>
-        </>
+        <div
+          className="modalShareLink"
+          data-aos="fade-up"
+          data-aos-duration="500"
+        >
+          <button id="closed" onClick={() => setOpenMadl(!openModal)}>
+            <X />
+          </button>
+          <h2>Compartilhe seu perfil com quem você quiser!</h2>
+          <QRCodeGenerator linkQrcode={linkShared} />
+          <p>link: {linkShared}</p>
+          <button id="btn_copy" onClick={() => handleCopy()}>
+            Copiar link
+          </button>
+        </div>
       )}
     </div>
   )

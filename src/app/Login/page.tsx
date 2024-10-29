@@ -25,9 +25,11 @@ const Index = () => {
       const { User }: any = await GetDataUser(email)
       if (User.email === email && User.password === password) {
         window.localStorage.setItem('emailForSignIn', email)
+        window.localStorage.setItem('sharedProfile', 'true')
+
         setShowAlert(true)
 
-        return router.push(`/User/${User.nameLink}`)
+        return router.push(`/${User.nameLink}`)
       } else {
         return setShowAlert(false)
       }
@@ -43,12 +45,12 @@ const Index = () => {
       if (EmailAuth?.email === User.email) {
         window.localStorage.setItem('emailForSignIn', session.user.email)
 
-        return router.push(`/User/${User.nameLink}`)
+        return router.push(`/${User.nameLink}`)
       } else {
         alert(
           'O email desta conta, não está cadastrado em nosso banco de dados! Crie uma conta já!'
         )
-        
+
         return router.push(`/LinkPersonalize`)
       }
     } catch (err) {
