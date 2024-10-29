@@ -35,7 +35,7 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
         alert(
           `Criado com sucesso🤠 ${nameLink}! Monte seu perfil da forma ideal!..🚀`
         )
-        router.push(`/User/${nameLink}`)
+        router.push(`/${nameLink}`)
       } catch (err) {
         console.error('Erro ao enviar o link de autenticação:', err)
       }

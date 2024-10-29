@@ -37,19 +37,11 @@ const Plans = ({ email, nameLink }) => {
           >
             <li>
               <CircleCheck size={20} />
-              Imagem
+              Links
             </li>
             <li>
               <CircleCheck size={20} />
-              Nota
-            </li>
-            <li>
-              <CircleCheck size={20} />
-              Social Didia
-            </li>
-            <li>
-              <CircleCheck size={20} />
-              Total de 5 card no plano Free
+              Total de 6 card no plano Free
             </li>
           </CardPlan>
           <CardPlan
@@ -81,7 +73,7 @@ const Plans = ({ email, nameLink }) => {
             </li>
             <li>
               <CircleCheck size={20} />
-              Social Midias
+              Links
             </li>
             <li>
               <CircleCheck size={20} />

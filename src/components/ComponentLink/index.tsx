@@ -14,7 +14,7 @@ const CardLink = ({ link }: any) => {
         <div>
           <span className={webNameLink === 'GitHub' ? 'black' : ''} />
           {/* <Image src={ImgGithub} alt='' /> */}
-          <Github size={50} />
+          <Github size={35} />
           <h2>{date.name}</h2>
         </div>
         <Link href={`${link}`} target="__blnck">
@@ -46,7 +46,7 @@ const CardLink = ({ link }: any) => {
         <>
           <div>
             <span className={webNameLink === 'LinkedIn' ? 'bluer' : ''} />
-            <Linkedin size={50} />
+            <Linkedin size={35} />
             <p>{webNameLink}.com</p>
           </div>
           <Link href={`${link}`} target="__blnck">
@@ -59,7 +59,7 @@ const CardLink = ({ link }: any) => {
         <>
           <div>
             <span className={webNameLink === 'Instagram' ? 'linear' : ''} />
-            <Instagram size={50} />
+            <Instagram size={35} />
             <p>{webNameLink}.com</p>
           </div>
           <Link href={`${link}`} target="__blnck">

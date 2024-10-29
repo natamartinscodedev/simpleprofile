@@ -19,7 +19,7 @@ const Home = () => {
     <>
       <NavBar />
       <main>
-      {/* <BuyButton /> */}
+        {/* <BuyButton /> */}
         <section className="container box_main">
           <div className="box_main-info">
             <h1 data-aos="zoom-in-up" data-aos-duration="1000">
@@ -114,19 +114,11 @@ const Home = () => {
               >
                 <li>
                   <CircleCheck size={20} />
-                  Imagem
+                  Links
                 </li>
                 <li>
                   <CircleCheck size={20} />
-                  Nota
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Social Didia
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Total de 5 card no plano Free
+                  Total de 6 card no plano Free
                 </li>
               </CardPlan>
             </div>

@@ -6,7 +6,9 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { produce } from 'immer'
 import Image from 'next/image'
-import { BadgePlus, LogOut } from 'lucide-react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { BadgePlus, LogOut, Settings } from 'lucide-react'
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
@@ -17,23 +19,23 @@ import NavbarBottom from '@/components/NavBarBottom'
 import BuyButton from '@/components/button-stripe-payment'
 
 const User = ({ params }: any) => {
-  const nameLink: any = params.username
-  const { data: session }: any = useSession()
+  const nameLink: any = params.UserProfile
+  // const { data: session }: any = useSession()
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const hideNavbar: any = searchParams.get('active')
-  // const EmailAuth = session?.user
   const [joinUser, setJoinUser] = useState(false)
   const [user, setUser] = useState('')
+  const [dateSharedProfile, setData] = useState('')
 
   const [plan, setPlan] = useState<string>('')
-  const [image, setImage] = useState<string>()
-  const [name, setName] = useState<string>()
-  const [bio, setBio] = useState<string>()
+  const [image, setImage] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [bio, setBio] = useState<string>('')
   const [lists, setLists] = useState<any[]>([])
   const [link, setLink] = useState<string>('')
   const [imgCard, setImgCard] = useState<string>('')
   const [changWidth, setChangWidth] = useState('desktop')
+  const [changeImgVideo, setChangeImgVideo] = useState('')
+  const [settings, setSettings] = useState(false)
 
   const handleImageChangeUser = (e: any) => {
     const file = e.target.files[0]
@@ -87,7 +89,8 @@ const User = ({ params }: any) => {
     setLink('')
   }
 
-  const addCardImgVideo = async () => {
+  const addCardImgVideo = async (e: any) => {
+    setChangeImgVideo(e)
     if (imgCard) {
       const newImgVd = produce(lists, (draft: any) => {
         draft.push({ id: Date.now(), type: 'imgCard', url: imgCard })
@@ -115,16 +118,12 @@ const User = ({ params }: any) => {
     router.push('/')
   }
 
-  // if (!!joinUser) {
-  //   router.push('/')
-  // }
-
   const getUser = async () => {
-    const email = window.localStorage.getItem('emailForSignIn')
+    const emailUserProfile = window.localStorage.getItem('emailForSignIn')
 
-    if (email) {
-      const User: any = await GetDataUser(email)
-      const { name, bio, image, lists, plans } = User.User
+    if (emailUserProfile) {
+      const User: any = await GetDataUser(emailUserProfile)
+      const { name, bio, image, lists, plans, email } = User.User
 
       setPlan(plans)
       setName(name)
@@ -134,12 +133,17 @@ const User = ({ params }: any) => {
       UpdateInfoUser({ nameLink: nameLink })
     }
   }
-  console.log('Plan ==>', plan)
+
+  useEffect(() => {
+    // window.location.reload()
+  }, [plan, image, name, bio, lists, imgCard])
 
   // join ins User page
   const JoinUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
+    const SharedProfile: any = window.localStorage.getItem('sharedProfile')
     const { User }: any = await GetDataUser(email)
+    setData(SharedProfile)
 
     if (User && User.email === email) {
       setJoinUser(!joinUser)
@@ -153,6 +157,7 @@ const User = ({ params }: any) => {
   useEffect(() => {
     getUser()
     JoinUser()
+    AOS.init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -168,8 +173,12 @@ const User = ({ params }: any) => {
             }
           >
             <div className="container_nav-link container">
-              {plan === 'Free' ? <BuyButton /> : ''}
-              {hideNavbar === null && (
+              {plan === 'Free' && dateSharedProfile === 'true' ? (
+                <BuyButton />
+              ) : (
+                ''
+              )}
+              {dateSharedProfile === 'true' && (
                 <button onClick={() => HandleSignOut()} className="sing-out">
                   <LogOut />
                 </button>
@@ -180,7 +189,7 @@ const User = ({ params }: any) => {
                 <div className="box_info-user">
                   <div
                     className={` ${
-                      hideNavbar === null
+                      dateSharedProfile === 'true'
                         ? 'box_img-user'
                         : 'hider_box-img-user'
                     }`}
@@ -217,7 +226,7 @@ const User = ({ params }: any) => {
                     )}
                   </div>
                   <h1>
-                    {!hideNavbar ? (
+                    {dateSharedProfile === 'true' ? (
                       <input
                         type="text"
                         id="nameInput"
@@ -230,7 +239,7 @@ const User = ({ params }: any) => {
                     )}
                   </h1>
                   <p>
-                    {!hideNavbar ? (
+                    {dateSharedProfile === 'true' ? (
                       <textarea
                         id="bioInput"
                         value={bio}
@@ -256,6 +265,7 @@ const User = ({ params }: any) => {
                               date={date}
                               lists={lists}
                               nameLink={nameLink}
+                              changeImgVideo={changeImgVideo}
                             />
                           ))}
                       </ul>
@@ -266,19 +276,38 @@ const User = ({ params }: any) => {
             </div>
           </div>
           <>
-            {!hideNavbar ? (
-              <NavbarBottom
-                addCardLink={addCardLink}
-                addCardText={addCardText}
-                addCardMap={addCardMap}
-                addCardImgVideo={addCardImgVideo}
-                link={link}
-                setLink={setLink}
-                setImgCard={setImgCard}
-                imgCard={imgCard}
-                setChangWidth={setChangWidth}
-                nameLink={nameLink}
-              />
+            {dateSharedProfile === 'true' ? (
+              <div className="container_navbar-bottom">
+                <div className="container_settings">
+                  <button onClick={() => setSettings(!settings)}>
+                    <Settings />
+                    <span>Configuração</span>
+                  </button>
+                  {settings && (
+                    <>
+                      <div className="box_settings">
+                        <p>mudar senha!</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <NavbarBottom
+                  addCardLink={addCardLink}
+                  addCardText={addCardText}
+                  addCardMap={addCardMap}
+                  addCardImgVideo={addCardImgVideo}
+                  link={link}
+                  setLink={setLink}
+                  setImgCard={setImgCard}
+                  imgCard={imgCard}
+                  setChangWidth={setChangWidth}
+                  nameLink={nameLink}
+                />
+                <div>
+                  <b>© SimpleProfile - 2024</b>
+                </div>
+              </div>
             ) : (
               <>
                 <div className="box_login-shared-user">

@@ -1,17 +1,21 @@
 'use client'
 
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 interface typeBtnlinks {
   icon$img: any
   nameHover: string
   imgBoolean: boolean
   openModalType: any
   addCardLink?: any
+  addCardImgVideo?: any
+  imgCard?: any
   addCardText?: any
   addCardMap?: any
   setLink?: any
   link?: any
+  typeInputMidia?: any
 }
 
 const BtnLinks = ({
@@ -22,13 +26,19 @@ const BtnLinks = ({
   addCardLink,
   addCardMap,
   addCardText,
+  addCardImgVideo,
+  imgCard,
   setLink,
-  link
+  link,
+  typeInputMidia
 }: typeBtnlinks) => {
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
     switch (openModalType) {
+      // case 'img&video':
+      //   addCardImgVideo(typeInputMidia)
+      //   break
       case 'text':
         addCardText()
         break
@@ -37,21 +47,31 @@ const BtnLinks = ({
         break
     }
     if (openModalType === 'link') {
-      setOpen(!open)
+      setOpen(true)
     }
   }
 
   const handleInputLink = () => {
     addCardLink()
-    setOpen(false)
+    setOpen(!open)
   }
+
+  // useEffect(() => {
+  //   // addCardImgVideo(typeInputMidia)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [imgCard])
 
   return (
     <li className="card_btn-links" onClick={() => handleClick()}>
       {open ? (
         <>
-          <div className="modal_links">
+          <div
+            className="modal_links"
+            data-aos="fade-up"
+            data-aos-duration="500"
+          >
             <input
+              className="input_links"
               type="text"
               value={link}
               onChange={e => setLink(e.target.value)}
@@ -62,7 +82,13 @@ const BtnLinks = ({
       ) : (
         ''
       )}
-      <span>{nameHover}</span>
+      <div
+        className="img_card-links"
+        data-aos="zoom-in"
+        data-aos-duration="1000"
+      >
+        <p>{nameHover}</p>
+      </div>
       {imgBoolean === true && <Image src={icon$img} alt="icons links" />}
       {imgBoolean === false && icon$img}
     </li>
