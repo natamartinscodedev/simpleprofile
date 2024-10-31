@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { produce } from 'immer'
@@ -124,7 +124,29 @@ const User = ({ params }: any) => {
     setBio(newBio)
     UpdateInfoUser({ bio: newBio, nameLink })
   }
+  //
+  const cardRef: any = useRef(null);
+  const footerRef: any = useRef(null);
+  const [isFixed, setIsFixed] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (cardRef.current && footerRef.current) {
+        const footerTop: any = footerRef.current.getBoundingClientRect().top;
+        const cardBottom: any = cardRef.current.getBoundingClientRect().bottom;
+
+        if (footerTop - cardBottom <= 36) {  // 36px de margem para suavidade
+          setIsFixed(true);
+        } else {
+          setIsFixed(false);
+        }
+      }
+    };
+    console.log("Scroll ==>", isFixed)
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isFixed]);
+  //
   const HandleSignOut = () => {
     signOut()
     router.push('/')
@@ -288,7 +310,7 @@ const User = ({ params }: any) => {
           </div>
           <>
             {dateSharedProfile === 'true' ? (
-              <div className="container_navbar-bottom">
+              <div className={`container_navbar-bottom ${isFixed === true ? 'fixed'  : ''}`} ref={cardRef}>
                 <div className="container_settings">
                   <button onClick={() => setSettings(!settings)}>
                     <Settings />
@@ -303,25 +325,28 @@ const User = ({ params }: any) => {
                   )}
                 </div>
 
-                <NavbarBottom
-                  addCardLink={addCardLink}
-                  addCardText={addCardText}
-                  addCardMap={addCardMap}
-                  addCardImg={addCardImg}
-                  addCardVideo={addCardVideo}
-
-                  setLink={setLink}
-                  setChangWidth={setChangWidth}
-                  setImgCard={setImgCard}
-                  setVideoCard={setVideoCard}
-
-                  dateSharedProfile={dateSharedProfile}
-                  imgCard={imgCard}
-                  videoCard={videoCard}
-                  link={link}
-                  nameLink={nameLink}
-                />
                 <div>
+                  <NavbarBottom
+                    addCardLink={addCardLink}
+                    addCardText={addCardText}
+                    addCardMap={addCardMap}
+                    addCardImg={addCardImg}
+                    addCardVideo={addCardVideo}
+
+                    setLink={setLink}
+                    setChangWidth={setChangWidth}
+                    setImgCard={setImgCard}
+                    setVideoCard={setVideoCard}
+
+                    dateSharedProfile={dateSharedProfile}
+                    imgCard={imgCard}
+                    videoCard={videoCard}
+                    link={link}
+                    nameLink={nameLink}
+                  />
+                </div>
+
+                <div className='container_logo-info'>
                   <b>© SimpleProfile - 2024</b>
                 </div>
               </div>
@@ -338,6 +363,25 @@ const User = ({ params }: any) => {
               </>
             )}
           </>
+          <footer className='container container_footer-user' ref={footerRef}>
+            <div className="container_settings-footer">
+              <button onClick={() => setSettings(!settings)}>
+                <Settings />
+                <span>Configuração</span>
+              </button>
+              {settings && (
+                <>
+                  <div className="box_settings">
+                    <p>Mudar senha!</p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className='container_logo-info-footer'>
+              <b>© SimpleProfile - 2024</b>
+            </div>
+          </footer>
         </>
       )}
     </>

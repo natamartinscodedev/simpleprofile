@@ -12,8 +12,6 @@ import {
 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import BtnLinks from './buttomLinks'
-import Map from '../../../public/Images/icons/map.png'
-import Text from '../../../public/Images/icons/text.png'
 import QRCodeGenerator from '../QRCodeGenerator'
 import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
 
@@ -31,6 +29,7 @@ const NavbarBottom = ({
   addCardVideo,
   setChangWidth,
   nameLink,
+  isFixed
 }: any) => {
   const [openModal, setOpenModal] = useState(false)
   const [linkShared, setLinkShared] = useState('')
@@ -74,10 +73,11 @@ const NavbarBottom = ({
   }
 
   return (
-    <div className="card_navbar-bottom">
+    <div className='card_navbar-bottom'>
       <button className="btn_mylink" onClick={() => handleLinkUser()}>
         Meu link
       </button>
+
       <ul className="list_buttons-card">
         <BtnLinks
           Icon$img={<Link size={20} color="white" />}
@@ -89,7 +89,7 @@ const NavbarBottom = ({
           setLink={setLink}
         />
 
-        <div className="card_imgvideo">
+        <div className="card_img-video">
           <input
             type="file"
             id="imageInput"
@@ -106,7 +106,7 @@ const NavbarBottom = ({
           />
         </div>
 
-        <div className="card_imgvideo">
+        <div className="card_img-video">
           <input
             type="file"
             id="videoInput"
@@ -139,6 +139,7 @@ const NavbarBottom = ({
           addCardMap={addCardMap}
         />
       </ul>
+
       <div className="btn-responsive">
         <button onClick={() => setChangWidth('desktop')}>
           <MonitorSmartphone size={20} />

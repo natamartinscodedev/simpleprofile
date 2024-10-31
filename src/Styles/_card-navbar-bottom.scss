@@ -12,6 +12,7 @@
   background-color: rgba(250, 250, 250, 0.5);
   backdrop-filter: blur(16px);
   border: 1px solid rgb(209, 213, 219);
+  transition: margin-bottom 0.3s ease;
 
   ul {
     display: flex;
@@ -64,12 +65,11 @@
   background-color: #1eca1b;
   color: #fff;
   border: none;
-  padding: 10px 1.5rem;
+  padding: 10px 1rem;
   border-radius: 7px;
-  font-size: 1rem;
+  font-size: 12px;
   overflow: hidden;
-  position: relative;
-  z-index: 1;
+
   &:hover {
     scale: 1.1;
   }
@@ -81,42 +81,11 @@
   padding: 0px 1rem;
 }
 
-.card_btn-links {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  border: 1px solid #333;
-  background-color: #484848;
-  cursor: pointer;
-
-  img {
-    width: 30px;
-    height: 30px;
-    border-radius: 7px;
-    object-fit: cover;
-    z-index: -1;
-  }
-
-  &:hover {
-    scale: 1.1;
-    box-shadow: 0px 0px 4px 3px #484848;
-
-    .img_card-links {
-      display: flex;
-    }
-  }
-}
-
 .img_card-links {
   position: absolute;
   top: -1.8rem;
 
   text-wrap: nowrap;
-  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 10px;
@@ -128,9 +97,58 @@
   display: none;
 }
 
-// .input_links {
+.card_img-video {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  cursor: pointer;
 
-// }
+  &:hover {
+    cursor: pointer;
+
+    .card_btn-links {
+      scale: 1.1;
+      box-shadow: 0px 0px 4px 3px #484848;
+    }
+
+    .img_card-links {
+      display: flex;
+    }
+  }
+
+  input {
+    z-index: 200;
+    position: absolute;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    cursor: pointer;
+    opacity: 0;
+  }
+}
+
+.card_btn-links {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid #333;
+  background-color: #484848;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.1;
+    box-shadow: 0px 0px 4px 3px #484848;
+
+    .img_card-links {
+      display: flex;
+    }
+  }
+}
 
 .modal_links {
   position: absolute;
@@ -162,32 +180,6 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
-  }
-}
-
-.card_imgvideo {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  cursor: pointer;
-}
-
-.card_imgvideo input {
-  position: absolute;
-  z-index: 200;
-  top: 0;
-  bottom: 0;
-  // max-width: 30px;
-  width: 100%;
-  height: 30px;
-  // background-color: red;
-  border-radius: 7px;
-  cursor: pointer;
-  opacity: 0;
-
-  &:hover {
-    scale: 1.5;
   }
 }
 
@@ -266,23 +258,98 @@
   }
 }
 
-@media (max-width: 600px) {
+.container_footer-user {
+  display: none;
+}
+
+.box_settings {
+  position: absolute;
+  top: -10rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 10rem;
+  height: 10rem;
+  width: 100%;
+  background-color: #f1f1f1;
+  color: #333;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+@media (max-width: 700px) {
   .card_navbar-bottom {
     max-width: 100%;
+    display: flex;
     justify-content: space-around;
-    bottom: 10px;
+    bottom: 5rem;
     left: 10px;
     right: 10px;
 
-    gap: 0.2rem;
+    gap: 1rem;
     padding: 5px;
     ul {
       gap: 0.5rem;
     }
   }
 
-  .btn_mylink {
-    padding: 10px;
-    font-size: 1rem;
+  .container_settings,
+  .container_logo-info,
+  .btn-responsive{
+    display: none;
+  }
+
+  .list_buttons-card {
+    border-left: 2px solid #717171;
+    border-right: none;
+  }
+
+  .conainer_footer-user {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5rem;
+    padding: 1rem;
+
+    button {
+      position: relative;
+      background-color: transparent;
+      color: #f1f1f1;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        display: none;
+      }
+
+      &:hover {
+        span {
+          display: flex;
+          position: absolute;
+          top: -1.5rem;
+        }
+      }
+    }
+ }
+
+  .fixed {
+    bottom: 5rem;
+    animation: fadeUp 1s ease forwards;
+  }
+}
+// animation
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

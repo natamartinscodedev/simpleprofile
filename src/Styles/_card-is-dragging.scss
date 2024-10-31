@@ -40,11 +40,13 @@
   height: 11rem;
   border-radius: 10px;
   background: rgba(255, 255, 255, 20%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
+  box-shadow: 5px 10px 15px #000000a8;;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
 
   &:hover {
+    scale: 1.03;
+
     .card_remove {
       cursor: pointer;
       display: flex;
@@ -86,6 +88,7 @@
   .board_container {
     ul {
       grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
     }
   }
 }
