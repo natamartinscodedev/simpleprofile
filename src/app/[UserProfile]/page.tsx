@@ -9,9 +9,10 @@ import Image from 'next/image'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { BadgePlus, LogOut, Settings } from 'lucide-react'
-import { useSession, signOut } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
+import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
 import ListItem from '@/components/IsDragging/index'
 import BoardContext from '@/components/Board/context'
 import { UpdateInfoUser } from '@/utils/updateInfoUser'
@@ -20,7 +21,6 @@ import BuyButton from '@/components/button-stripe-payment'
 
 const User = ({ params }: any) => {
   const nameLink: any = params.UserProfile
-  // const { data: session }: any = useSession()
   const router = useRouter()
   const [joinUser, setJoinUser] = useState(false)
   const [user, setUser] = useState('')
@@ -33,17 +33,19 @@ const User = ({ params }: any) => {
   const [lists, setLists] = useState<any[]>([])
   const [link, setLink] = useState<string>('')
   const [imgCard, setImgCard] = useState<string>('')
+  const [videoCard, setVideoCard] = useState<string>('')
   const [changWidth, setChangWidth] = useState('desktop')
   const [changeImgVideo, setChangeImgVideo] = useState('')
   const [settings, setSettings] = useState(false)
 
-  const handleImageChangeUser = (e: any) => {
+  const handleImageChangeUser = async (e: any) => {
     const file = e.target.files[0]
     if (file) {
       const imageUrl: any = URL.createObjectURL(file)
+      const {downloadURL, fileType }: any = await uploadMidiaStorage(file)
 
-      setImage(imageUrl && imageUrl)
-      UpdateInfoUser({ image: imageUrl, nameLink })
+      setImage(downloadURL)
+      UpdateInfoUser({ image: downloadURL, nameLink })
     }
   }
 
@@ -89,17 +91,27 @@ const User = ({ params }: any) => {
     setLink('')
   }
 
-  const addCardImgVideo = async (e: any) => {
+  const addCardImg = async (e: any) => {
     setChangeImgVideo(e)
     if (imgCard) {
-      const newImgVd = produce(lists, (draft: any) => {
+      const newImg = produce(lists, (draft: any) => {
         draft.push({ id: Date.now(), type: 'imgCard', url: imgCard })
       })
-
-      setLists(newImgVd)
-
-      UpdateInfoUser({ lists: newImgVd, nameLink })
+      setLists(newImg)
+      UpdateInfoUser({ lists: newImg, nameLink })
       setImgCard('')
+    }
+  }
+
+  const addCardVideo = async (e: any) => {
+    setChangeImgVideo(e)
+    if (videoCard) {
+      const newVd = produce(lists, (draft: any) => {
+        draft.push({ id: Date.now(), type: 'videoCard', url: videoCard })
+      })
+      setLists(newVd)
+      UpdateInfoUser({ lists: newVd, nameLink })
+      setVideoCard('')
     }
   }
 
@@ -137,7 +149,6 @@ const User = ({ params }: any) => {
   useEffect(() => {
     // window.location.reload()
   }, [plan, image, name, bio, lists, imgCard])
-
   // join ins User page
   const JoinUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
@@ -286,7 +297,7 @@ const User = ({ params }: any) => {
                   {settings && (
                     <>
                       <div className="box_settings">
-                        <p>mudar senha!</p>
+                        <p>Mudar senha!</p>
                       </div>
                     </>
                   )}
@@ -296,14 +307,17 @@ const User = ({ params }: any) => {
                   addCardLink={addCardLink}
                   addCardText={addCardText}
                   addCardMap={addCardMap}
-                  addCardImgVideo={addCardImgVideo}
+                  addCardImg={addCardImg}
+                  addCardVideo={addCardVideo}
 
                   setLink={setLink}
                   setChangWidth={setChangWidth}
                   setImgCard={setImgCard}
+                  setVideoCard={setVideoCard}
 
                   dateSharedProfile={dateSharedProfile}
                   imgCard={imgCard}
+                  videoCard={videoCard}
                   link={link}
                   nameLink={nameLink}
                 />
@@ -318,7 +332,7 @@ const User = ({ params }: any) => {
                     Criar conta
                   </Link>
                   <Link href="/Login" target="__blank">
-                    Logar
+                    Entrar
                   </Link>
                 </div>
               </>

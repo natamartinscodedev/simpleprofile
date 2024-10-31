@@ -6,9 +6,7 @@ interface typeImgVd {
   url : {
     url: string
   },
-  changeImgVideo: any
 }
-
 
 const index = ({ url }: any) => {
  return (
