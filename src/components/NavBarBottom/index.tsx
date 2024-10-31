@@ -1,52 +1,66 @@
 'use client'
 
-import { Link, MonitorSmartphone, TabletSmartphone, X } from 'lucide-react'
-import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
-import { storage } from "@/firebase/firebase";
+import {
+  FileImage,
+  FileVideo,
+  Link,
+  MapPinned,
+  MonitorSmartphone,
+  NotebookPen,
+  TabletSmartphone,
+  X
+} from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import BtnLinks from './buttomLinks'
-import Midia from '../../../public/Images/icons/image.png'
 import Map from '../../../public/Images/icons/map.png'
 import Text from '../../../public/Images/icons/text.png'
 import QRCodeGenerator from '../QRCodeGenerator'
+import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
 
 const NavbarBottom = ({
   addCardLink,
   addCardText,
   addCardMap,
   setImgCard,
+  setVideoCard,
   setLink,
   link,
   imgCard,
-  addCardImgVideo,
+  videoCard,
+  addCardImg,
+  addCardVideo,
   setChangWidth,
   nameLink,
 }: any) => {
-  const [openModal, setOpenMadl] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
   const [linkShared, setLinkShared] = useState('')
   const [typeInputMidia, setTypeInputMidia] = useState('')
 
   const handleImageChange = async (e: any) => {
     const file = e.target.files[0]
-    const fileType = file.type;
-
-    if (!file) return;
-    const storageRef = ref(storage, `midia/${file.name}`);
-    await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(storageRef);
+    const {downloadURL, fileType }: any = await uploadMidiaStorage(file)
 
     setImgCard(downloadURL)
     setTypeInputMidia(fileType)
   }
+
+  const handleVideoChange = async (e: any) => {
+    const file = e.target.files[0]
+    const {downloadURL, fileType }:any = await uploadMidiaStorage(file)
+
+    setVideoCard(downloadURL)
+    setTypeInputMidia(fileType)
+  }
+
   useEffect(() => {
-    addCardImgVideo(typeInputMidia)
+    addCardImg(typeInputMidia)
+    addCardVideo(typeInputMidia)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgCard])
+  }, [imgCard, videoCard])
 
   const handleLinkUser = () => {
     try {
-      setOpenMadl(!openModal)
-
+      setOpenModal(!openModal)
       const generatedLink = `${window.location.origin}/${nameLink}`
       setLinkShared(generatedLink)
     } catch (err) {
@@ -66,7 +80,7 @@ const NavbarBottom = ({
       </button>
       <ul className="list_buttons-card">
         <BtnLinks
-          icon$img={<Link size={20} color="white" />}
+          Icon$img={<Link size={20} color="white" />}
           nameHover="Link"
           imgBoolean={false}
           openModalType="link"
@@ -79,31 +93,48 @@ const NavbarBottom = ({
           <input
             type="file"
             id="imageInput"
-            accept="image/* ,video/*"
+            accept="image/*"
             multiple
             onChange={handleImageChange}
           />
           <BtnLinks
-            icon$img={Midia}
-            nameHover="Image & Video"
-            imgBoolean={true}
+            Icon$img={<FileImage size={20} color="white"/>}
+            nameHover="Image"
+            imgBoolean={false}
             openModalType="img&video"
             typeInputMidia={typeInputMidia}
-            addCardImgVideo={addCardImgVideo}
-            imgCard={imgCard}
           />
         </div>
+
+        <div className="card_imgvideo">
+          <input
+            type="file"
+            id="videoInput"
+            accept="video/*"
+            multiple
+            onChange={handleVideoChange}
+          />
+          <BtnLinks
+            Icon$img={<FileVideo size={20} color="white" />}
+            nameHover="Video"
+            imgBoolean={false}
+            openModalType="video"
+            typeInputMidia={typeInputMidia}
+          />
+        </div>
+
         <BtnLinks
-          icon$img={Text}
+          Icon$img={<NotebookPen size={20} color="white"/>}
           nameHover="Text"
-          imgBoolean={true}
+          imgBoolean={false}
           openModalType="text"
           addCardText={addCardText}
         />
+
         <BtnLinks
-          icon$img={Map}
+          Icon$img={<MapPinned size={20} color="white"/>}
           nameHover="Mapa"
-          imgBoolean={true}
+          imgBoolean={false}
           openModalType="map"
           addCardMap={addCardMap}
         />
@@ -123,8 +154,8 @@ const NavbarBottom = ({
           data-aos="fade-up"
           data-aos-duration="500"
         >
-          <button id="closed" onClick={() => setOpenMadl(!openModal)}>
-            <X />
+          <button id="closed" onClick={() => setOpenModal(!openModal)}>
+          <X />
           </button>
           <h2>Compartilhe seu perfil com quem você quiser!</h2>
           <QRCodeGenerator linkQrcode={linkShared} />

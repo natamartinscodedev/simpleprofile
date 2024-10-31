@@ -4,13 +4,11 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
 interface typeBtnlinks {
-  icon$img: any
+  Icon$img: any
   nameHover: string
   imgBoolean: boolean
   openModalType: any
   addCardLink?: any
-  addCardImgVideo?: any
-  imgCard?: any
   addCardText?: any
   addCardMap?: any
   setLink?: any
@@ -19,7 +17,7 @@ interface typeBtnlinks {
 }
 
 const BtnLinks = ({
-  icon$img,
+  Icon$img,
   nameHover,
   imgBoolean,
   openModalType,
@@ -78,8 +76,8 @@ const BtnLinks = ({
       >
         <p>{nameHover}</p>
       </div>
-      {imgBoolean === true && <Image src={icon$img} alt="icons links" />}
-      {imgBoolean === false && icon$img}
+      {imgBoolean === true && <Image src={Icon$img} alt="icons links" />}
+      {imgBoolean === false && Icon$img}
     </li>
   )
 }

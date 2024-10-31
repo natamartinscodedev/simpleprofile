@@ -18,8 +18,6 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
   const ref = useRef()
   const { move } = useContext(BoardContext)
   const [cardList, setCardList] = useState(lists)
-  const typeImg = 'jpeg' || 'png' || 'svg'
-
   const [{ isDragging }, dragRef] = useDrag({
     type: 'CARD',
     item: { ID, index, id: date ? date.id : null },
@@ -88,6 +86,7 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
           </div>
         </div>
       )}
+
       {date && date.type === 'imgCard' && (
         <div
           ref={ref}
@@ -95,13 +94,7 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
            ${sharedProfile === 'true' ? 'card_is-dragging' : 'hiderIcon' }`}
         >
           {date && date.type === 'imgCard' && (
-            <>
-              {
-                changeImgVideo === `image/${typeImg}` ? (<CardImg url={date} changeImgVideo={changeImgVideo} />)
-              : (<CardVideo url={date} changeImgVideo={changeImgVideo} />)
-              }
-            </>
-
+            <><CardImg url={date} /></>
           )}
           <div className="card_remove">
             <button onClick={() => handleDeletCrd(index)}>
@@ -110,6 +103,24 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
           </div>
         </div>
       )}
+
+      {date && date.type === 'videoCard' && (
+        <div
+          ref={ref}
+          className={` ${isDragging ? 'dragging' : ''}
+           ${sharedProfile === 'true' ? 'card_is-dragging' : 'hiderIcon' }`}
+        >
+          {date && date.type === 'videoCard' && (
+            <><CardVideo url={date} /></>
+          )}
+          <div className="card_remove">
+            <button onClick={() => handleDeletCrd(index)}>
+              <Trash2 color="white" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {date && date.type === 'map' && (
         <div
           ref={ref}

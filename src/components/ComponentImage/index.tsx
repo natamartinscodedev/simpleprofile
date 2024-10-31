@@ -7,14 +7,12 @@ interface typeImgVd {
   url : {
     url: string
   },
-  changeImgVideo: any
 }
 
-const ImageComponent = ({ url, changeImgVideo }: typeImgVd) => {
-
+const ImageComponent = ({ url }: typeImgVd) => {
   return (
     <div className="box-img">
-        <Image src={url && url.url} alt={url.url} width={100} height={100} />
+        <Image src={url && url.url} alt={url.url} width={1000} height={1000} />
     </div>
   )
 }
