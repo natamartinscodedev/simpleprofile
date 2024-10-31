@@ -26,19 +26,13 @@ const BtnLinks = ({
   addCardLink,
   addCardMap,
   addCardText,
-  addCardImgVideo,
-  imgCard,
   setLink,
   link,
-  typeInputMidia
 }: typeBtnlinks) => {
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
     switch (openModalType) {
-      // case 'img&video':
-      //   addCardImgVideo(typeInputMidia)
-      //   break
       case 'text':
         addCardText()
         break
@@ -55,11 +49,6 @@ const BtnLinks = ({
     addCardLink()
     setOpen(!open)
   }
-
-  // useEffect(() => {
-  //   // addCardImgVideo(typeInputMidia)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [imgCard])
 
   return (
     <li className="card_btn-links" onClick={() => handleClick()}>

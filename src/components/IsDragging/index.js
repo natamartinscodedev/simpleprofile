@@ -1,23 +1,24 @@
 'use client'
-import React, { useRef, useContext, useState } from 'react'
+import React, { useRef, useContext, useState, useEffect } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useSearchParams } from 'next/navigation'
 import BoardContext from '@/components/Board/context'
 import CardLink from '../ComponentLink'
-import CardImgVideo from '../ComponentImage'
+import CardImg from '../ComponentImage'
+import CardVideo from '../ComponentVideo'
 import { Trash2 } from 'lucide-react'
 import { UpdateInfoUser } from '@/utils/updateInfoUser'
 import MapComponent from '../ComponentMap'
 import TextComponent from '../ComponentNote'
 
 const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
-  const searchParams = useSearchParams()
-  const hideNavbar = searchParams.get('active')
+  const [sharedProfile, setSharedProfile] = useState('')
 
   const ID = index
   const ref = useRef()
   const { move } = useContext(BoardContext)
   const [cardList, setCardList] = useState(lists)
+  const typeImg = 'jpeg' || 'png' || 'svg'
 
   const [{ isDragging }, dragRef] = useDrag({
     type: 'CARD',
@@ -65,13 +66,19 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
   })
   dragRef(dropRef(ref))
 
+  useEffect(() => {
+    const SharedProfile = window.localStorage.getItem('sharedProfile')
+    setSharedProfile(SharedProfile)
+
+  }, [])
+
   return (
     <>
       {date && date.type === 'linkCard' && (
         <div
           ref={ref}
-          className={`card_is-dragging-links ${isDragging ? 'dragging' : ''} 
-            ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
+          className={`card_is-dragging-links ${isDragging ? 'dragging' : ''}
+           ${sharedProfile === 'true' ? 'card_is-dragging': 'hiderIcon' } `}
         >
           {date.type === 'linkCard' && <CardLink link={date.link} />}
           <div className="card_remove">
@@ -84,11 +91,17 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
       {date && date.type === 'imgCard' && (
         <div
           ref={ref}
-          className={` ${isDragging ? 'dragging' : ''} 
-          ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
+          className={` ${isDragging ? 'dragging' : ''}
+           ${sharedProfile === 'true' ? 'card_is-dragging' : 'hiderIcon' }`}
         >
           {date && date.type === 'imgCard' && (
-            <CardImgVideo url={date.url} changeImgVideo={changeImgVideo} />
+            <>
+              {
+                changeImgVideo === `image/${typeImg}` ? (<CardImg url={date} changeImgVideo={changeImgVideo} />)
+              : (<CardVideo url={date} changeImgVideo={changeImgVideo} />)
+              }
+            </>
+
           )}
           <div className="card_remove">
             <button onClick={() => handleDeletCrd(index)}>
@@ -100,8 +113,8 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
       {date && date.type === 'map' && (
         <div
           ref={ref}
-          className={` ${isDragging ? 'dragging' : ''} 
-          ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
+          className={` ${isDragging ? 'dragging' : ''}
+          ${sharedProfile === 'true' ? 'card_is-dragging': 'hiderIcon' }`}
         >
           {date && date.type === 'map' && <MapComponent />}
           <div className="card_remove">
@@ -114,8 +127,8 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
       {date && date.type === 'text' && (
         <div
           ref={ref}
-          className={` ${isDragging ? 'dragging' : ''} 
-          ${hideNavbar ? 'hiderIcon' : 'card_is-dragging'}`}
+          className={` ${isDragging ? 'dragging' : ''}
+         ${sharedProfile === 'true' ?  'card_is-dragging':'hiderIcon' }`}
         >
           {date && date.type === 'text' && <TextComponent />}
           <div className="card_remove">
