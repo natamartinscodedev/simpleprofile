@@ -297,11 +297,14 @@ const User = ({ params }: any) => {
                   addCardText={addCardText}
                   addCardMap={addCardMap}
                   addCardImgVideo={addCardImgVideo}
-                  link={link}
+
                   setLink={setLink}
-                  setImgCard={setImgCard}
-                  imgCard={imgCard}
                   setChangWidth={setChangWidth}
+                  setImgCard={setImgCard}
+
+                  dateSharedProfile={dateSharedProfile}
+                  imgCard={imgCard}
+                  link={link}
                   nameLink={nameLink}
                 />
                 <div>

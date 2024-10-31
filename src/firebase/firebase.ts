@@ -1,5 +1,6 @@
 // firebase.js ou firebase.ts
 import { initializeApp } from 'firebase/app'
+import { getStorage } from "firebase/storage";
 import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -14,7 +15,7 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
-console.log('Firebase ON!', auth)
-
-export { auth }
+export const storage = getStorage(app);
+console.log("On ==>", storage)
+// const auth = getAuth(app)
+// export { auth }

@@ -1,6 +1,8 @@
 'use client'
 
 import { Link, MonitorSmartphone, TabletSmartphone, X } from 'lucide-react'
+import { ref, uploadBytes, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { storage } from "@/firebase/firebase";
 import React, { useEffect, useState } from 'react'
 import BtnLinks from './buttomLinks'
 import Midia from '../../../public/Images/icons/image.png'
@@ -19,24 +21,23 @@ const NavbarBottom = ({
   addCardImgVideo,
   setChangWidth,
   nameLink,
-  emailUser,
-  setData
 }: any) => {
   const [openModal, setOpenMadl] = useState(false)
   const [linkShared, setLinkShared] = useState('')
   const [typeInputMidia, setTypeInputMidia] = useState('')
 
-  const handleImageChange = (e: any) => {
+  const handleImageChange = async (e: any) => {
     const file = e.target.files[0]
-    const typeMidia = e.target.files[0].type
-    setTypeInputMidia(typeMidia)
+    const fileType = file.type;
 
-    if (file) {
-      const imageUrl = URL.createObjectURL(file)
-      setImgCard(imageUrl)
-    }
+    if (!file) return;
+    const storageRef = ref(storage, `midia/${file.name}`);
+    await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+
+    setImgCard(downloadURL)
+    setTypeInputMidia(fileType)
   }
-
   useEffect(() => {
     addCardImgVideo(typeInputMidia)
     // eslint-disable-next-line react-hooks/exhaustive-deps
