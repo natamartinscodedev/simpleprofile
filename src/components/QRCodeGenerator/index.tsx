@@ -12,13 +12,14 @@ const QRCodeGenerator = ({ linkQrcode }: any) => {
         text={linkQrcode}
         options={{
           errorCorrectionLevel: 'M',
-          margin: 3,
-          scale: 4,
-          width: 200,
+          margin:2,
+          scale: 5,
+          width: 250,
           color: {
             dark: '#ffffff',
-            light: '#030659'
-          }
+            light: '#333'
+          },
+          quality: 1000,
         }}
       />
     </>

@@ -8,6 +8,7 @@ import { produce } from 'immer'
 import Image from 'next/image'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import DarkMode from '@/components/ButtonDark/Index'
 import { BadgePlus, LogOut, Settings } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -23,7 +24,7 @@ const User = ({ params }: any) => {
   const nameLink: any = params.UserProfile
   const router = useRouter()
   const [joinUser, setJoinUser] = useState(false)
-  const [user, setUser] = useState('')
+  const [user, setUser]: any = useState('')
   const [dateSharedProfile, setData] = useState('')
 
   const [plan, setPlan] = useState<string>('')
@@ -42,7 +43,7 @@ const User = ({ params }: any) => {
     const file = e.target.files[0]
     if (file) {
       const imageUrl: any = URL.createObjectURL(file)
-      const {downloadURL, fileType }: any = await uploadMidiaStorage(file)
+      const { downloadURL, fileType }: any = await uploadMidiaStorage(file)
 
       setImage(downloadURL)
       UpdateInfoUser({ image: downloadURL, nameLink })
@@ -83,7 +84,7 @@ const User = ({ params }: any) => {
 
   const addCardText = async () => {
     const newList = produce(lists, (draft: any) => {
-      draft.push({ id: Date.now(), type: 'text', link: link })
+      draft.push({ id: Date.now(), type: 'text', text: '' })
     })
 
     setLists(newList)
@@ -125,30 +126,34 @@ const User = ({ params }: any) => {
     UpdateInfoUser({ bio: newBio, nameLink })
   }
   //
-  const cardRef: any = useRef(null);
-  const footerRef: any = useRef(null);
-  const [isFixed, setIsFixed] = useState(false);
+  const cardRef: any = useRef(null)
+  const footerRef: any = useRef(null)
+  const [isFixed, setIsFixed] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
       if (cardRef.current && footerRef.current) {
-        const footerTop: any = footerRef.current.getBoundingClientRect().top;
-        const cardBottom: any = cardRef.current.getBoundingClientRect().bottom;
+        const footerTop: any = footerRef.current.getBoundingClientRect().top
+        const cardBottom: any = cardRef.current.getBoundingClientRect().bottom
 
         if (footerTop - cardBottom <= 36) {  // 36px de margem para suavidade
-          setIsFixed(true);
+          setIsFixed(true)
         } else {
-          setIsFixed(false);
+          setIsFixed(false)
         }
       }
-    };
-    console.log("Scroll ==>", isFixed)
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isFixed]);
+    }
+    console.log('Scroll ==>', isFixed)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isFixed])
   //
   const HandleSignOut = () => {
     signOut()
+    window.localStorage.removeItem('')
+    window.localStorage.removeItem('')
+    window.localStorage.removeItem('')
+
     router.push('/')
   }
 
@@ -164,6 +169,7 @@ const User = ({ params }: any) => {
       setBio(bio)
       setImage(image)
       setLists(lists)
+      setUser(User.User)
       UpdateInfoUser({ nameLink: nameLink })
     }
   }
@@ -212,9 +218,12 @@ const User = ({ params }: any) => {
                 ''
               )}
               {dateSharedProfile === 'true' && (
-                <button onClick={() => HandleSignOut()} className="sing-out">
-                  <LogOut />
-                </button>
+                <>
+                  <DarkMode />
+                  <button onClick={() => HandleSignOut()} className="sing-out">
+                    <LogOut />
+                  </button>
+                </>
               )}
             </div>
             <div className="container_user container">
@@ -310,7 +319,7 @@ const User = ({ params }: any) => {
           </div>
           <>
             {dateSharedProfile === 'true' ? (
-              <div className={`container_navbar-bottom ${isFixed === true ? 'fixed'  : ''}`} ref={cardRef}>
+              <div className={`container_navbar-bottom ${isFixed === true ? 'fixed' : ''}`} ref={cardRef}>
                 <div className="container_settings">
                   <button onClick={() => setSettings(!settings)}>
                     <Settings />
@@ -318,35 +327,44 @@ const User = ({ params }: any) => {
                   </button>
                   {settings && (
                     <>
-                      <div className="box_settings">
-                        <p>Mudar senha!</p>
+                      <div className="box_settings" data-aos="fade-up">
+                        <div className="card_settings-list">
+                          <p>Mudar LinkPersonalizado</p>
+                          <p>/{nameLink}</p>
+                        </div>
+                        <div className="card_settings-list">
+                          <p>Mudar Email</p>
+                          <p>{user.email}</p>
+                        </div>
+                        <div className="card_settings-list">
+                          <p>Mudar Senha</p>
+                          <p>************</p>
+                        </div>
                       </div>
                     </>
                   )}
                 </div>
 
-                <div>
-                  <NavbarBottom
-                    addCardLink={addCardLink}
-                    addCardText={addCardText}
-                    addCardMap={addCardMap}
-                    addCardImg={addCardImg}
-                    addCardVideo={addCardVideo}
+                <NavbarBottom
+                  addCardLink={addCardLink}
+                  addCardText={addCardText}
+                  addCardMap={addCardMap}
+                  addCardImg={addCardImg}
+                  addCardVideo={addCardVideo}
 
-                    setLink={setLink}
-                    setChangWidth={setChangWidth}
-                    setImgCard={setImgCard}
-                    setVideoCard={setVideoCard}
+                  setLink={setLink}
+                  setChangWidth={setChangWidth}
+                  setImgCard={setImgCard}
+                  setVideoCard={setVideoCard}
 
-                    dateSharedProfile={dateSharedProfile}
-                    imgCard={imgCard}
-                    videoCard={videoCard}
-                    link={link}
-                    nameLink={nameLink}
-                  />
-                </div>
+                  dateSharedProfile={dateSharedProfile}
+                  imgCard={imgCard}
+                  videoCard={videoCard}
+                  link={link}
+                  nameLink={nameLink}
+                />
 
-                <div className='container_logo-info'>
+                <div className="container_logo-info">
                   <b>© SimpleProfile - 2024</b>
                 </div>
               </div>
@@ -363,7 +381,7 @@ const User = ({ params }: any) => {
               </>
             )}
           </>
-          <footer className='container container_footer-user' ref={footerRef}>
+          <footer className="container container_footer-user" ref={footerRef}>
             <div className="container_settings-footer">
               <button onClick={() => setSettings(!settings)}>
                 <Settings />
@@ -372,13 +390,24 @@ const User = ({ params }: any) => {
               {settings && (
                 <>
                   <div className="box_settings">
-                    <p>Mudar senha!</p>
+                    <div className="card_settings-list">
+                      <p>Mudar LinkPersonalizado</p>
+                      <p>/{nameLink}</p>
+                    </div>
+                    <div className="card_settings-list">
+                      <p>Mudar Email</p>
+                      <p>{user.email}</p>
+                    </div>
+                    <div className="card_settings-list">
+                      <p>Mudar Senha</p>
+                      <p>************</p>
+                    </div>
                   </div>
                 </>
               )}
             </div>
 
-            <div className='container_logo-info-footer'>
+            <div className="container_logo-info-footer">
               <b>© SimpleProfile - 2024</b>
             </div>
           </footer>

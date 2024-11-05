@@ -1,12 +1,37 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { UpdateInfoUser } from '@/utils/updateInfoUser'
 
-import React from 'react'
+const TextComponent = ({ notedate, lists, nameLink }: any) => {
+  const [note, setNote] = useState<string>(notedate.text)
 
-const TextComponent = () => {
+  const updateCardText = (cardId: any, newText: any) => {
+    const updatedList = lists.map((card: any) => {
+      if (card && card.id === cardId) {
+        return { ...card, text: newText };
+      }
+      return card;
+    });
+
+    UpdateInfoUser({ lists: updatedList, nameLink });
+  };
+
+  console.log("Name list ==>", )
+
+   useEffect(() => {
+     updateCardText(notedate.id, note)
+   }, [note])
+
   return (
     <div className='card_note'>
-      <textarea  name="note" id="note"/>
+      <textarea
+        name="note"
+        id="note"
+        value={note}
+        onChange={(e: any) => setNote(e.target.value)}
+        placeholder='Sua frase...'
+        ></textarea>
     </div>
   )
 }
