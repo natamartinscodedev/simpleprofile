@@ -289,7 +289,10 @@ const User = ({ params }: any) => {
                         placeholder="Sua bio..."
                       ></textarea>
                     ) : (
-                      <>{bio}</>
+                        <textarea
+                          id="bioInput"
+                          value={bio}
+                        ></textarea>
                     )}
                   </p>
                 </div>
