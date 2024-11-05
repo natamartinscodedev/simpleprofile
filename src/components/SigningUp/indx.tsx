@@ -20,22 +20,22 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
   const handleSubmit = async () => {
     if (password && email) {
       try {
-        await FetchPost({
-          nameLink,
-          email,
-          password: password,
-          plans: price,
-          name: '',
-          bio: '',
-          image: '',
-          lists: []
-        })
-
-        window.localStorage.setItem('emailForSignIn', email)
-        alert(
-          `Criado com sucesso🤠 ${nameLink}! Monte seu perfil da forma ideal!..🚀`
-        )
-        router.push(`/${nameLink}`)
+        // await FetchPost({
+        //   nameLink,
+        //   email,
+        //   password: password,
+        //   plans: price,
+        //   name: '',
+        //   bio: '',
+        //   image: '',
+        //   lists: []
+        // })
+        //
+        // window.localStorage.setItem('emailForSignIn', email)
+        // alert(
+        //   `Criado com sucesso🤠 ${nameLink}! Monte seu perfil da forma ideal!..🚀`
+        // )
+        // router.push(`/${nameLink}`)
       } catch (err) {
         console.error('Erro ao enviar o link de autenticação:', err)
       }

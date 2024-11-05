@@ -135,13 +135,14 @@ const ListItem = ({ date, index, lists, nameLink, changeImgVideo }) => {
           </div>
         </div>
       )}
+
       {date && date.type === 'text' && (
         <div
           ref={ref}
           className={` ${isDragging ? 'dragging' : ''}
          ${sharedProfile === 'true' ?  'card_is-dragging':'hiderIcon' }`}
         >
-          {date && date.type === 'text' && <TextComponent />}
+          {date && date.type === 'text' && <TextComponent notedate={date} lists={lists} nameLink={nameLink} />}
           <div className="card_remove">
             <button onClick={() => handleDeletCrd(index)}>
               <Trash2 color="white" />

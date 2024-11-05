@@ -208,7 +208,7 @@
   height: auto;
 
   position: absolute;
-  top: -600%;
+  top: -900%;
   right: 0;
   left: 0;
   z-index: 200;
@@ -264,13 +264,16 @@
 
 .box_settings {
   position: absolute;
-  top: -10rem;
+  top: -18rem;
   display: flex;
+  flex-direction: column;
   align-content: center;
   justify-content: center;
+  gap: 1rem;
+  text-align: center;
   margin: 0 auto;
-  max-width: 10rem;
-  height: 10rem;
+  max-width: 15rem;
+  height: 15rem;
   width: 100%;
   background-color: #f1f1f1;
   color: #333;
@@ -278,6 +281,16 @@
   padding: 1rem;
 }
 
+.card_settings-list {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+    scale: 1.01;
+  }
+}
 @media (max-width: 700px) {
   .card_navbar-bottom {
     max-width: 100%;

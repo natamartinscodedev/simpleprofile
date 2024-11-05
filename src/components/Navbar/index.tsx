@@ -31,7 +31,7 @@ const NavBar = ({ state }: typeState) => {
           </li>
           {on ?? (
             <li>
-              <CardLink text="Login" link="/Login" />
+              <CardLink text="Login" link="/Login"  />
             </li>
           )}
           {/* <Langues /> */}

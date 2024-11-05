@@ -35,6 +35,7 @@
 
   h1 input,
   p input {
+    font-weight: bold;
     border: none;
     outline: none;
     background-color: transparent;
@@ -53,12 +54,11 @@
     textarea {
       max-width: 350px;
       width: 100%;
-      min-height: 120px;
+      min-height: 300px;
       max-height: 200px;
-      //height: 200px;
 
       background-color: transparent;
-      color: #fff;
+      color: #c7c7c7;
       border: none;
       outline: none;
       resize: none;
@@ -297,6 +297,15 @@
           display: none;
         }
       }
+    }
+  }
+}
+
+
+@media (max-width: 425px) {
+  .box_info-user {
+    h1 input{
+      width: 100%;
     }
   }
 }

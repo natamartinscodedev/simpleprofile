@@ -99,8 +99,8 @@ const Index = () => {
             </form>
             <p>----------------- or -----------------</p>
             <div className="card_login-btn-login">
-              <button onClick={() => signIn('google')}>Google</button>
-              <button onClick={() => signIn('github')}>Github</button>
+              <button onClick={() => signIn('google')} disabled={true}>Google</button>
+              <button onClick={() => signIn('github')} disabled={true}>Github</button>
             </div>
           </div>
           <div className="card_img-login">
