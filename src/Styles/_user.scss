@@ -19,6 +19,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+
   :hover {
     color: #333;
   }
@@ -125,7 +126,7 @@
   div {
     position: relative;
     max-width: 13rem;
-    height: 13rem;
+    height: 12.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,7 +164,7 @@
     img {
       position: relative;
       max-width: 13rem;
-      height: 13rem;
+      height: 12.3rem;
       border-radius: 50%;
 
       &:hover {
@@ -233,6 +234,7 @@
       margin: 0 auto;
       max-width: 12rem;
       height: 12rem;
+
       img {
         max-width: 12rem;
         height: 12rem;
@@ -291,6 +293,7 @@
           display: none;
         }
       }
+
       img {
         max-width: 12rem;
         height: 12rem;
@@ -306,7 +309,7 @@
 
 @media (max-width: 425px) {
   .box_info-user {
-    h1 input{
+    h1 input {
       width: 100%;
     }
   }

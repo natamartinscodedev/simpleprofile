@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MoveLeft } from 'lucide-react'
+import { Eye, EyeOff, MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useSession, signIn } from 'next-auth/react'
@@ -13,12 +13,17 @@ import { GetDataUser } from '@/utils/getInfoUser'
 
 const Index = () => {
   const { data: session }: any = useSession()
-
+  const router = useRouter()
   const { register, handleSubmit } = useForm()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showAlert, setShowAlert] = useState(false)
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
 
   const handleEmail = async () => {
     try {
@@ -44,6 +49,7 @@ const Index = () => {
       const { User }: any = await GetDataUser(EmailAuth?.email)
       if (EmailAuth?.email === User.email) {
         window.localStorage.setItem('emailForSignIn', session.user.email)
+        window.localStorage.setItem('sharedProfile', 'true')
 
         return router.push(`/${User.nameLink}`)
       } else {
@@ -72,7 +78,12 @@ const Index = () => {
             <Link href="/">
               <MoveLeft />
             </Link>
-            <form onSubmit={handleSubmit(handleEmail)}>
+            <form
+              onSubmit={handleSubmit(handleEmail)}
+              className="card_form-login"
+              data-aos="fade-right"
+              data-aos-duration="1000"
+            >
               <div>
                 <label htmlFor="email">Email</label>
                 <input
@@ -86,12 +97,19 @@ const Index = () => {
               <div>
                 <label htmlFor="email">Password</label>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Digite sua Senha..."
                   value={password}
                   {...register('password')}
                   onChange={(e: any) => setPassword(e.target.value)}
                 />
+                {/*<button*/}
+                {/*  type="button"*/}
+                {/*  onClick={togglePasswordVisibility}*/}
+                {/*  style={{ marginLeft: '10px' }}*/}
+                {/*>*/}
+                {/*  {showPassword ? <EyeOff/> : <Eye/>}*/}
+                {/*</button>*/}
               </div>
               <button type="submit">
                 {showAlert ? 'Carregando...' : 'Entrar'}
@@ -99,11 +117,14 @@ const Index = () => {
             </form>
             <p>----------------- or -----------------</p>
             <div className="card_login-btn-login">
-              <button onClick={() => signIn('google')} disabled={true}>Google</button>
-              <button onClick={() => signIn('github')} disabled={true}>Github</button>
+              <button onClick={() => signIn('google')} disabled={false}>Google</button>
+              <button onClick={() => signIn('github')} disabled={false}>Github</button>
             </div>
           </div>
-          <div className="card_img-login">
+          <div
+            className="card_img-login"
+            data-aos="fade-left"
+            data-aos-duration="1000">
             <Image src={ImageIconPage} width={400} alt="logo login" />
           </div>
         </div>

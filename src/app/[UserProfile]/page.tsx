@@ -125,6 +125,7 @@ const User = ({ params }: any) => {
     setBio(newBio)
     UpdateInfoUser({ bio: newBio, nameLink })
   }
+
   //
   const cardRef: any = useRef(null)
   const footerRef: any = useRef(null)
@@ -137,24 +138,30 @@ const User = ({ params }: any) => {
         const cardBottom: any = cardRef.current.getBoundingClientRect().bottom
 
         if (footerTop - cardBottom <= 36) {  // 36px de margem para suavidade
-          setIsFixed(true)
+          if (dateSharedProfile === 'false') {
+            setIsFixed(true)
+          } else {
+            setIsFixed(false)
+          }
         } else {
           setIsFixed(false)
         }
       }
     }
-    console.log('Scroll ==>', isFixed)
+
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isFixed])
   //
-  const HandleSignOut = () => {
-    signOut()
-    window.localStorage.removeItem('')
-    window.localStorage.removeItem('')
-    window.localStorage.removeItem('')
 
-    router.push('/')
+  const HandleSignOut = () => {
+    if (joinUser && user) {
+      signOut()
+      window.localStorage.removeItem('emailForSignIn')
+      window.localStorage.removeItem('sharedProfile')
+
+      router.push('/')
+    }
   }
 
   const getUser = async () => {
@@ -174,9 +181,6 @@ const User = ({ params }: any) => {
     }
   }
 
-  useEffect(() => {
-    // window.location.reload()
-  }, [plan, image, name, bio, lists, imgCard])
   // join ins User page
   const JoinUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
@@ -187,11 +191,13 @@ const User = ({ params }: any) => {
     if (User && User.email === email) {
       setJoinUser(!joinUser)
       setUser(User)
-    } else {
-      alert('Você não possue uma conta! Tente novamente com os dados correto!')
-      router.push('/Login')
     }
   }
+
+  useEffect(() => {
+    // window.location.reload()
+    // getUser()
+  }, [plan, image, name, bio, lists, imgCard])
 
   useEffect(() => {
     getUser()
@@ -220,7 +226,7 @@ const User = ({ params }: any) => {
               {dateSharedProfile === 'true' && (
                 <>
                   <DarkMode />
-                  <button onClick={() => HandleSignOut()} className="sing-out">
+                  <button onClick={HandleSignOut} className="sing-out">
                     <LogOut />
                   </button>
                 </>
@@ -289,10 +295,10 @@ const User = ({ params }: any) => {
                         placeholder="Sua bio..."
                       ></textarea>
                     ) : (
-                        <textarea
-                          id="bioInput"
-                          value={bio}
-                        ></textarea>
+                      <textarea
+                        id="bioInput"
+                        value={bio}
+                      ></textarea>
                     )}
                   </p>
                 </div>
@@ -360,6 +366,8 @@ const User = ({ params }: any) => {
                   setImgCard={setImgCard}
                   setVideoCard={setVideoCard}
 
+                  lists={lists}
+                  plan={plan}
                   dateSharedProfile={dateSharedProfile}
                   imgCard={imgCard}
                   videoCard={videoCard}

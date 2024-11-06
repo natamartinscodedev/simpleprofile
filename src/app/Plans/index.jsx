@@ -24,7 +24,11 @@ const Plans = ({ email, nameLink }) => {
           // stateLink={stateLink}
         />
       ) : (
-        <div className="container_plans">
+        <div
+          className="container_plans"
+          data-aos="fade-left"
+          data-aos-duration="1000"
+        >
           <CardPlan
             tipePlan="Simple"
             price={'Free'}
@@ -32,7 +36,7 @@ const Plans = ({ email, nameLink }) => {
             idPlans="id_plans-free"
             email={email}
             nameLink={nameLink}
-            // stateLink={false}
+            stateLink={false}
             handleclick={handleclick}
           >
             <li>

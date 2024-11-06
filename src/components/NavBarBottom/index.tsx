@@ -16,28 +16,31 @@ import QRCodeGenerator from '../QRCodeGenerator'
 import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
 
 const NavbarBottom = ({
-  addCardLink,
-  addCardText,
-  addCardMap,
-  setImgCard,
-  setVideoCard,
-  setLink,
-  link,
-  imgCard,
-  videoCard,
-  addCardImg,
-  addCardVideo,
-  setChangWidth,
-  nameLink,
-  isFixed
-}: any) => {
+                        addCardLink,
+                        addCardText,
+                        addCardMap,
+                        setImgCard,
+                        setVideoCard,
+                        setLink,
+                        link,
+                        imgCard,
+                        videoCard,
+                        addCardImg,
+                        addCardVideo,
+                        setChangWidth,
+                        nameLink,
+                        isFixed,
+                        lists,
+                        plan
+                      }: any) => {
   const [openModal, setOpenModal] = useState(false)
   const [linkShared, setLinkShared] = useState('')
   const [typeInputMidia, setTypeInputMidia] = useState('')
+  const [typePlan, setTypePlan] = useState(false)
 
   const handleImageChange = async (e: any) => {
     const file = e.target.files[0]
-    const {downloadURL, fileType }: any = await uploadMidiaStorage(file)
+    const { downloadURL, fileType }: any = await uploadMidiaStorage(file)
 
     setImgCard(downloadURL)
     setTypeInputMidia(fileType)
@@ -45,7 +48,7 @@ const NavbarBottom = ({
 
   const handleVideoChange = async (e: any) => {
     const file = e.target.files[0]
-    const {downloadURL, fileType }:any = await uploadMidiaStorage(file)
+    const { downloadURL, fileType }: any = await uploadMidiaStorage(file)
 
     setVideoCard(downloadURL)
     setTypeInputMidia(fileType)
@@ -72,13 +75,19 @@ const NavbarBottom = ({
     alert('Link copiado!')
   }
 
+  useEffect(() => {
+    if (lists.length > 6 && plan === 'Free') {
+      setTypePlan(!typePlan)
+    }
+  }, [lists])
+
   return (
-    <div className='card_navbar-bottom'>
+    <div className="card_navbar-bottom">
       <button className="btn_mylink" onClick={() => handleLinkUser()}>
         Meu link
       </button>
 
-      <ul className="list_buttons-card">
+      <ul className={`list_buttons-card ${typePlan === true && 'disabledPlanFree'}`}>
         <BtnLinks
           Icon$img={<Link size={20} color="white" />}
           nameHover="Link"
@@ -98,7 +107,7 @@ const NavbarBottom = ({
             onChange={handleImageChange}
           />
           <BtnLinks
-            Icon$img={<FileImage size={20} color="white"/>}
+            Icon$img={<FileImage size={20} color="white" />}
             nameHover="Image"
             imgBoolean={false}
             openModalType="img&video"
@@ -124,7 +133,7 @@ const NavbarBottom = ({
         </div>
 
         <BtnLinks
-          Icon$img={<NotebookPen size={20} color="white"/>}
+          Icon$img={<NotebookPen size={20} color="white" />}
           nameHover="Text"
           imgBoolean={false}
           openModalType="text"
@@ -132,7 +141,7 @@ const NavbarBottom = ({
         />
 
         <BtnLinks
-          Icon$img={<MapPinned size={20} color="white"/>}
+          Icon$img={<MapPinned size={20} color="white" />}
           nameHover="Mapa"
           imgBoolean={false}
           openModalType="map"
@@ -156,7 +165,7 @@ const NavbarBottom = ({
           data-aos-duration="500"
         >
           <button id="closed" onClick={() => setOpenModal(!openModal)}>
-          <X />
+            <X />
           </button>
           <h2>Compartilhe seu perfil com quem você quiser!</h2>
           <QRCodeGenerator linkQrcode={linkShared} />

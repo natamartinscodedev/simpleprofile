@@ -45,6 +45,8 @@ const SingUp = () => {
               <form
                 onSubmit={handleSubmit(handlePush)}
                 className="box_input-namelink"
+                data-aos="fade-right"
+                data-aos-duration="1000"
               >
                 <div className="box_input-namelink-input">
                   <span>simpleprofile.me/</span>
@@ -72,7 +74,11 @@ const SingUp = () => {
               </form>
               <Link href="/Login">Faça login</Link>
             </div>
-            <div className="box_info-image">
+            <div
+              className="box_info-image"
+              data-aos="fade-left"
+              data-aos-duration="1000"
+            >
               <Image src={ImageIconPage} alt="" />
             </div>
           </div>
