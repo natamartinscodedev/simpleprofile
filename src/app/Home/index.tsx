@@ -166,41 +166,19 @@ const Home = () => {
               <Image src={Logo} width={150} alt="logo" priority />
             </Link>
             <div>
-              <ul>
-                <li>
-                  <Link href="">About </Link>
-                </li>
-                <li>
-                  <Link href="">Company </Link>
-                </li>
-                <li>
-                  <Link href="">Home </Link>
-                </li>
-              </ul>
-              <ul>
-                <li>
-                  <Link href="">Contact </Link>
-                </li>
-                <li>
-                  <Link href="">Email </Link>
-                </li>
-                <li>
-                  <Link href="">locale </Link>
-                </li>
-              </ul>
               <ul className="social_midia">
                 <li>
-                  <Link href="">
+                  <Link href="https://discord.gg/p8SnYKs6eZ" target="_blank">
                     <Disc3 />
                   </Link>
                 </li>
                 <li>
-                  <Link href="">
+                  <Link href="https://www.linkedin.com/company/simpleprofile" target="_blank">
                     <Linkedin />
                   </Link>
                 </li>
                 <li>
-                  <Link href="">
+                  <Link href="" target="_blank">
                     <Instagram />{' '}
                   </Link>
                 </li>

@@ -19,18 +19,18 @@ interface typePlans {
 }
 
 const CardPlan = ({
-  tipePlan,
-  price,
-  state,
-  children,
-  // idPlans,
-  // stateLink,
-  // email,
-  // nameLink,
-  disable,
-  handleclick
-}: // setPlan
-typePlans) => {
+                    tipePlan,
+                    price,
+                    state,
+                    children,
+                    // idPlans,
+                    stateLink,
+                    // email,
+                    // nameLink,
+                    disable,
+                    handleclick
+                  }: // setPlan
+                    typePlans) => {
   const router = useRouter()
   return (
     <>
@@ -45,13 +45,21 @@ typePlans) => {
 
         <ul>{children}</ul>
 
-        <button
-          // onClick={() => handleclick({ price })}
-          onClick={() => router.push(`/LinkPersonalize`)}
-          // disabled={disable === true && true}
-        >
-          Criar conta já
-        </button>
+        {
+          stateLink ? (
+            <button
+              onClick={() => handleclick({ price })}
+            >
+              Criar conta já
+            </button>
+          ) : (
+            <button
+              onClick={() => router.push('/LinkPersonalizado')}
+            >
+              Criar conta já
+            </button>
+          )
+        }
       </div>
     </>
   )

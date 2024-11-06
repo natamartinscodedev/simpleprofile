@@ -7,18 +7,36 @@ import ImageIconPage from '../../../public/Images/image_pages.png'
 import Plans from '@/app/Plans/index'
 import { Mail, MoveLeft } from 'lucide-react'
 import Link from 'next/link'
+import { signIn, useSession } from 'next-auth/react'
+import { GetDataUser } from '@/utils/getInfoUser'
+
 interface TypeProps {
   changeState: any
   nameLink: string
 }
 
 const Index = ({ changeState, nameLink }: TypeProps) => {
+  const { data: session }: any = useSession()
   const [email, setEmail] = useState<string | ''>('')
   const [openPlan, setOpenPlan] = useState(false)
 
   function createUserPlan() {
     setOpenPlan(true)
   }
+
+  async function createUserPlanAuth() {
+    const EmailAuth = session?.user
+    const { User }: any = await GetDataUser(EmailAuth?.email)
+
+    if (EmailAuth?.email && User) {
+      setEmail(EmailAuth?.email)
+      setOpenPlan(true)
+    }
+  }
+
+  useEffect(() => {
+    createUserPlanAuth()
+  }, [session])
 
   const backPage = (e: any) => {
     e.preventDefault()
@@ -69,7 +87,10 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
                 se cadastrar!
               </b>
             </div>
-            <form className="box_input-form">
+            <form className="box_input-form"
+                  data-aos="fade-right"
+                  data-aos-duration="1000"
+            >
               {/* add zood for validation in all forms*/}
               <div>
                 <span>
@@ -87,13 +108,20 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
               </div>
 
               <button onClick={() => createUserPlan()}>Escolher Plano</button>
-            </form>
-            <div className="box_link-login">
               <p> ------------ OR ------------ </p>
-              <Link href="/LinkPersonalize">Faça Login</Link>
-            </div>
+              <p>Cirar com:</p>
+
+              <div className="box_input-form-buttons">
+                <button onClick={() => signIn('google')}>Google</button>
+                <button onClick={() => signIn('github')}>Github</button>
+              </div>
+            </form>
           </div>
-          <div className="container_sing-up-image">
+          <div
+            className="container_sing-up-image"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
             <Image src={ImageIconPage} alt="" />
           </div>
         </div>

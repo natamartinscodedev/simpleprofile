@@ -6,6 +6,12 @@
   margin: 0 auto;
 }
 
+.box_input-form-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .box_info_link-name {
   a {
     background-color: transparent;

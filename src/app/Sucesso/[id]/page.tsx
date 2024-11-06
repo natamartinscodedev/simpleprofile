@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-// import { UpdateInfoUser } from '@/utils/updateInfoUser'
+import { UpdateInfoUser } from '@/utils/updateInfoUser'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
@@ -13,7 +13,7 @@ const SucessoPayment = ({ params }: any) => {
 
   useEffect(() => {
     console.log('ID ==>', id_session_payment, nameLink_Id)
-    // UpdateInfoUser({ plans: id_session_payment, nameLink: nameLink_Id })
+    UpdateInfoUser({ plans: id_session_payment, nameLink: nameLink_Id })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -27,7 +27,7 @@ const SucessoPayment = ({ params }: any) => {
             : 'Falha no pagamento.'}
         </h2>
         <div className="box_sucesso-info">
-          <p>Agora, faça login e monte seu super perfil.</p>
+          <p>Monte seu super perfil da melhor forma.</p>
           <h3>🚀🚀🚀</h3>
           <Link href="/Login" target="__blanck">
             Login

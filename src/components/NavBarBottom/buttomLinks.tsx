@@ -14,19 +14,21 @@ interface typeBtnlinks {
   setLink?: any
   link?: any
   typeInputMidia?: any
+  statusPlans?: any
 }
 
 const BtnLinks = ({
-  Icon$img,
-  nameHover,
-  imgBoolean,
-  openModalType,
-  addCardLink,
-  addCardMap,
-  addCardText,
-  setLink,
-  link,
-}: typeBtnlinks) => {
+                    Icon$img,
+                    nameHover,
+                    imgBoolean,
+                    openModalType,
+                    addCardLink,
+                    addCardMap,
+                    addCardText,
+                    setLink,
+                    link,
+                    statusPlans
+                  }: typeBtnlinks) => {
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
@@ -49,7 +51,7 @@ const BtnLinks = ({
   }
 
   return (
-    <li className="card_btn-links" onClick={() => handleClick()}>
+    <li className={`card_btn-links`} onClick={() => handleClick()} aria-disabled={true}>
       {open ? (
         <>
           <div
