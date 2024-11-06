@@ -15,15 +15,21 @@ const roboto = Roboto({
 })
 
 export default async function LocaleLayout({
-  children
-}: {
+                                             children
+                                           }: {
   children: React.ReactNode
 }) {
   return (
     <html lang="pt-BR">
-      <body className={roboto.className}>
-        <Provider>{children}</Provider>
-      </body>
+    <head>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3446067000341217"
+        crossOrigin="anonymous"></script>
+    </head>
+    <body className={roboto.className}>
+    <Provider>{children}</Provider>
+    </body>
     </html>
   )
 }
