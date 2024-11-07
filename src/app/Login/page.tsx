@@ -115,11 +115,11 @@ const Index = () => {
                 {showAlert ? 'Carregando...' : 'Entrar'}
               </button>
             </form>
-            <p>----------------- or -----------------</p>
-            <div className="card_login-btn-login">
-              <button onClick={() => signIn('google')} disabled={false}>Google</button>
-              <button onClick={() => signIn('github')} disabled={false}>Github</button>
-            </div>
+            {/*<p>----------------- or -----------------</p>*/}
+            {/*<div className="card_login-btn-login">*/
+            {/*  <button onClick={() => signIn('google')} disabled={false}>Google</button>*/}
+            {/*  <button onClick={() => signIn('github')} disabled={false}>Github</button>*/}
+            {/*</div>*/}
           </div>
           <div
             className="card_img-login"
