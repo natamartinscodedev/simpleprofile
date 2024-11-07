@@ -111,10 +111,10 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
               <p> ------------ OR ------------ </p>
               <p>Cirar com:</p>
 
-              <div className="box_input-form-buttons">
-                <button onClick={() => signIn('google')}>Google</button>
-                <button onClick={() => signIn('github')}>Github</button>
-              </div>
+              {/*<div className="box_input-form-buttons">*/}
+              {/*  <button onClick={() => signIn('google')}>Google</button>*/}
+              {/*  <button onClick={() => signIn('github')}>Github</button>*/}
+              {/*</div>*/}
             </form>
           </div>
           <div
