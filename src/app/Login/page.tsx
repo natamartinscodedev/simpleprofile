@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+// import bcrypt from 'bcrypt'
 import Image from 'next/image'
 import { Eye, EyeOff, MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -18,20 +19,28 @@ const Index = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  console.log('Passwrod ==>', password)
+  const [passwordCripto, setPasswordCripto] = useState('')
   const [showAlert, setShowAlert] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
+  // const [showPassword, setShowPassword] = useState(false)
+  // const togglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword)
+  // }
+  const handleVerificCriptoPassword = async (e: any) => {
+    // const { User }: any = await GetDataUser(email)
+    setPassword(e)
+    // if (User) {
+    // const isPasswordCorrect: any = await bcrypt.compare(password, User.password)
+    // setPasswordCripto(isPasswordCorrect)
+    // }
   }
 
-  const handleEmail = async () => {
+  const handleLogin = async () => {
     try {
       const { User }: any = await GetDataUser(email)
       if (User.email === email && User.password === password) {
         window.localStorage.setItem('emailForSignIn', email)
         window.localStorage.setItem('sharedProfile', 'true')
-
         setShowAlert(true)
 
         return router.push(`/${User.nameLink}`)
@@ -43,31 +52,31 @@ const Index = () => {
     }
   }
 
-  const loginAuth = async () => {
-    try {
-      const EmailAuth = session?.user
-      const { User }: any = await GetDataUser(EmailAuth?.email)
-      if (EmailAuth?.email === User.email) {
-        window.localStorage.setItem('emailForSignIn', session.user.email)
-        window.localStorage.setItem('sharedProfile', 'true')
-
-        return router.push(`/${User.nameLink}`)
-      } else {
-        alert(
-          'O email desta conta, não está cadastrado em nosso banco de dados! Crie uma conta já!'
-        )
-
-        return router.push(`/LinkPersonalize`)
-      }
-    } catch (err) {
-      console.log('Err ==>', err)
-    }
-  }
-
-  useEffect(() => {
-    loginAuth()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+  // const loginAuth = async () => {
+  //   try {
+  //     const EmailAuth = session?.user
+  //     const { User }: any = await GetDataUser(EmailAuth?.email)
+  //     if (EmailAuth?.email === User.email) {
+  //       window.localStorage.setItem('emailForSignIn', session.user.email)
+  //       window.localStorage.setItem('sharedProfile', 'true')
+  //
+  //       return router.push(`/${User.nameLink}`)
+  //     } else {
+  //       alert(
+  //         'O email desta conta, não está cadastrado em nosso banco de dados! Crie uma conta já!'
+  //       )
+  //
+  //       return router.push(`/LinkPersonalize`)
+  //     }
+  //   } catch (err) {
+  //     console.log('Err ==>', err)
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   loginAuth()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [session])
 
   return (
     <>
@@ -79,7 +88,7 @@ const Index = () => {
               <MoveLeft />
             </Link>
             <form
-              onSubmit={handleSubmit(handleEmail)}
+              onSubmit={handleSubmit(handleLogin)}
               className="card_form-login"
               data-aos="fade-right"
               data-aos-duration="1000"
@@ -101,7 +110,7 @@ const Index = () => {
                   placeholder="Digite sua Senha..."
                   value={password}
                   {...register('password')}
-                  onChange={(e: any) => setPassword(e.target.value)}
+                  onChange={(e: any) => handleVerificCriptoPassword(e.target.value)}
                 />
                 {/*<button*/}
                 {/*  type="button"*/}

@@ -39,11 +39,12 @@ export default function BuyButton({ nameId, price, handleSubmit }: any) {
 
   return (
     <button
-      disabled={isCreatingCheckout}
+      // disabled={isCreatingCheckout}
+      disabled={true}
       className="button_stroe-payment"
       onClick={() => handleClick('price_golde', true)}
     >
-      Assinar
+      Assinar plano Gold já!
     </button>
   )
 }

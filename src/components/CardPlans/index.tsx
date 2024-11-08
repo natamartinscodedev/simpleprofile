@@ -54,7 +54,7 @@ const CardPlan = ({
             </button>
           ) : (
             <button
-              onClick={() => router.push('/LinkPersonalizado')}
+              onClick={() => router.push('/LinkPersonalize')}
             >
               Criar conta já
             </button>

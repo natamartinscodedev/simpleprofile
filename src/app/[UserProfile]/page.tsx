@@ -156,11 +156,10 @@ const User = ({ params }: any) => {
 
   const HandleSignOut = () => {
     if (joinUser && user) {
-      signOut()
+      // signOut()
       window.localStorage.removeItem('emailForSignIn')
       window.localStorage.removeItem('sharedProfile')
-
-      router.push('/')
+      return router.push('/')
     }
   }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Check, MoveLeft, X } from 'lucide-react'
+import { Check, MoveLeft, X, ALargeSmall } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
@@ -14,6 +14,7 @@ const SingUp = () => {
   const { register, handleSubmit } = useForm()
   const [changeComponents, setChangeComponents] = useState(false)
   const [nameLink, setNameLink] = useState('')
+  const [erro, setErro] = useState(false)
   const [load, setLoad] = useState(null)
 
   const handlePush = async (data: any) => {
@@ -22,7 +23,21 @@ const SingUp = () => {
     }
   }
 
+  const handleRegexNameLink = (e: any) => {
+    const nomeRegex = /^[a-zA-Z0-9]+$/
+
+    if (nomeRegex.test(e)) {
+      setErro(false)
+    } else {
+      setErro(true)
+    }
+
+    setNameLink(e)
+  }
+
   useEffect(() => {
+    if (!nameLink) return setLoad(null)
+
     if (nameLink) {
       checkNameAvailability({ nameLink, setLoad })
     }
@@ -56,18 +71,16 @@ const SingUp = () => {
                     required
                     value={nameLink}
                     {...register('name')}
-                    onChange={e => setNameLink(e.target.value)}
+                    onChange={e => handleRegexNameLink(e.target.value)}
                   />
+                  {erro ? (
+                    <p className="card_error-nameLink" style={{ color: 'red' }}>
+                      O nome deve conter apenas letras e números, sem espaços ou caracteres especiais.</p>) : ('')
+                  }
                   <div>
-                    {load && nameLink ? (
-                      <p>
-                        <Check color="green" />
-                      </p>
-                    ) : (
-                      <p>
-                        <X color="red" />
-                      </p>
-                    )}
+                    {load === null && (<ALargeSmall color="black" />)}
+                    {load === true && (<p><Check color="green" /></p>)}
+                    {load === false && (<p><X color="red" /></p>)}
                   </div>
                 </div>
                 {nameLink && <button type="submit">Pegar link</button>}
