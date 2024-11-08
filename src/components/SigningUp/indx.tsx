@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-// import bcrypt from 'bcrypt';
+import { hash } from 'bcryptjs'
 import { FetchPost } from '@/utils/createUser'
 import { useSession, signIn } from 'next-auth/react'
 import BuyButton from '@/components/button-stripe-payment'
@@ -22,13 +22,12 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
   const [password, setPassword] = useState('')
   const [passwordCript, setPasswordCripto] = useState('')
 
-  const handleCriptPassword = async (e:any) => {
+  const handleCriptPassword = async (e: any) => {
     setPassword(e)
 
-    // const saltRounds = 15;
-    // const hashedPassword = await bcrypt.hash(password, saltRounds);
-    //
-    // setPasswordCripto(hashedPassword)
+    const saltRounds = 10
+    const hashedPassword = await hash(password, saltRounds)
+    setPasswordCripto(hashedPassword)
   }
 
   const handleSubmit = async () => {

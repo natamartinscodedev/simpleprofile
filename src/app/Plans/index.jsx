@@ -36,7 +36,8 @@ const Plans = ({ email, nameLink }) => {
             idPlans="id_plans-free"
             email={email}
             nameLink={nameLink}
-            stateLink={false}
+            disable={false}
+            stateLink={true}
             handleclick={handleclick}
           >
             <li>
@@ -55,8 +56,8 @@ const Plans = ({ email, nameLink }) => {
             idPlans="id_plans-gold"
             email={email}
             nameLink={nameLink}
-            // disable={false}
-            // stateLink={false}
+            disable={true}
+            // stateLink={true}
             handleclick={handleclick}
           >
             <li>

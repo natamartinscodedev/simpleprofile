@@ -68,6 +68,28 @@
   gap: 1rem;
 }
 
+.box_input-password-login {
+  position: relative;
+  width: 100%;
+
+  input {
+    position: relative;
+    width: 100%;
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    color: #50c14b;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
 @media (max-width: 850px) {
   .card_img-login {
     display: none;

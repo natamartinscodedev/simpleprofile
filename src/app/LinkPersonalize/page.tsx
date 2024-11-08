@@ -67,7 +67,7 @@ const SingUp = () => {
                   <span>simpleprofile.me/</span>
                   <input
                     type="text"
-                    placeholder="seu-nome"
+                    placeholder="Nome personalizado..."
                     required
                     value={nameLink}
                     {...register('name')}
