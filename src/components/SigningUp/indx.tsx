@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+// import bcrypt from 'bcrypt';
 import { FetchPost } from '@/utils/createUser'
 import { useSession, signIn } from 'next-auth/react'
 import BuyButton from '@/components/button-stripe-payment'
@@ -18,7 +19,17 @@ interface typeItems {
 const SigningUp = ({ email, price, nameLink }: typeItems) => {
   const { data: session }: any = useSession()
   const router = useRouter()
-  const [password, setPasswor] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordCript, setPasswordCripto] = useState('')
+
+  const handleCriptPassword = async (e:any) => {
+    setPassword(e)
+
+    // const saltRounds = 15;
+    // const hashedPassword = await bcrypt.hash(password, saltRounds);
+    //
+    // setPasswordCripto(hashedPassword)
+  }
 
   const handleSubmit = async () => {
     if (password && email) {
@@ -26,7 +37,7 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
         await FetchPost({
           nameLink,
           email,
-          password: password,
+          password: passwordCript,
           plans: price,
           name: '',
           bio: '',
@@ -46,39 +57,39 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
     }
   }
 
-  const loginAuth = async () => {
-    const EmailAuth = session?.user
-    const { User }: any = await GetDataUser(EmailAuth?.email)
-
-    if (EmailAuth?.email && User) {
-      try {
-        await FetchPost({
-          nameLink,
-          email: session.user.email,
-          password: password,
-          plans: price,
-          name: '',
-          bio: '',
-          image: '',
-          lists: []
-        })
-
-        window.localStorage.setItem('emailForSignIn', session.user.email)
-        window.localStorage.setItem('sharedProfile', 'true')
-
-        return router.push(`/${User.nameLink}`)
-      } catch (err) {
-        alert(
-          'O email desta conta, não está cadastrado em nosso banco de dados! Crie uma conta já!'
-        )
-        return router.push(`/LinkPersonalize`)
-      }
-    }
-  }
-
-  useEffect(() => {
-    loginAuth()
-  }, [session])
+  // const loginAuth = async () => {
+  //   const EmailAuth = session?.user
+  //   const { User }: any = await GetDataUser(EmailAuth?.email)
+  //
+  //   if (EmailAuth?.email && User) {
+  //     try {
+  //       await FetchPost({
+  //         nameLink,
+  //         email: session.user.email,
+  //         password: password,
+  //         plans: price,
+  //         name: '',
+  //         bio: '',
+  //         image: '',
+  //         lists: []
+  //       })
+  //
+  //       window.localStorage.setItem('emailForSignIn', session.user.email)
+  //       window.localStorage.setItem('sharedProfile', 'true')
+  //
+  //       return router.push(`/${User.nameLink}`)
+  //     } catch (err) {
+  //       alert(
+  //         'O email desta conta, não está cadastrado em nosso banco de dados! Crie uma conta já!'
+  //       )
+  //       return router.push(`/LinkPersonalize`)
+  //     }
+  //   }
+  // }
+  //
+  // useEffect(() => {
+  //   loginAuth()
+  // }, [session])
 
   return (
     <div className="container_password-card">
@@ -91,7 +102,7 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
             type="text"
             placeholder="Password..."
             value={password}
-            onChange={(e: any) => setPasswor(e.target.value)}
+            onChange={(e: any) => handleCriptPassword(e.target.value)}
           />
         </div>
         <>
