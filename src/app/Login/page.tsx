@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-// import bcrypt from 'bcrypt'
+import { compare } from 'bcryptjs'
 import Image from 'next/image'
-import { Eye, EyeOff, MoveLeft } from 'lucide-react'
+import { EyeOff, Eye, MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useSession, signIn } from 'next-auth/react'
@@ -20,25 +20,28 @@ const Index = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   console.log('Passwrod ==>', password)
-  const [passwordCripto, setPasswordCripto] = useState('')
+  const [passwordCripto, setPasswordCripto] = useState(true)
   const [showAlert, setShowAlert] = useState(false)
-  // const [showPassword, setShowPassword] = useState(false)
-  // const togglePasswordVisibility = () => {
-  //   setShowPassword(!showPassword)
-  // }
+  const [showPassword, setShowPassword] = useState(false)
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
   const handleVerificCriptoPassword = async (e: any) => {
-    // const { User }: any = await GetDataUser(email)
+    const { User }: any = await GetDataUser(email)
     setPassword(e)
-    // if (User) {
-    // const isPasswordCorrect: any = await bcrypt.compare(password, User.password)
-    // setPasswordCripto(isPasswordCorrect)
-    // }
+    if (User) {
+      const isPasswordCorrect: any = await compare(password, User.password)
+
+      setPasswordCripto(isPasswordCorrect)
+    }
   }
 
   const handleLogin = async () => {
     try {
       const { User }: any = await GetDataUser(email)
-      if (User.email === email && User.password === password) {
+      if (User.email === email && passwordCripto) {
         window.localStorage.setItem('emailForSignIn', email)
         window.localStorage.setItem('sharedProfile', 'true')
         setShowAlert(true)
@@ -105,20 +108,23 @@ const Index = () => {
               </div>
               <div>
                 <label htmlFor="email">Password</label>
-                <input
-                  type="password"
-                  placeholder="Digite sua Senha..."
-                  value={password}
-                  {...register('password')}
-                  onChange={(e: any) => handleVerificCriptoPassword(e.target.value)}
-                />
-                {/*<button*/}
-                {/*  type="button"*/}
-                {/*  onClick={togglePasswordVisibility}*/}
-                {/*  style={{ marginLeft: '10px' }}*/}
-                {/*>*/}
-                {/*  {showPassword ? <EyeOff/> : <Eye/>}*/}
-                {/*</button>*/}
+                <div className="box_input-password-login">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Digite sua Senha..."
+                    value={password}
+                    {...register('password')}
+                    onChange={(e: any) => handleVerificCriptoPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    style={{ marginLeft: '10px' }}
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                  {/*{!passwordCripto && (<p style={{ color: 'red' }}>Senha incorreta!</p>)}*/}
+                </div>
               </div>
               <button type="submit">
                 {showAlert ? 'Carregando...' : 'Entrar'}
