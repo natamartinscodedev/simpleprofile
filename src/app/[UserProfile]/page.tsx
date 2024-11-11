@@ -27,7 +27,7 @@ const User = ({ params }: any) => {
   const router = useRouter()
   const [joinUser, setJoinUser] = useState(false)
   const [user, setUser]: any = useState('')
-  const [dateSharedProfile, setData] = useState('')
+  const [dateSharedProfile, setData] = useState(false)
 
   const [plan, setPlan] = useState<string>('')
   const [image, setImage] = useState<string>('')
@@ -139,8 +139,8 @@ const User = ({ params }: any) => {
         const footerTop: any = footerRef.current.getBoundingClientRect().top
         const cardBottom: any = cardRef.current.getBoundingClientRect().bottom
 
-        if (footerTop - cardBottom <= 36) {  // 36px de margem para suavidade
-          if (dateSharedProfile === 'false') {
+        if (footerTop - cardBottom <= 36) {
+          if (!dateSharedProfile) {
             setIsFixed(true)
           } else {
             setIsFixed(false)
@@ -184,22 +184,26 @@ const User = ({ params }: any) => {
 
   // join ins User page
   const JoinUser = async () => {
-    const email = window.localStorage.getItem('emailForSignIn')
+    // const email = window.localStorage.getItem('emailForSignIn')
     const SharedProfile: any = window.localStorage.getItem('sharedProfile')
-
     const { User }: any = await GetDataUser({ nameLink })
-    setData(SharedProfile)
 
-    if (User && User.email === email) {
+    if (SharedProfile === 'true') {
+      setData(true)
+    }
+    console.log('Sahred profile ==>', dateSharedProfile)
+
+    if (User && User.nameLink === nameLink) {
       setJoinUser(!joinUser)
       setUser(User)
     }
   }
 
-  useEffect(() => {
-    // window.location.reload()
-    // getUser()
-  }, [plan, image, name, bio, lists, imgCard])
+  // useEffect(() => {
+  //   // window.location.reload()
+  //   // getUser()
+  // }, [plan, image, name, bio, lists, imgCard])
+  //
 
   useEffect(() => {
     getUser()
@@ -210,7 +214,7 @@ const User = ({ params }: any) => {
 
   return (
     <>
-      {joinUser === true && (
+      {joinUser && (
         <>
           <div
             className={
@@ -220,12 +224,12 @@ const User = ({ params }: any) => {
             }
           >
             <div className="container_nav-link container">
-              {plan === 'Free' && dateSharedProfile === 'true' ? (
+              {plan === 'Free' && dateSharedProfile ? (
                 <BuyButton />
               ) : (
                 ''
               )}
-              {dateSharedProfile === 'true' && (
+              {dateSharedProfile && (
                 <>
                   <DarkMode />
                   <button onClick={HandleSignOut} className="sing-out">
@@ -239,7 +243,7 @@ const User = ({ params }: any) => {
                 <div className="box_info-user">
                   <div
                     className={` ${
-                      dateSharedProfile === 'true'
+                      dateSharedProfile
                         ? 'box_img-user'
                         : 'hider_box-img-user'
                     }`}
@@ -276,7 +280,7 @@ const User = ({ params }: any) => {
                     )}
                   </div>
                   <h1>
-                    {dateSharedProfile === 'true' ? (
+                    {dateSharedProfile ? (
                       <input
                         type="text"
                         id="nameInput"
@@ -289,7 +293,7 @@ const User = ({ params }: any) => {
                     )}
                   </h1>
                   <p>
-                    {dateSharedProfile === 'true' ? (
+                    {dateSharedProfile ? (
                       <textarea
                         id="bioInput"
                         value={bio}
@@ -329,8 +333,8 @@ const User = ({ params }: any) => {
             </div>
           </div>
           <>
-            {dateSharedProfile === 'true' ? (
-              <div className={`container_navbar-bottom ${isFixed === true ? 'fixed' : ''}`} ref={cardRef}>
+            {dateSharedProfile ? (
+              <div className={`container_navbar-bottom ${isFixed ? 'fixed' : ''}`} ref={cardRef}>
                 <div className="container_settings">
                   <button onClick={() => setSettings(!settings)}>
                     <Settings />

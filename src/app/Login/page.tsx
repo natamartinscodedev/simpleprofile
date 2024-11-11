@@ -20,7 +20,7 @@ const Index = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordCripto, setPasswordCripto] = useState(false)
+  // const [passwordCripto, setPasswordCripto] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState(false)
