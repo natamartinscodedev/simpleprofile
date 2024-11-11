@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { compare } from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 import Image from 'next/image'
 import { EyeOff, Eye, MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -11,6 +11,7 @@ import { useSession, signIn } from 'next-auth/react'
 import NavBar from '@/components/Navbar/index'
 import ImageIconPage from '../../../public/Images/image_pages.png'
 import { GetDataUser } from '@/utils/getInfoUser'
+import user from '@/models/User'
 
 const Index = () => {
   const { data: session }: any = useSession()
@@ -19,36 +20,45 @@ const Index = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  console.log('Passwrod ==>', password)
-  const [passwordCripto, setPasswordCripto] = useState(true)
+  const [passwordCripto, setPasswordCripto] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
 
   const handleVerificCriptoPassword = async (e: any) => {
-    const { User }: any = await GetDataUser(email)
-    setPassword(e)
-    if (User) {
-      const isPasswordCorrect: any = await compare(password, User.password)
+    try {
+      // const { User }: any = await GetDataUser(email)
 
-      setPasswordCripto(isPasswordCorrect)
+      setPassword(e)
+      // if (User) {
+      //   const isPasswordCorrect: any = await bcrypt.compare(password, User.password)
+      //   console.log('compare password ==>', isPasswordCorrect)
+      //   if (isPasswordCorrect) {
+      //     setPasswordCripto(isPasswordCorrect)
+      //   }
+      // }
+    } catch (error) {
+      console.log(error)
     }
   }
 
   const handleLogin = async () => {
     try {
       const { User }: any = await GetDataUser(email)
-      if (User.email === email && passwordCripto) {
+      if (User.email === email && password === User.password) {
+
         window.localStorage.setItem('emailForSignIn', email)
         window.localStorage.setItem('sharedProfile', 'true')
         setShowAlert(true)
 
         return router.push(`/${User.nameLink}`)
       } else {
-        return setShowAlert(false)
+        setError(true)
+        setShowAlert(false)
       }
     } catch (err) {
       console.log('ERR ==>', err)
@@ -123,7 +133,7 @@ const Index = () => {
                   >
                     {showPassword ? <EyeOff /> : <Eye />}
                   </button>
-                  {/*{!passwordCripto && (<p style={{ color: 'red' }}>Senha incorreta!</p>)}*/}
+                  {error && (<p style={{ color: 'red' }}>Senha incorreta!</p>)}
                 </div>
               </div>
               <button type="submit">

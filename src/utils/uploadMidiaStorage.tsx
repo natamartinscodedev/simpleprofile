@@ -24,7 +24,6 @@ export default async function uploadMidiaStorage(file: any) {
 
   const fileType: string = file.type
 
-  // Verifica se o arquivo é um vídeo e se a duração é menor ou igual a 1 minuto
   if (fileType.startsWith('video/')) {
     const video = document.createElement('video')
     video.src = URL.createObjectURL(file)
