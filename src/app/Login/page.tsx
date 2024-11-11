@@ -48,7 +48,7 @@ const Index = () => {
 
   const handleLogin = async () => {
     try {
-      const { User }: any = await GetDataUser(email)
+      const { User }: any = await GetDataUser({ email })
       if (User.email === email && password === User.password) {
 
         window.localStorage.setItem('emailForSignIn', email)

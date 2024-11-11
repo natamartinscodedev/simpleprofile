@@ -10,7 +10,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import DarkMode from '@/components/ButtonDark/Index'
 import { BadgePlus, LogOut, Settings } from 'lucide-react'
-import { signOut } from 'next-auth/react'
+// import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
 import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
@@ -22,6 +22,8 @@ import BuyButton from '@/components/button-stripe-payment'
 
 const User = ({ params }: any) => {
   const nameLink: any = params.UserProfile
+  console.log('Name ==>', nameLink)
+
   const router = useRouter()
   const [joinUser, setJoinUser] = useState(false)
   const [user, setUser]: any = useState('')
@@ -164,10 +166,10 @@ const User = ({ params }: any) => {
   }
 
   const getUser = async () => {
-    const emailUserProfile = window.localStorage.getItem('emailForSignIn')
+    // const emailUserProfile = window.localStorage.getItem('emailForSignIn')
 
-    if (emailUserProfile) {
-      const User: any = await GetDataUser(emailUserProfile)
+    if (nameLink) {
+      const User: any = await GetDataUser({ nameLink })
       const { name, bio, image, lists, plans, email } = User.User
 
       setPlan(plans)
@@ -184,7 +186,8 @@ const User = ({ params }: any) => {
   const JoinUser = async () => {
     const email = window.localStorage.getItem('emailForSignIn')
     const SharedProfile: any = window.localStorage.getItem('sharedProfile')
-    const { User }: any = await GetDataUser(email)
+
+    const { User }: any = await GetDataUser({ nameLink })
     setData(SharedProfile)
 
     if (User && User.email === email) {
