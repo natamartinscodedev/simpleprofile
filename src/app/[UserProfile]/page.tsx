@@ -10,6 +10,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import DarkMode from '@/components/ButtonDark/Index'
 import { BadgePlus, LogOut, Settings } from 'lucide-react'
+import CardLoadingPageUser from '@/components/CardLoadingPageUser/index'
 // import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
@@ -214,7 +215,7 @@ const User = ({ params }: any) => {
 
   return (
     <>
-      {joinUser && (
+      {joinUser ? (
         <>
           <div
             className={
@@ -429,6 +430,8 @@ const User = ({ params }: any) => {
             </div>
           </footer>
         </>
+      ) : (
+        <CardLoadingPageUser />
       )}
     </>
   )
