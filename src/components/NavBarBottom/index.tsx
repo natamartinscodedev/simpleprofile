@@ -76,7 +76,7 @@ const NavbarBottom = ({
   }
 
   useEffect(() => {
-    if (lists.length > 6 && plan === 'Free') {
+    if (lists.length > 6 - 1 && plan === 'Free') {
       setTypePlan(!typePlan)
     }
   }, [lists])
@@ -115,22 +115,26 @@ const NavbarBottom = ({
           />
         </div>
 
-        <div className="card_img-video">
-          <input
-            type="file"
-            id="videoInput"
-            accept="video/*"
-            multiple
-            onChange={handleVideoChange}
-          />
-          <BtnLinks
-            Icon$img={<FileVideo size={20} color="white" />}
-            nameHover="Video"
-            imgBoolean={false}
-            openModalType="video"
-            typeInputMidia={typeInputMidia}
-          />
-        </div>
+        {
+          plan === 'Gold' && (
+            <div className="card_img-video">
+              <input
+                type="file"
+                id="videoInput"
+                accept="video/*"
+                multiple
+                onChange={handleVideoChange}
+              />
+              <BtnLinks
+                Icon$img={<FileVideo size={20} color="white" />}
+                nameHover="Video"
+                imgBoolean={false}
+                openModalType="video"
+                typeInputMidia={typeInputMidia}
+              />
+            </div>
+          )
+        }
 
         <BtnLinks
           Icon$img={<NotebookPen size={20} color="white" />}
@@ -140,13 +144,17 @@ const NavbarBottom = ({
           addCardText={addCardText}
         />
 
-        <BtnLinks
-          Icon$img={<MapPinned size={20} color="white" />}
-          nameHover="Mapa"
-          imgBoolean={false}
-          openModalType="map"
-          addCardMap={addCardMap}
-        />
+        {
+          plan === 'Gold' && (
+            <BtnLinks
+              Icon$img={<MapPinned size={20} color="white" />}
+              nameHover="Mapa"
+              imgBoolean={false}
+              openModalType="map"
+              addCardMap={addCardMap}
+            />
+          )
+        }
       </ul>
 
       <div className="btn-responsive">
