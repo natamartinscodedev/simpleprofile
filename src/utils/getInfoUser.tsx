@@ -13,8 +13,7 @@ export async function GetDataUser({
     const { topics } = await fetchMongodb()
     if (topics) {
       const res = topics.filter(
-        // (user: any) => user.email === email || user.nameLink === nameLink
-        (user: any) => user.nameLink === nameLink
+        (user: any) => user.email === email || user.nameLink === nameLink
       )
       const User = res[0]
 
