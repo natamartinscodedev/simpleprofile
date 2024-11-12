@@ -192,7 +192,6 @@ const User = ({ params }: any) => {
     if (SharedProfile === 'true') {
       setData(true)
     }
-    console.log('Sahred profile ==>', dateSharedProfile)
 
     if (User && User.nameLink === nameLink) {
       setJoinUser(!joinUser)

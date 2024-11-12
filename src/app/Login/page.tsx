@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import bcrypt from 'bcryptjs'
+import { compare } from 'bcryptjs'
 import Image from 'next/image'
 import { EyeOff, Eye, MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -20,7 +20,7 @@ const Index = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [passwordCripto, setPasswordCripto] = useState(false)
+  const [passwordCripto, setPasswordCripto] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState(false)
@@ -31,16 +31,16 @@ const Index = () => {
 
   const handleVerificCriptoPassword = async (e: any) => {
     try {
-      // const { User }: any = await GetDataUser(email)
+      const { User }: any = await GetDataUser({ email })
 
       setPassword(e)
-      // if (User) {
-      //   const isPasswordCorrect: any = await bcrypt.compare(password, User.password)
-      //   console.log('compare password ==>', isPasswordCorrect)
-      //   if (isPasswordCorrect) {
-      //     setPasswordCripto(isPasswordCorrect)
-      //   }
-      // }
+      if (User) {
+        const isPasswordCorrect: any = await compare(password, User.password)
+        console.log('compare password ==>', isPasswordCorrect)
+        if (isPasswordCorrect) {
+          setPasswordCripto(isPasswordCorrect)
+        }
+      }
     } catch (error) {
       console.log(error)
     }
@@ -49,7 +49,7 @@ const Index = () => {
   const handleLogin = async () => {
     try {
       const { User }: any = await GetDataUser({ email })
-      if (User.email === email && password === User.password) {
+      if (User.email === email && passwordCripto) {
 
         window.localStorage.setItem('emailForSignIn', email)
         window.localStorage.setItem('sharedProfile', 'true')
