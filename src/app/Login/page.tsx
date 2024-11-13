@@ -11,7 +11,6 @@ import { useSession, signIn } from 'next-auth/react'
 import NavBar from '@/components/Navbar/index'
 import ImageIconPage from '../../../public/Images/image_pages.png'
 import { GetDataUser } from '@/utils/getInfoUser'
-import user from '@/models/User'
 
 const Index = () => {
   const { data: session }: any = useSession()
@@ -29,22 +28,22 @@ const Index = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleVerificCriptoPassword = async (e: any) => {
+  const handleCript = async () => {
     try {
       const { User }: any = await GetDataUser({ email })
+      const isPasswordCorrect: any = await compare(password, User.password)
 
-      setPassword(e)
       if (User) {
-        const isPasswordCorrect: any = await compare(password, User.password)
-        console.log('compare password ==>', isPasswordCorrect)
-        if (isPasswordCorrect) {
-          setPasswordCripto(isPasswordCorrect)
-        }
+        setPasswordCripto(isPasswordCorrect)
       }
     } catch (error) {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    handleCript()
+  }, [password])
 
   const handleLogin = async () => {
     try {
@@ -124,7 +123,7 @@ const Index = () => {
                     placeholder="Digite sua Senha..."
                     value={password}
                     {...register('password')}
-                    onChange={(e: any) => handleVerificCriptoPassword(e.target.value)}
+                    onChange={(e: any) => setPassword(e.target.value)}
                   />
                   <button
                     type="button"
