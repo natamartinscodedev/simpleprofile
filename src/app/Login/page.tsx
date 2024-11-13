@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import bcrypt from 'bcryptjs'
+import { compare } from 'bcryptjs'
 import Image from 'next/image'
 import { EyeOff, Eye, MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -11,7 +11,6 @@ import { useSession, signIn } from 'next-auth/react'
 import NavBar from '@/components/Navbar/index'
 import ImageIconPage from '../../../public/Images/image_pages.png'
 import { GetDataUser } from '@/utils/getInfoUser'
-import user from '@/models/User'
 
 const Index = () => {
   const { data: session }: any = useSession()
@@ -20,7 +19,7 @@ const Index = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [passwordCripto, setPasswordCripto] = useState(false)
+  const [passwordCripto, setPasswordCripto] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState(false)
@@ -29,27 +28,27 @@ const Index = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleVerificCriptoPassword = async (e: any) => {
+  const handleCript = async () => {
     try {
-      // const { User }: any = await GetDataUser(email)
+      const { User }: any = await GetDataUser({ email })
+      const isPasswordCorrect: any = await compare(password, User.password)
 
-      setPassword(e)
-      // if (User) {
-      //   const isPasswordCorrect: any = await bcrypt.compare(password, User.password)
-      //   console.log('compare password ==>', isPasswordCorrect)
-      //   if (isPasswordCorrect) {
-      //     setPasswordCripto(isPasswordCorrect)
-      //   }
-      // }
+      if (User) {
+        setPasswordCripto(isPasswordCorrect)
+      }
     } catch (error) {
       console.log(error)
     }
   }
 
+  useEffect(() => {
+    handleCript()
+  }, [password])
+
   const handleLogin = async () => {
     try {
       const { User }: any = await GetDataUser({ email })
-      if (User.email === email && password === User.password) {
+      if (User.email === email && passwordCripto) {
 
         window.localStorage.setItem('emailForSignIn', email)
         window.localStorage.setItem('sharedProfile', 'true')
@@ -124,7 +123,7 @@ const Index = () => {
                     placeholder="Digite sua Senha..."
                     value={password}
                     {...register('password')}
-                    onChange={(e: any) => handleVerificCriptoPassword(e.target.value)}
+                    onChange={(e: any) => setPassword(e.target.value)}
                   />
                   <button
                     type="button"

@@ -23,8 +23,6 @@ import BuyButton from '@/components/button-stripe-payment'
 
 const User = ({ params }: any) => {
   const nameLink: any = params.UserProfile
-  console.log('Name ==>', nameLink)
-
   const router = useRouter()
   const [joinUser, setJoinUser] = useState(false)
   const [user, setUser]: any = useState('')
@@ -192,7 +190,6 @@ const User = ({ params }: any) => {
     if (SharedProfile === 'true') {
       setData(true)
     }
-    console.log('Sahred profile ==>', dateSharedProfile)
 
     if (User && User.nameLink === nameLink) {
       setJoinUser(!joinUser)
