@@ -9,7 +9,7 @@ const ForgotPassword = () => {
   const handleSubmit = async () => {
     try {
       if (email) {
-        const res = await fetch('/api/reset password/forgot', {
+        const res = await fetch('/api/resetpassword/forgot', {
           cache: 'no-cache',
           method: 'POST',
           headers: {

@@ -136,10 +136,14 @@ const Index = () => {
                     {showPassword ? <EyeOff /> : <Eye />}
                   </button>
                 </div>
-                <div className="box_forgot-password">
-                  {error && (<p style={{ color: 'red' }}>Senha incorreta!</p>)}
-                  {error && (<Link href="/ForgotPassword">Redefinir senha!</Link>)}
-                </div>
+                {
+                  error && (
+                    <div className="box_forgot-password">
+                      <p style={{ color: 'red' }}>Senha incorreta!</p>
+                      <Link href="/ForgotPassword">Redefinir senha!</Link>
+                    </div>
+                  )
+                }
               </div>
               <button type="submit">
                 {showAlert ? 'Carregando...' : 'Entrar'}
