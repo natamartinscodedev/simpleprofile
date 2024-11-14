@@ -2,7 +2,6 @@ import nodemailer from 'nodemailer'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
-  // if (req.method !== 'POST') return res.status(405).end()
   if (req.method === 'POST') {
     const body = await req.json()
     const { email } = body
@@ -30,7 +29,6 @@ export async function POST(req: Request) {
         }
 
         await transporter.sendMail(mailOptions)
-        7
         return NextResponse.json(
           { message: 'Email enviado!', success: true },
           { status: 200 }

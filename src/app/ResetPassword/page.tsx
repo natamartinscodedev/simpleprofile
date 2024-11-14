@@ -7,21 +7,11 @@ import { GetDataUser } from '@/utils/getInfoUser'
 import { hash } from 'bcryptjs'
 
 const Index = () => {
-  const emailUser: any = window.localStorage.getItem('emailForSignIn')
   const router = useRouter()
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState('')
   const [changePassword, setChangePassword] = useState('')
-
-  const UserData = async () => {
-    if (emailUser) {
-      const User: any = await GetDataUser({ email: emailUser })
-      const { nameLink } = User.User
-
-      setChangePassword(nameLink)
-    }
-  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -37,7 +27,18 @@ const Index = () => {
   }
 
   useEffect(() => {
+    const UserData = async () => {
+      const emailUser: any = window.localStorage.getItem('emailForSignIn')
+      if (emailUser) {
+        const User: any = await GetDataUser({ email: emailUser })
+        const { nameLink } = User.User
+
+        setChangePassword(nameLink)
+      }
+    }
+
     UserData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

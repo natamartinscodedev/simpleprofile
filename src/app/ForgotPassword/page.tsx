@@ -19,7 +19,10 @@ const ForgotPassword = () => {
         })
         const data = await res.json()
 
-        window.localStorage.setItem('emailForSignIn', email)
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem('emailForSignIn', email)
+        }
+
         setMessage(data.success ? 'Link enviado para seu Email!.' : 'Erro ao enviar o link.')
       }
     } catch (error) {
