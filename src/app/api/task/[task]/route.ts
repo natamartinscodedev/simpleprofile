@@ -67,7 +67,7 @@ export async function PATCH(req: Request) {
   if (req.method === 'PATCH') {
     const body = await req.json()
 
-    const { nameLink, name, bio, image, lists, plans } = body
+    const { nameLink, name, bio, image, lists, plans, password } = body
     // console.log('Body recebido no PUT:', body)
 
     try {
@@ -80,7 +80,8 @@ export async function PATCH(req: Request) {
           bio,
           image,
           lists,
-          plans
+          plans,
+          password
         },
         { new: true }
       )

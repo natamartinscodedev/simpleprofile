@@ -8,7 +8,6 @@ interface TypeParams {
 export async function GetDataUser({
                                     email, nameLink
                                   }: TypeParams) {
-  console.log('User ===>', nameLink)
   try {
     const { topics } = await fetchMongodb()
     if (topics) {
