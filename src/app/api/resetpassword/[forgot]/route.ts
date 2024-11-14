@@ -17,8 +17,8 @@ export async function POST(req: Request) {
           }
         })
 
-        // const resetUrl = `${process.env.NEXTAUTH_URL}/ResetPassword`
-        const resetUrl = `${process.env.NEXT_PUBLIC_VERCEL_ENV}/ResetPassword`
+        const resetUrl = `${process.env.NEXTAUTH_URL}/ResetPassword`
+        // const resetUrl = `${process.env.NEXT_PUBLIC_VERCEL_ENV}/ResetPassword`
 
         const mailOptions = {
           from: '"SimpleProfile" <noreply@simpleprofile.com>',
