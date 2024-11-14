@@ -38,7 +38,7 @@ const Index = () => {
 
   useEffect(() => {
     UserData()
-  }, [password])
+  }, [])
 
   return (
     <div className="container_reset-password container">
