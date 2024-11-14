@@ -1,8 +1,10 @@
 import stripe from '@/lib/stripe'
 import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
+import { UpdateInfoUser } from '@/utils/updateInfoUser'
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET || ''
+const nameUser = window.localStorage.getItem('nameUser')
 
 export async function POST(req: Request) {
   try {
@@ -21,6 +23,12 @@ export async function POST(req: Request) {
           // pagagamento por cartão com sucesso
           const testeId = event.data.object.metadata?.testeId
           console.log('pagagamento por cartão com sucesso', testeId)
+
+          if (testeId) {
+            UpdateInfoUser({ plans: 'Gold', nameLink: `${nameUser}` })
+          } else {
+            UpdateInfoUser({ plans: 'Freee', nameLink: `${nameUser}` })
+          }
         }
 
         if (
@@ -49,6 +57,8 @@ export async function POST(req: Request) {
           // O cliente saiu do checkout e expirou :(
           const testeId = event.data.object.metadata?.testeId
           console.log('checkout expirado', testeId)
+
+          UpdateInfoUser({ plans: 'Freee', nameLink: `${nameUser}` })
         }
         break
 
@@ -57,6 +67,8 @@ export async function POST(req: Request) {
           // O cliente pagou o boleto e o pagamento foi confirmado
           const testeId = event.data.object.metadata?.testeId
           console.log('pagamento boleto confirmado', testeId)
+
+          UpdateInfoUser({ plans: 'Gold', nameLink: `${nameUser}` })
         }
         break
 
@@ -65,11 +77,14 @@ export async function POST(req: Request) {
           // O cliente não pagou o boleto e ele venceu :(
           const testeId = event.data.object.metadata?.testeId
           console.log('pagamento boleto falhou', testeId)
+
+          UpdateInfoUser({ plans: 'Freee', nameLink: `${nameUser}` })
         }
         break
 
       case 'customer.subscription.deleted':
         // O cliente cancelou o plano :(
+        UpdateInfoUser({ plans: 'Freee', nameLink: `${nameUser}` })
         break
     }
 

@@ -63,6 +63,12 @@
   }
 }
 
+.box_forgot-password {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
 .card_login-btn-login {
   display: flex;
   gap: 1rem;

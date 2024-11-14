@@ -25,7 +25,7 @@ const SigningUp = ({ email, price, nameLink }: typeItems) => {
   const handleCriptPassword = async (e: any) => {
     setPassword(e)
 
-    const saltRounds = 10
+    const saltRounds = 5
     const hashedPassword = await hash(password, saltRounds)
     setPasswordCripto(hashedPassword)
   }

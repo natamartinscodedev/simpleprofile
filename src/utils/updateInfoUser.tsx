@@ -4,18 +4,20 @@ interface TypeInfo {
   bio?: string
   image?: any
   plans?: string
+  password?: any
   lists?: object[]
 }
 
 export async function UpdateInfoUser({
-  nameLink,
-  name,
-  bio,
-  image,
-  lists,
-  plans
-}: TypeInfo) {
-  console.log('List ==>', lists)
+                                       nameLink,
+                                       name,
+                                       bio,
+                                       image,
+                                       lists,
+                                       plans,
+                                       password
+                                     }: TypeInfo) {
+
   try {
     const res = await fetch('/api/task/task', {
       method: 'PATCH',
@@ -28,7 +30,9 @@ export async function UpdateInfoUser({
         bio,
         image,
         lists,
-        plans
+        plans,
+        password
+
       })
     })
 

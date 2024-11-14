@@ -11,7 +11,6 @@ import 'aos/dist/aos.css'
 import DarkMode from '@/components/ButtonDark/Index'
 import { BadgePlus, LogOut, Settings } from 'lucide-react'
 import CardLoadingPageUser from '@/components/CardLoadingPageUser/index'
-// import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
 import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
@@ -43,11 +42,11 @@ const User = ({ params }: any) => {
   const handleImageChangeUser = async (e: any) => {
     const file = e.target.files[0]
     if (file) {
-      const imageUrl: any = URL.createObjectURL(file)
+      // const imageUrl: any = URL.createObjectURL(file)
       const { downloadURL, fileType }: any = await uploadMidiaStorage(file)
 
       setImage(downloadURL)
-      UpdateInfoUser({ image: downloadURL, nameLink })
+      UpdateInfoUser({ image: image, nameLink })
     }
   }
 
@@ -154,7 +153,6 @@ const User = ({ params }: any) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isFixed])
   //
-
   const HandleSignOut = () => {
     if (joinUser && user) {
       // signOut()
@@ -165,8 +163,6 @@ const User = ({ params }: any) => {
   }
 
   const getUser = async () => {
-    // const emailUserProfile = window.localStorage.getItem('emailForSignIn')
-
     if (nameLink) {
       const User: any = await GetDataUser({ nameLink })
       const { name, bio, image, lists, plans, email } = User.User
@@ -181,9 +177,9 @@ const User = ({ params }: any) => {
     }
   }
 
-  // join ins User page
+  // join in user page.
   const JoinUser = async () => {
-    // const email = window.localStorage.getItem('emailForSignIn')
+    window.localStorage.setItem('nameUser', nameLink)
     const SharedProfile: any = window.localStorage.getItem('sharedProfile')
     const { User }: any = await GetDataUser({ nameLink })
 
@@ -196,12 +192,6 @@ const User = ({ params }: any) => {
       setUser(User)
     }
   }
-
-  // useEffect(() => {
-  //   // window.location.reload()
-  //   // getUser()
-  // }, [plan, image, name, bio, lists, imgCard])
-  //
 
   useEffect(() => {
     getUser()
