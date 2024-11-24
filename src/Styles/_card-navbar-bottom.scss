@@ -1,3 +1,9 @@
+.container_dashboard-user-and-shared-profile {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
 .card_navbar-bottom {
   max-width: 550px;
 
@@ -389,6 +395,10 @@
   .fixed {
     bottom: 5rem;
     animation: fadeUp 1s ease forwards;
+  }
+
+  .not-fixed {
+    bottom: 0px;
   }
 }
 
