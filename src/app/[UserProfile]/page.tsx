@@ -320,7 +320,7 @@ const User = ({ params }: any) => {
               </div>
             </div>
           </div>
-          <>
+          <div className="container_dashboard-user-and-shared-profile">
             {dateSharedProfile ? (
               <div className={`container_navbar-bottom ${isFixed ? 'fixed' : ''}`} ref={cardRef}>
                 <div className="container_settings">
@@ -385,7 +385,7 @@ const User = ({ params }: any) => {
                 </div>
               </>
             )}
-          </>
+          </div>
           <footer className="container container_footer-user" ref={footerRef}>
             <div className="container_settings-footer">
               <button onClick={() => setSettings(!settings)}>
