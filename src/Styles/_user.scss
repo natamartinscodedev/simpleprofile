@@ -1,3 +1,8 @@
+.container_dashboard-user-and-shared-profile {
+  position: relative;
+  width: 100%;
+}
+
 .container_user {
   position: relative;
   width: 100%;
@@ -76,7 +81,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
     border-radius: 50%;
     border: 2px dashed rgba(0, 0, 0, 0.3);
 
@@ -286,6 +290,11 @@
     margin: auto;
   }
 
+  .hider_box-img-user {
+    div {
+      margin: 0 auto;
+    }
+  }
   // link shared
   .hiderHoover {
     div {
@@ -314,5 +323,9 @@
     h1 input {
       width: 100%;
     }
+  }
+
+  .container_dashboard-user-and-shared-profile {
+    height: 100vh;
   }
 }
