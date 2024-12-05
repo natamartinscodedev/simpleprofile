@@ -26,6 +26,7 @@ export const fetchNameLinks = (link: any) => {
     twitter: "Twitter",
     facebook: "Facebook",
     instagram: "Instagram",
+    // add more...
   };
 
   const date =
