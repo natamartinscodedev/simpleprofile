@@ -1,13 +1,11 @@
 import { fetchMongodb } from './fetchMongodb'
 
 interface TypeParams {
-  email?: any,
+  email?: any
   nameLink?: any
 }
 
-export async function GetDataUser({
-                                    email, nameLink
-                                  }: TypeParams) {
+export async function GetDataUser({ email, nameLink }: TypeParams) {
   try {
     const { topics } = await fetchMongodb()
     if (topics) {
@@ -16,10 +14,9 @@ export async function GetDataUser({
       )
       const User = res[0]
 
-
       return { User }
     } else {
-      console.log('Topics don\'t exist')
+      console.log("Topics don't exist")
     }
   } catch (err) {
     console.log('Erro:', err)

@@ -9,7 +9,14 @@ import Image from 'next/image'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import DarkMode from '@/components/ButtonDark/Index'
-import { BadgePlus, LogOut, Settings } from 'lucide-react'
+import {
+  BadgePlus,
+  Disc2,
+  Linkedin,
+  LogOut,
+  Settings,
+  Twitter
+} from 'lucide-react'
 import CardLoadingPageUser from '@/components/CardLoadingPageUser/index'
 import { useRouter } from 'next/navigation'
 import { GetDataUser } from '@/utils/getInfoUser'
@@ -86,7 +93,7 @@ const User = ({ params }: any) => {
     const newList = produce(lists, (draft: any) => {
       draft.push({ id: Date.now(), type: 'text', text: '' })
     })
-
+    Link
     setLists(newList)
     UpdateInfoUser({ lists: newList, nameLink })
     setLink('')
@@ -151,6 +158,7 @@ const User = ({ params }: any) => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFixed])
   //
   const HandleSignOut = () => {
@@ -212,11 +220,7 @@ const User = ({ params }: any) => {
             }
           >
             <div className="container_nav-link container">
-              {plan === 'Free' && dateSharedProfile ? (
-                <BuyButton />
-              ) : (
-                ''
-              )}
+              {plan === 'Free' && dateSharedProfile ? <BuyButton /> : ''}
               {dateSharedProfile && (
                 <>
                   <DarkMode />
@@ -231,9 +235,7 @@ const User = ({ params }: any) => {
                 <div className="box_info-user">
                   <div
                     className={` ${
-                      dateSharedProfile
-                        ? 'box_img-user'
-                        : 'hider_box-img-user'
+                      dateSharedProfile ? 'box_img-user' : 'hider_box-img-user'
                     }`}
                   >
                     {image ? (
@@ -289,10 +291,7 @@ const User = ({ params }: any) => {
                         placeholder="Sua bio..."
                       ></textarea>
                     ) : (
-                      <textarea
-                        id="bioInput"
-                        value={bio}
-                      ></textarea>
+                      <textarea id="bioInput" value={bio}></textarea>
                     )}
                   </p>
                 </div>
@@ -322,7 +321,10 @@ const User = ({ params }: any) => {
           </div>
           <div className="container_dashboard-user-and-shared-profile">
             {dateSharedProfile ? (
-              <div className={`container_navbar-bottom ${isFixed ? 'fixed' : ''}`} ref={cardRef}>
+              <div
+                className={`container_navbar-bottom ${isFixed ? 'fixed' : ''}`}
+                ref={cardRef}
+              >
                 <div className="container_settings">
                   <button onClick={() => setSettings(!settings)}>
                     <Settings />
@@ -354,12 +356,10 @@ const User = ({ params }: any) => {
                   addCardMap={addCardMap}
                   addCardImg={addCardImg}
                   addCardVideo={addCardVideo}
-
                   setLink={setLink}
                   setChangWidth={setChangWidth}
                   setImgCard={setImgCard}
                   setVideoCard={setVideoCard}
-
                   lists={lists}
                   plan={plan}
                   dateSharedProfile={dateSharedProfile}
@@ -376,12 +376,31 @@ const User = ({ params }: any) => {
             ) : (
               <>
                 <div className="box_login-shared-user">
-                  <Link href="/LinkPersonalize" target="__blank">
-                    Criar conta
-                  </Link>
-                  <Link href="/Login" target="__blank">
-                    Entrar
-                  </Link>
+                  <div className="container container_shared">
+                    <div className="box_login-shared-user-link-create">
+                      <Link href="/LinkPersonalize" target="__blank">
+                        Criar conta
+                      </Link>
+                      <Link href="/Login" target="__blank">
+                        Entrar
+                      </Link>
+                    </div>
+                    <div className="box_login-shared-user-link-midia">
+                      <Link href="#" target="__blank" className="link_discord">
+                        <Disc2 />
+                        comunidade do Discord!
+                      </Link>
+                      <Link href="#" target="__blank">
+                        <Linkedin />
+                        Siga nossa pagina para saber mais!
+                      </Link>
+                      <Link href="#" target="__blank">
+                        <Twitter />
+                        Siga nossa rede social e ajude-nos a crescer!
+                      </Link>
+                    </div>
+                    <p>© simpleprofile - 2024</p>
+                  </div>
                 </div>
               </>
             )}
