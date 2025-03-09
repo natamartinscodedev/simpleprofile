@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 }
 
 const roboto = Roboto({
-  weight: '500'
+  subsets: ['latin'], 
+  weight: ['400', '700'],
 })
 
 export default async function LocaleLayout({
