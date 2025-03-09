@@ -12,13 +12,13 @@ export const checkNameAvailability = async ({ nameLink, setLoad }: any) => {
         // alert("Esse nome já existe!😒");
       } else {
         setLoad(true)
-        return console.log('Nome disponivel!👌')
+        return
       }
       return nameExists
     } else {
-      console.log('Topics don\'t exist')
+      return
     }
   } catch (err) {
-    console.log('Erro:', err)
+    return
   }
 }

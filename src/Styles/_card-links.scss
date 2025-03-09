@@ -22,7 +22,12 @@
   }
 
   a {
-    width: 90px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    max-width: 8rem;
+    width: 100%;
     color: #adadad;
     text-decoration: none;
     padding: 5px 15px;
@@ -47,14 +52,12 @@
 }
 
 .linear {
-  background: linear-gradient(
-    135deg,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 50%,
-    #cc2366 75%,
-    #bc1888 100%
-  );
+  background: linear-gradient(135deg,
+      #f09433 0%,
+      #e6683c 25%,
+      #dc2743 50%,
+      #cc2366 75%,
+      #bc1888 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }

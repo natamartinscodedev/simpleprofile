@@ -1,36 +1,28 @@
-import stripe from '@/lib/stripe'
-import { NextRequest, NextResponse } from 'next/server'
+import stripe from '@/lib/stripe';
+import { NextRequest, NextResponse } from 'next/server';
+
 
 export async function POST(req: NextRequest) {
-  const { testeId, assinatura, nameId, priceId } = await req.json()
-  // const date = [{testeId}, {assinatura}]
-
-  const price = assinatura
-    ? process.env.STRIPE_SUBSCRIPTION_PRICE_ID
-    : process.env.STRIPE_PRICE_ID
-
+  const { testeId, assinatura, } = await req.json();
+  // Defina o ID de preço com base no tipo de transação
   try {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          price: price,
-          quantity: 1
-        }
+          price: process.env.STRIPE_SUBSCRIPTION_PRICE_ID as string,
+          quantity: 1,
+        },
       ],
-      mode: assinatura ? 'subscription' : 'payment',
-      payment_method_types: assinatura ? ['card'] : ['card', 'boleto'],
-      success_url: `${req.headers.get(
-        'origin'
-      )}/Sucesso/${assinatura}?plan=${priceId}?nameId=${nameId}`,
+      mode: 'subscription',
+      payment_method_types: assinatura && ['card'],
+      success_url: `${req.headers.get('origin')}/Sucesso/${assinatura}`,
       cancel_url: `${req.headers.get('origin')}/`,
-      metadata: {
-        testeId
-      }
-    })
+    });
 
-    return NextResponse.json({ sessionId: session.id, ok: true })
+    return NextResponse.json({ sessionId: session.id, ok: true });
+    // return NextResponse.json({ sessionId: 'foi', ok: true });
   } catch (err) {
-    console.error(err)
-    return NextResponse.error()
+    console.error(err);
+    return NextResponse.error();
   }
 }

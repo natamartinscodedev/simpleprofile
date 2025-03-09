@@ -1,20 +1,16 @@
 'use client'
-
-import { useEffect } from 'react'
 import { UpdateInfoUser } from '@/utils/updateInfoUser'
-import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 const SucessoPayment = ({ params }: any) => {
-  const searchParams = useSearchParams()
-  const id_session_payment: any = searchParams.get('plan')
-  const nameLink_Id: any = searchParams.get('nameId')
+  const nameUser: any = window.localStorage.getItem('nameUser')
   const checkoutPaymente = params.id
 
   useEffect(() => {
-    console.log('ID ==>', id_session_payment, nameLink_Id)
-    UpdateInfoUser({ plans: id_session_payment, nameLink: nameLink_Id })
-
+    if (checkoutPaymente === 'true') {
+      UpdateInfoUser({ plans: 'Gold', nameLink: nameUser })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -27,11 +23,23 @@ const SucessoPayment = ({ params }: any) => {
             : 'Falha no pagamento.'}
         </h2>
         <div className="box_sucesso-info">
-          <p>Monte seu super perfil da melhor forma.</p>
-          <h3>🚀🚀🚀</h3>
-          <Link href="/Login" target="__blanck">
-            Login
-          </Link>
+          {checkoutPaymente === 'true' ? (
+            <>
+              <h3>
+                Bem vindo ao plano Gold, agora você tem acesso total ao
+                SimpleProfile
+              </h3>
+              <p>Ei {nameUser}, monte seu super perfil da melhor forma.</p>
+              <h3>🚀🚀🚀</h3>
+              <Link href="/Login" target="__blanck">
+                Login
+              </Link>
+            </>
+          ) : (
+            <>
+              <p>Tente novamente, pois seu pagamento não foi realizado</p>
+            </>
+          )}
         </div>
       </div>
     </>

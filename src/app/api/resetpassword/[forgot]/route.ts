@@ -1,7 +1,6 @@
 import nodemailer from 'nodemailer'
 import { NextResponse } from 'next/server'
 
-
 export async function POST(req: Request) {
   if (req.method === 'POST') {
     const body = await req.json()
@@ -13,7 +12,7 @@ export async function POST(req: Request) {
           // host: 'sandbox.smtp.mailtrap.io',
           // port: 2525,
           host: 'live.smtp.mailtrap.io',
-          port: 587,
+          port: 2525,
           auth: {
             user: process.env.MAILTRAP_USER,
             pass: process.env.MAILTRAP_PASS

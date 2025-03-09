@@ -9,14 +9,14 @@ export const checkEmailAvailability = async ({ email }: any) => {
       if (emailExists) {
         alert("Esse E-mail já existe!😒");
       } else {
-        return console.log("E-mail disponivel!👌");
+        return
       }
 
       return { emailExists };
     } else {
-      console.log("Topics don't exist");
+      return
     }
   } catch (err) {
-    console.log("Erro:", err);
+    return
   }
 };

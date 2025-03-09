@@ -2,26 +2,31 @@
 
 import React, { useState } from 'react'
 import { CircleCheck } from 'lucide-react'
-import CardPlan from '@/components/CardPlans'
-import SigningUp from '@/components/SigningUp/indx'
+import CardPlan from '@/Components/CardPlans'
+import SigningUp from '@/Components/SigningUp/indx'
 
+// Aqui, validamos o plano e a criação do novo usuario planos Gold
 const Plans = ({ email, nameLink }) => {
   const [openSigningUp, setOpenSigningUp] = useState(false)
   const [plan, setPlan] = useState('')
+  const [idPlan, setIdPlan] = useState('')
 
-  async function handleclick({ price }) {
+  async function handleclick({ price, idPlans }) {
     setOpenSigningUp(!openSigningUp)
     setPlan(price)
+    setIdPlan(idPlans)
   }
 
   return (
     <>
+      {/* se o planos der certo, mando para a pg de criaççao SingningUP */}
       {openSigningUp === true ? (
         <SigningUp
           price={plan}
           email={email}
           nameLink={nameLink}
-          // stateLink={stateLink}
+          idPlans={idPlan}
+        // stateLink={stateLink}
         />
       ) : (
         <div
@@ -30,59 +35,24 @@ const Plans = ({ email, nameLink }) => {
           data-aos-duration="1000"
         >
           <CardPlan
-            tipePlan="Simple"
-            price={'Free'}
-            state={false}
-            idPlans="id_plans-free"
-            email={email}
-            nameLink={nameLink}
-            disable={false}
-            stateLink={true}
-            handleclick={handleclick}
-          >
-            <li>
-              <CircleCheck size={20} />
-              Links
-            </li>
-            <li>
-              <CircleCheck size={20} />
-              Total de 6 card no plano Free
-            </li>
-          </CardPlan>
-          <CardPlan
             tipePlan="Gold"
-            price={'49,99'}
+            price={20}
             state={true}
             idPlans="id_plans-gold"
             email={email}
             nameLink={nameLink}
-            disable={true}
-            // stateLink={true}
+            disable={false}
+            stateLink={true}
+            // Mandei a função para ser ativa dentro do CardPlan
             handleclick={handleclick}
           >
             <li>
               <CircleCheck size={20} />
-              Imagens
-            </li>
-            <li>
-              <CircleCheck size={20} />
-              Videos
-            </li>
-            <li>
-              <CircleCheck size={20} />
-              Location
-            </li>
-            <li>
-              <CircleCheck size={20} />
-              Nota
+              Access all the Sass
             </li>
             <li>
               <CircleCheck size={20} />
               Links
-            </li>
-            <li>
-              <CircleCheck size={20} />
-              Infinit card!
             </li>
           </CardPlan>
         </div>

@@ -39,6 +39,7 @@
 .box_plans {
   // max-width: 40rem;
   position: relative;
+  
   width: 20rem;
   padding: 2rem;
   background: #0d1849;
@@ -50,7 +51,7 @@
     top: -20px;
     left: 5.5rem;
 
-    background-color: #ffd88d;
+    background-color: #bd9b5c;
     border: 5px solid #fff;
     border-radius: 20px;
     padding: 10px 1rem;
@@ -58,7 +59,7 @@
 
   p {
     font-size: 12px;
-    color: #858585;
+    color: #ffffff;
   }
 
   h3 {
@@ -103,6 +104,11 @@
 
 .box_plans-state {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   width: 20rem;
   padding: 5rem 2rem 2rem 2rem;
   background: #515def;
@@ -116,6 +122,7 @@
     left: -1.2rem;
 
     background-color: #ffd88d;
+    color: #888;
     border: 5px solid #fff;
     border-radius: 20px;
     padding: 10px 1rem;
@@ -124,7 +131,7 @@
 
   p {
     font-size: 12px;
-    color: #858585;
+    color: #ffffff;
   }
 
   h3 {

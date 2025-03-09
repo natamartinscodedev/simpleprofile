@@ -4,15 +4,15 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CircleCheck, Disc3, Instagram, Linkedin, Mail } from 'lucide-react'
-import CardLink from '@/components/components/cardLink'
-import NavBar from '@/components/Navbar'
-import CardPlan from '@/components/CardPlans'
-import CardInfinitLoop from '@/components/CarroselInfinitLoop'
+import CardLink from '@/Components/components/cardLink'
+import NavBar from '@/Components/Navbar'
+import CardPlan from '@/Components/CardPlans'
+import CardInfinitLoop from '@/Components/CarroselInfinitLoop'
 import ImageHomePage from '../../../public/Images/Logo_Home.svg'
 import Logo from '../../../public/Images/LogoBg0.svg'
 import imgDesktop from '../../../public/Images/simpleprofileDesktop.jpeg'
 import imgMobile from '../../../public/Images/simpleprofileMobile.png'
-
+import LogoDiscord from '../../../public/Images/logoDiscord.svg'
 
 const Home = () => {
   return (
@@ -22,11 +22,10 @@ const Home = () => {
         <section className="container box_main">
           <div className="box_main-info">
             <h1 data-aos="zoom-in-up" data-aos-duration="1000">
-              Professional Profile
+              Professional Profile...🚀
             </h1>
             <h3 data-aos="zoom-in-up" data-aos-duration="2000">
-              Sua página pessoal para mostrar quem você é e seu trabalho.
-              Compartilhe seu perfil com seu link personalizado!
+              SimpleProfile is not just a "link in bio" it's an environment where anything can happen!
             </h3>
 
             <CardLink text="Crie seu link" link="/LinkPersonalize" />
@@ -92,74 +91,39 @@ const Home = () => {
               data-aos="fade-up"
               data-aos-duration="2000"
             >
-              O que as pessoas estão dizendo sobre o Simple Profile...🚀
+              What people are saying about Simple Profile...🚀
             </p>
             <>
               <CardInfinitLoop />
             </>
           </div>
         </section>
+        <section className='section_info_description-simpeprofile container'>
+          <h2 data-aos="fade-left" data-aos-duration="2000">
+            "SimpeProfile is the best website to organize and showcase your professional journey in one place!
+            Putting links to your professional networks and people in one place, with photos, videos, a quote from you on the note card?
+            Only then can you create something with your own style and even more with a unique personalized link...🚀"
+          </h2>
+          <h3 data-aos="fade-up" data-aos-duration="2000">Let's build our space together?</h3>
+
+          <h2 data-aos="fade-right" data-aos-duration="2000">Join our community and leave your suggestions for improvement in our professional space.</h2>
+        </section>
         <section className="container card_plans">
           <div className="card_play-info">
-            <h2 data-aos="fade-up">Preço dos Planos</h2>
+            <h2 data-aos="fade-up">Price</h2>
           </div>
           <div className="container_plans">
-            <div data-aos="fade-right" data-aos-duration="2000">
-              <CardPlan
-                tipePlan="Simple"
-                price={'Free'}
-                state={false}
-                stateLink={false}
-              >
-                <li>
-                  <CircleCheck size={20} />
-                  Links
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Apenas 1 imagem nos card no plano Free!
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Links liberados!
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Total de 6 card no plano Free
-                </li>
-              </CardPlan>
-            </div>
             <div data-aos="fade-left" data-aos-duration="2000">
               <CardPlan
                 tipePlan="Gold"
-                price={'49,99'}
+                price={20}
                 state={true}
-                disable={true}
-                stateLink={false}
+                disable={false}
+                stateLink={true}
               >
                 <li>
                   <CircleCheck size={20} />
-                  Imagens
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Videos
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Location
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Nota
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Social Midias
-                </li>
-                <li>
-                  <CircleCheck size={20} />
-                  Infinit card!
+                  Access all the Sass
                 </li>
               </CardPlan>
             </div>
@@ -175,17 +139,27 @@ const Home = () => {
             <div>
               <ul className="social_midia">
                 <li>
-                  <Link href="https://discord.gg/p8SnYKs6eZ" target="_blank">
-                    <Disc3 />
+                  <Link href="https://discord.gg/p8SnYKs6eZ" target="__blank" className="link_discord">
+                    <Image
+                      src={LogoDiscord}
+                      width={30}
+                      height={30}
+                      alt='logo dicord' />
                   </Link>
                 </li>
                 <li>
-                  <Link href="https://www.linkedin.com/company/simpleprofile" target="_blank">
+                  <Link
+                    href="https://www.linkedin.com/company/simpleprofile"
+                    target="_blank"
+                  >
                     <Linkedin />
                   </Link>
                 </li>
                 <li>
-                  <Link href="" target="_blank">
+                  <Link
+                    href="https://www.instagram.com/natamartinss"
+                    target="_blank"
+                  >
                     <Instagram />{' '}
                   </Link>
                 </li>
@@ -193,9 +167,9 @@ const Home = () => {
             </div>
           </div>
           <div className="container_footer-box-email">
-            <p>Todos os direitor reservados © 2024</p>
+            <p>All rights reserved © 2024</p>
             <p>
-              <Mail size={20} /> Email
+              <Mail size={20} /> Email: nata.codedev@gmail.com
             </p>
           </div>
         </section>

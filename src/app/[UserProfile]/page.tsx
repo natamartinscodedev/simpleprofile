@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -8,7 +9,12 @@ import { produce } from 'immer'
 import Image from 'next/image'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import DarkMode from '@/components/ButtonDark/Index'
+// import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
+// import { uploadFileToS3 } from '@/utils/uploadFileToS3'
+import { UpdateInfoUser } from '@/utils/updateInfoUser'
+import DarkMode from '@/Components/ButtonDark/Index'
+import { GetDataUser } from '@/utils/getInfoUser'
+import { handleSubmitFileToS3 } from '@/utils/handleSubmitFileToS3'
 import {
   BadgePlus,
   Disc2,
@@ -17,25 +23,34 @@ import {
   Settings,
   Twitter
 } from 'lucide-react'
-import CardLoadingPageUser from '@/components/CardLoadingPageUser/index'
-import { useRouter } from 'next/navigation'
-import { GetDataUser } from '@/utils/getInfoUser'
-import uploadMidiaStorage from '@/utils/uploadMidiaStorage'
-import ListItem from '@/components/IsDragging/index'
-import BoardContext from '@/components/Board/context'
-import { UpdateInfoUser } from '@/utils/updateInfoUser'
-import NavbarBottom from '@/components/NavBarBottom'
-import BuyButton from '@/components/button-stripe-payment'
+import CardLoadingPageUser from '@/Components/CardLoadingPageUser/index'
+import ListItem from '@/Components/IsDragging/index'
+import BoardContext from '@/Components/Board/context'
+import NavbarBottom from '@/Components/NavBarBottom'
+import BuyButton from '@/Components/button-stripe-payment'
+import { WalletOptions } from '@/Components/WalletConnect/wallet_options'
+import LogoDiscord from '../../../public/Images/logoDiscord.svg'
 
-const User = ({ params }: any) => {
-  const nameLink: any = params.UserProfile
+export default function User({
+  params
+}: {
+  params: Promise<{ UserProfile: string }>
+}) {
+  const [nameLink, setUserProfile] = useState('')
+
+  async function getUserProfile() {
+    const userNameLink = (await params).UserProfile
+    setUserProfile(userNameLink)
+  }
+
   const router = useRouter()
+  const Bucket = process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME
   const [joinUser, setJoinUser] = useState(false)
   const [user, setUser]: any = useState('')
   const [dateSharedProfile, setData] = useState(false)
 
   const [plan, setPlan] = useState<string>('')
-  const [image, setImage] = useState<string>('')
+  const [image, setImage]: any = useState(undefined)
   const [name, setName] = useState<string>('')
   const [bio, setBio] = useState<string>('')
   const [lists, setLists] = useState<any[]>([])
@@ -46,17 +61,20 @@ const User = ({ params }: any) => {
   const [changeImgVideo, setChangeImgVideo] = useState('')
   const [settings, setSettings] = useState(false)
 
+  // functio for change profile img
   const handleImageChangeUser = async (e: any) => {
     const file = e.target.files[0]
-    if (file) {
-      // const imageUrl: any = URL.createObjectURL(file)
-      const { downloadURL, fileType }: any = await uploadMidiaStorage(file)
 
-      setImage(downloadURL)
-      UpdateInfoUser({ image: image, nameLink })
+    if (file) {
+      const { img, status }: any = handleSubmitFileToS3(file)
+      console.log("IMG ==>", img, status)
+
+      setImage(file.name)
+      UpdateInfoUser({ image: `${`https://${Bucket}.s3.amazonaws.com/`}${file.name}`, nameLink })
     }
   }
 
+  // function move cards links animation
   function move(from: any, to: any) {
     const newList = produce(lists, (draft: any) => {
       const dragged = draft[from]
@@ -202,11 +220,12 @@ const User = ({ params }: any) => {
   }
 
   useEffect(() => {
+    getUserProfile()
     getUser()
     JoinUser()
     AOS.init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [nameLink])
 
   return (
     <>
@@ -221,6 +240,12 @@ const User = ({ params }: any) => {
           >
             <div className="container_nav-link container">
               {plan === 'Free' && dateSharedProfile ? <BuyButton /> : ''}
+              {/*conect wallets */}
+              <WalletOptions />
+
+              {/*Conectar Dados Descentralizados Adicionais  */}
+              {/* <IPFSUpload/> */}
+
               {dateSharedProfile && (
                 <>
                   <DarkMode />
@@ -234,9 +259,8 @@ const User = ({ params }: any) => {
               <div className="container_infor-user">
                 <div className="box_info-user">
                   <div
-                    className={` ${
-                      dateSharedProfile ? 'box_img-user' : 'hider_box-img-user'
-                    }`}
+                    className={` ${dateSharedProfile ? 'box_img-user' : 'hider_box-img-user'
+                      }`}
                   >
                     {image ? (
                       <div>
@@ -250,7 +274,7 @@ const User = ({ params }: any) => {
                           onChange={handleImageChangeUser}
                         />
                         <Image
-                          src={image}
+                          src={image && image}
                           alt="Selected"
                           width={200}
                           height={200}
@@ -263,7 +287,7 @@ const User = ({ params }: any) => {
                           type="file"
                           id="imageInput"
                           accept="image/*"
-                          value={image}
+                          value={`${image}`}
                           onChange={handleImageChangeUser}
                         />
                       </div>
@@ -371,6 +395,13 @@ const User = ({ params }: any) => {
 
                 <div className="container_logo-info">
                   <b>© SimpleProfile - 2024</b>
+                  <Link href='https://discord.gg/p8SnYKs6eZ' target='__blank'>
+                    <Image
+                      src={LogoDiscord}
+                      width={45}
+                      height={45}
+                      alt='logo dicord' />
+                  </Link>
                 </div>
               </div>
             ) : (
@@ -378,27 +409,33 @@ const User = ({ params }: any) => {
                 <div className="box_login-shared-user">
                   <div className="container container_shared">
                     <div className="box_login-shared-user-link-create">
-                      <Link href="/LinkPersonalize" target="__blank">
+                      <Link href="/LinkPersonalize" target="__blank" className='link_midia'>
                         Criar conta
                       </Link>
-                      <Link href="/Login" target="__blank">
+                      <Link href="/Login" target="__blank" className='link_midia'>
                         Entrar
                       </Link>
                     </div>
+
                     <div className="box_login-shared-user-link-midia">
-                      <Link href="#" target="__blank" className="link_discord">
-                        <Disc2 />
-                        comunidade do Discord!
+                      <Link href="https://discord.gg/p8SnYKs6eZ" target="__blank" className="link_discord">
+                        <Image
+                          src={LogoDiscord}
+                          width={35}
+                          height={35}
+                          alt='logo dicord' />
                       </Link>
-                      <Link href="#" target="__blank">
+
+                      <Link href="https://www.linkedin.com/company/simpleprofile/ " target="__blank" className='link_midia'>
                         <Linkedin />
                         Siga nossa pagina para saber mais!
                       </Link>
-                      <Link href="#" target="__blank">
+                      {/* <Link href="#" target="__blank">
                         <Twitter />
                         Siga nossa rede social e ajude-nos a crescer!
-                      </Link>
+                      </Link> */}
                     </div>
+
                     <p>© simpleprofile - 2024</p>
                   </div>
                 </div>
@@ -442,5 +479,3 @@ const User = ({ params }: any) => {
     </>
   )
 }
-
-export default User

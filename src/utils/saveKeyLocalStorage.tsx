@@ -35,6 +35,6 @@ export function VerificarChaveValida(apiKey: any) {
       return true
     }
   } catch (err) {
-    console.log('Err ==>', err)
+    return
   }
 }

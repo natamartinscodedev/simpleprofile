@@ -6,8 +6,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { checkNameAvailability } from '@/utils/verificNameLink'
-import NavBar from '@/components/Navbar/index'
-import CreateUserSingUp from '@/components/CreateSingUp/Index'
+import NavBar from '@/Components/Navbar/index'
+import CreateUserSingUp from '@/Components/CreateSingUp/Index'
 import ImageIconPage from '../../../public/Images/image_pages.png'
 
 const SingUp = () => {

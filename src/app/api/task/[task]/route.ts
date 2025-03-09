@@ -1,3 +1,4 @@
+// edpoint for get date users init.
 import { connectToDatabase } from '@/db/mongodb'
 import { NextResponse } from 'next/server'
 import User from '../../../../models/User'
@@ -21,13 +22,6 @@ export async function POST(req: Request) {
   if (req.method === 'POST') {
     const body = await req.json()
     const { nameLink, email, password, name, bio, image, lists, plans } = body
-
-    console.log('Boody recebido!', {
-      nameLink,
-      email,
-      password,
-      plans
-    })
 
     if (!nameLink || !email || !plans || !password) {
       return NextResponse.json(
@@ -54,7 +48,6 @@ export async function POST(req: Request) {
         { status: 200 }
       )
     } catch (err: any) {
-      console.error('Error creating/saving user:', err)
       return NextResponse.json(
         { message: 'Error creating user', error: err.message },
         { status: 500 }
@@ -68,7 +61,6 @@ export async function PATCH(req: Request) {
     const body = await req.json()
 
     const { nameLink, name, bio, image, lists, plans, password } = body
-    // console.log('Body recebido no PUT:', body)
 
     try {
       await connectToDatabase()
@@ -108,7 +100,6 @@ export async function PATCH(req: Request) {
 export async function DELETE(req: any, res: any) {
   const { id } = req.query
 
-  console.log('ID API ==>', id)
   if (!id) {
     return res.status(400).json({ message: 'ID is missing' })
   }
