@@ -37,6 +37,7 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
 
   useEffect(() => {
     createUserPlanAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
 
   const backPage = (e: any) => {
