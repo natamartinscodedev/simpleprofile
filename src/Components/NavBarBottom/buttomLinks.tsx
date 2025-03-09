@@ -57,7 +57,7 @@ const BtnLinks = ({
     <li
       className={`card_btn-links`}
       onClick={handleClick}
-      aria-disabled={true}
+      // aria-disabled={true}
     >
       {open === true && (
         <div

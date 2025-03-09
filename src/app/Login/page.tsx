@@ -44,6 +44,7 @@ const Index = () => {
 
   useEffect(() => {
     handleCript()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password])
 
   const handleLogin = async () => {
