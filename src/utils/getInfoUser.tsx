@@ -1,3 +1,4 @@
+// import { GetStaticProps } from 'next'
 import { fetchMongodb } from './fetchMongodb'
 
 interface TypeParams {
@@ -8,6 +9,11 @@ interface TypeParams {
 export async function GetDataUser({ email, nameLink }: TypeParams) {
   try {
     const { topics } = await fetchMongodb()
+
+    if (!topics) {
+      return new Error("Not found!")
+    }
+
     if (topics) {
       const res = topics.filter(
         (user: any) => user.email === email || user.nameLink === nameLink
@@ -16,9 +22,9 @@ export async function GetDataUser({ email, nameLink }: TypeParams) {
 
       return { User }
     } else {
-      console.log("Topics don't exist")
+      return
     }
   } catch (err) {
-    console.log('Erro:', err)
+    return
   }
 }

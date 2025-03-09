@@ -1,0 +1,15 @@
+.Logo_Meta_Wallet {
+  max-width: 3rem;
+  width: 100%;
+  height: auto;
+}
+
+.wallet {
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+}

@@ -9,15 +9,14 @@ interface TypeInfo {
 }
 
 export async function UpdateInfoUser({
-                                       nameLink,
-                                       name,
-                                       bio,
-                                       image,
-                                       lists,
-                                       plans,
-                                       password
-                                     }: TypeInfo) {
-
+  nameLink,
+  name,
+  bio,
+  image,
+  lists,
+  plans,
+  password
+}: TypeInfo) {
   try {
     const res = await fetch('/api/task/task', {
       method: 'PATCH',
@@ -32,14 +31,13 @@ export async function UpdateInfoUser({
         lists,
         plans,
         password
-
       })
     })
 
     const data = await res.json()
 
     if (res.ok) {
-      console.log('Data saved to the backend successfully! ==>', data)
+      return
     } else {
       console.error(
         'Failed to save data to the backend ==>',
@@ -50,6 +48,6 @@ export async function UpdateInfoUser({
 
     return data
   } catch (err) {
-    console.log('Ops! Erro in method PUT! 😒 ===>', err)
+    return
   }
 }

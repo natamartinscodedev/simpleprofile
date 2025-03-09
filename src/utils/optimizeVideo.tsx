@@ -12,7 +12,7 @@ export function handleOptiminizationVideo(event: any) {
         URL.revokeObjectURL(video.src) // Libera a memória
       } else {
         // Continue com o processamento do vídeo
-        console.log('Vídeo válido:', file)
+        return
       }
     }
   }

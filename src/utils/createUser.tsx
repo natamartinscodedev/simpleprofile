@@ -45,6 +45,6 @@ export async function FetchPost({
 
     return data
   } catch (err) {
-    console.log('Ops! Erro in method POST! 😒')
+    return
   }
 }

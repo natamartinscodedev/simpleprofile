@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,9 +22,26 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/pages/index.js", "src/utils/Post.js", "src/app/api/task/[task]/route.ts", "src/app/api/fetchLinks/links/route.js", "src/db/adapterEmailTrap.ts", "src/app/api/auth/[...nextauth]/route.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/pages/index.js",
+    "src/utils/Post.js",
+    "src/app/api/task/[task]/route.ts",
+    "src/app/api/fetchLinks/links/route.js",
+    "src/db/adapterEmailTrap.ts",
+    "src/app/api/auth/[...nextauth]/route.js",
+    "src/db/mongodb.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

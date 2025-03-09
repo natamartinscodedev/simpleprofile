@@ -12,6 +12,6 @@ export async function deleteCard(id: any) {
 
     return data;
   } catch (err) {
-    console.log("Ops! Error in DELETE method! 😒", err);
+    return
   }
 }

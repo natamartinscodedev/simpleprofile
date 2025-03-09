@@ -8,12 +8,12 @@ import { EyeOff, Eye, MoveLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { useSession, signIn } from 'next-auth/react'
-import NavBar from '@/components/Navbar/index'
+import NavBar from '@/Components/Navbar/index'
 import ImageIconPage from '../../../public/Images/image_pages.png'
 import { GetDataUser } from '@/utils/getInfoUser'
 
 const Index = () => {
-  const { data: session }: any = useSession()
+  // const { data: session }: any = useSession()
   const router = useRouter()
   const { register, handleSubmit } = useForm()
 
@@ -33,9 +33,10 @@ const Index = () => {
       const { User }: any = await GetDataUser({ email })
       const isPasswordCorrect: any = await compare(password, User.password)
 
-      if (User) {
+      if (User && password) {
         setPasswordCripto(isPasswordCorrect)
       }
+      console.log("Passwrodld ==>", password, isPasswordCorrect)
     } catch (error) {
       console.log(error)
     }
@@ -60,37 +61,8 @@ const Index = () => {
         setShowAlert(false)
       }
     } catch (err) {
-      console.log('ERR ==>', err)
+      return
     }
-  }
-
-  // const loginAuth = async () => {
-  //   try {
-  //     const EmailAuth = session?.user
-  //     const { User }: any = await GetDataUser(EmailAuth?.email)
-  //     if (EmailAuth?.email === User.email) {
-  //       window.localStorage.setItem('emailForSignIn', session.user.email)
-  //       window.localStorage.setItem('sharedProfile', 'true')
-  //
-  //       return router.push(`/${User.nameLink}`)
-  //     } else {
-  //       alert(
-  //         'O email desta conta, não está cadastrado em nosso banco de dados! Crie uma conta já!'
-  //       )
-  //
-  //       return router.push(`/LinkPersonalize`)
-  //     }
-  //   } catch (err) {
-  //     console.log('Err ==>', err)
-  //   }
-  // }
-  //
-  // useEffect(() => {
-  //   loginAuth()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [session])
-  const handleResetPasswprd = () => {
-
   }
 
   return (

@@ -41,7 +41,7 @@ const ForgotPassword = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button onClick={(e: any) => handleSubmit()}>Redefinir senha</button>
+        <button onClick={(e: any) => handleSubmit}>Redefinir senha</button>
       </div>
       {message && <p>{message}</p>}
     </div>

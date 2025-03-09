@@ -76,6 +76,21 @@
   }
 }
 
+.container_logo-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+
+  img {
+    &:hover {
+      scale: 1.1;
+      cursor: pointer;
+    }
+  }
+}
+
 .list_buttons-card {
   border-left: 2px solid #717171;
   border-right: 2px solid #717171;
@@ -151,6 +166,16 @@
   }
 }
 
+.modal_closed {
+background-color: red;
+position: absolute;
+z-index: 900;
+top: -7;
+left: -5;
+padding: 0.1rem 0.4rem;
+border-radius: 50%;
+}
+
 .disabledPlanFree {
   li {
     pointer-events: none;
@@ -183,6 +208,7 @@
 
 .modal_links {
   position: absolute;
+  z-index: 800;
   top: -5rem;
 
   width: 350px;
@@ -194,6 +220,10 @@
   border-radius: 10px;
   background-color: #fff;
 
+  &:hover {
+    scale: none;
+  }
+
   input {
     width: 100%;
     padding: 10px;
@@ -204,13 +234,18 @@
   }
 
   button {
+    z-index: 900;
     background-color: #333;
     color: #f1f1f1;
-    padding: 2px 10px;
+    padding: 5px 10px;
     font-weight: bold;
     border-radius: 5px;
     border: none;
     cursor: pointer;
+
+    &:hover{ 
+      background-color: #717171;
+    }
   }
 }
 
@@ -402,6 +437,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
