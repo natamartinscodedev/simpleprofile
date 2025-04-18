@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { hash } from 'bcryptjs'
 import { FetchPost } from '@/utils/createUser'
-import BuyButton from '@/Components/button-stripe-payment'
+// import BuyButton from '@/Components/button-stripe-payment'
 // import { GetDataUser } from '@/utils/getInfoUser'
 import Image from 'next/image'
 import ImageIconPage from '../../../public/Images/image_pages.png'
@@ -17,9 +17,10 @@ interface typeItems {
 }
 
 const SigningUp = ({ email, price, nameLink, idPlans }: typeItems) => {
-  // const router = useRouter()
+  const router = useRouter()
   const [password, setPassword] = useState('')
   const [passwordCript, setPasswordCripto] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleCriptPassword = async (e: any) => {
     setPassword(e)
@@ -31,6 +32,7 @@ const SigningUp = ({ email, price, nameLink, idPlans }: typeItems) => {
 
   const handleSubmit = async () => {
     try {
+      setLoading(true)
       if (password && email) {
         const res = await FetchPost({
           nameLink,
@@ -46,8 +48,14 @@ const SigningUp = ({ email, price, nameLink, idPlans }: typeItems) => {
         window.localStorage.setItem('emailForSignIn', email)
         window.localStorage.setItem('sharedProfile', 'true')
 
-        return res
+        if (res.status === 200) {
+          console.log('User created successfully', idPlans)
+        }
+
+        return router.push(`/Sucesso/${'Free'}`)
       }
+
+      setLoading(false)
     } catch (err) {
       console.error('Erro ao enviar o link de autenticação:', err)
     }
@@ -56,7 +64,7 @@ const SigningUp = ({ email, price, nameLink, idPlans }: typeItems) => {
   return (
     <div className="container_password-card">
       <div className="container_password">
-        <h2>Crie uma super senha de segurança!</h2>
+        <h2>Crie sua senha de segurança!</h2>
 
         <div className="form_password">
           <label htmlFor="email">Password</label>
@@ -69,11 +77,12 @@ const SigningUp = ({ email, price, nameLink, idPlans }: typeItems) => {
         </div>
         <>
           {idPlans === 'id_plans-gold' && (
-            <BuyButton
-              nameId={nameLink}
-              price={price}
-              handleCreareUser={handleSubmit}
-            />
+            // <BuyButton
+            //   nameId={nameLink}
+            //   price={price}
+            //   handleCreareUser={handleSubmit}
+            // />
+            <button onClick={handleSubmit}>{loading ? 'Carregando...' : 'Criar'}</button>
           )}
         </>
       </div>

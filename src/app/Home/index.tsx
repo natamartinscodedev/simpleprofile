@@ -108,7 +108,8 @@ const Home = () => {
 
           <h2 data-aos="fade-right" data-aos-duration="2000">Join our community and leave your suggestions for improvement in our professional space.</h2>
         </section>
-        <section className="container card_plans">
+        {/* card price of Sass */}
+        {/* <section className="container card_plans">
           <div className="card_play-info">
             <h2 data-aos="fade-up">Price</h2>
           </div>
@@ -128,7 +129,7 @@ const Home = () => {
               </CardPlan>
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
       <footer className="container">
         <section className="container_footer">
