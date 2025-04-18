@@ -50,7 +50,7 @@ export default function User({
   const [dateSharedProfile, setData] = useState(false)
 
   const [plan, setPlan] = useState<string>('')
-  const [image, setImage]: any = useState(undefined)
+  const [image, setImage]: any = useState('')
   const [name, setName] = useState<string>('')
   const [bio, setBio] = useState<string>('')
   const [lists, setLists] = useState<any[]>([])
@@ -63,16 +63,21 @@ export default function User({
 
   // functio for change profile img
   const handleImageChangeUser = async (e: any) => {
-    const file = e.target.files[0]
-
+    const file = e
+    setImage(file)
     if (file) {
       const { img, status }: any = handleSubmitFileToS3(file)
-      console.log("IMG ==>", img, status)
+      console.log('IMG ==>', img, status)
 
       setImage(file.name)
-      UpdateInfoUser({ image: `${`https://${Bucket}.s3.amazonaws.com/`}${file.name}`, nameLink })
+      UpdateInfoUser({
+        image: `${`https://${Bucket}.s3.amazonaws.com/`}${file.name}`,
+        nameLink
+      })
     }
   }
+
+  console.log('File ==> ', image)
 
   // function move cards links animation
   function move(from: any, to: any) {
@@ -259,8 +264,9 @@ export default function User({
               <div className="container_infor-user">
                 <div className="box_info-user">
                   <div
-                    className={` ${dateSharedProfile ? 'box_img-user' : 'hider_box-img-user'
-                      }`}
+                    className={` ${
+                      dateSharedProfile ? 'box_img-user' : 'hider_box-img-user'
+                    }`}
                   >
                     {image ? (
                       <div>
@@ -271,10 +277,10 @@ export default function User({
                           type="file"
                           id="imageInput"
                           accept="image/*"
-                          onChange={handleImageChangeUser}
+                          onChange={e => handleImageChangeUser(e.target.value)}
                         />
                         <Image
-                          src={image && image}
+                          src={image}
                           alt="Selected"
                           width={200}
                           height={200}
@@ -288,7 +294,7 @@ export default function User({
                           id="imageInput"
                           accept="image/*"
                           value={`${image}`}
-                          onChange={handleImageChangeUser}
+                          onChange={e => handleImageChangeUser(e)}
                         />
                       </div>
                     )}
@@ -299,7 +305,7 @@ export default function User({
                         type="text"
                         id="nameInput"
                         value={name}
-                        onChange={(e: any) => handleChangeName(e.target.value)}
+                        onChange={(e: any) => handleChangeName(e)}
                         placeholder="Seu nome..."
                       />
                     ) : (
@@ -395,12 +401,13 @@ export default function User({
 
                 <div className="container_logo-info">
                   <b>© SimpleProfile - 2024</b>
-                  <Link href='https://discord.gg/p8SnYKs6eZ' target='__blank'>
+                  <Link href="https://discord.gg/p8SnYKs6eZ" target="__blank">
                     <Image
                       src={LogoDiscord}
                       width={45}
                       height={45}
-                      alt='logo dicord' />
+                      alt="logo dicord"
+                    />
                   </Link>
                 </div>
               </div>
@@ -409,24 +416,41 @@ export default function User({
                 <div className="box_login-shared-user">
                   <div className="container container_shared">
                     <div className="box_login-shared-user-link-create">
-                      <Link href="/LinkPersonalize" target="__blank" className='link_midia'>
+                      <Link
+                        href="/LinkPersonalize"
+                        target="__blank"
+                        className="link_midia"
+                      >
                         Criar conta
                       </Link>
-                      <Link href="/Login" target="__blank" className='link_midia'>
+                      <Link
+                        href="/Login"
+                        target="__blank"
+                        className="link_midia"
+                      >
                         Entrar
                       </Link>
                     </div>
 
                     <div className="box_login-shared-user-link-midia">
-                      <Link href="https://discord.gg/p8SnYKs6eZ" target="__blank" className="link_discord">
+                      <Link
+                        href="https://discord.gg/p8SnYKs6eZ"
+                        target="__blank"
+                        className="link_discord"
+                      >
                         <Image
                           src={LogoDiscord}
                           width={35}
                           height={35}
-                          alt='logo dicord' />
+                          alt="logo dicord"
+                        />
                       </Link>
 
-                      <Link href="https://www.linkedin.com/company/simpleprofile/ " target="__blank" className='link_midia'>
+                      <Link
+                        href="https://www.linkedin.com/company/simpleprofile/ "
+                        target="__blank"
+                        className="link_midia"
+                      >
                         <Linkedin />
                         Siga nossa pagina para saber mais!
                       </Link>

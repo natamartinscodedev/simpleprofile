@@ -30,14 +30,14 @@ export default async function LocaleLayout({
 
   return (
     <html lang="pt-BR">
-      <head>
+      {/* <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3446067000341217"
           crossOrigin="anonymous"></script>
-      </head>
+      </head> */}
       <body className={roboto.className}>
         <Provider initialState={initialState}>{children}</Provider>
-        <GoogleAnalytics gaId="G-YNMV86RLSQ" />
-        <GoogleAds />
+        {/* <GoogleAnalytics gaId="G-YNMV86RLSQ" />
+        <GoogleAds /> */}
       </body>
     </html>
   )
