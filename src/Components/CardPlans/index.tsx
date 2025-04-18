@@ -40,7 +40,8 @@ const CardPlan = ({
         )}
         <p>{tipePlan}</p>
         <h3>
-          ${price} {state && <b>/month</b>}
+          {/* ${price} {state && <b>/month</b>} */}
+          ${price} {state && <b></b>}
         </h3>
 
         <ul>{children}</ul>
@@ -50,13 +51,13 @@ const CardPlan = ({
             <button
               onClick={() => handleclick({ price, idPlans })}
             >
-              Creare your profile
+              Crie seu perfil
             </button>
           ) : (
             <button
               onClick={() => router.push('/LinkPersonalize')}
             >
-              Creare your profile
+              Crie seu perfil já
             </button>
           )
         }

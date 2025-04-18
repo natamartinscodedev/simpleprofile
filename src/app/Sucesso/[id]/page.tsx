@@ -4,32 +4,31 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 
 const SucessoPayment = ({ params }: any) => {
-  const nameUser: any = window.localStorage.getItem('nameUser')
-  const checkoutPaymente = params.id
+  const checkoutPaymente = "Free"
 
-  useEffect(() => {
-    if (checkoutPaymente === 'true') {
-      UpdateInfoUser({ plans: 'Gold', nameLink: nameUser })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   if (checkoutPaymente === 'Free') {
+  //     UpdateInfoUser({ plans: 'Gold', nameLink: nameUser })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   return (
     <>
       <div className="container_sucesso container">
         <h2>
-          {checkoutPaymente === 'true'
-            ? 'Assinatura realizado com sucesso!🥳'
-            : 'Falha no pagamento.'}
+          {checkoutPaymente === 'Free'
+            ? 'Conta criada com sucesso!🥳'
+            : 'Falha na criação da conta.'}
         </h2>
         <div className="box_sucesso-info">
-          {checkoutPaymente === 'true' ? (
+          {checkoutPaymente === 'Free' ? (
             <>
               <h3>
-                Bem vindo ao plano Gold, agora você tem acesso total ao
-                SimpleProfile
+                Bem vindo ao SimpeProfile, agora você tem acesso a melhor plataforma
+                para construir seu perfil como você quiser.
               </h3>
-              <p>Ei {nameUser}, monte seu super perfil da melhor forma.</p>
+              <p>Monte seu super perfil da melhor forma.</p>
               <h3>🚀🚀🚀</h3>
               <Link href="/Login" target="__blanck">
                 Login

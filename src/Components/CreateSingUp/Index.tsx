@@ -60,9 +60,8 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
 
   return (
     <>
-    {/* Apos preencher as informações, eu seto o state como openPlan=true para redirecionar para a pg de planos  */}
+      {/* Apos preencher as informações, eu seto o state como openPlan=true para redirecionar para a pg de escolher planos  */}
       {openPlan ? (
-        // Card Plans
         <div className="card_plans-change container">
           <button
             onClick={() => setOpenPlan(false)}
@@ -70,9 +69,12 @@ const Index = ({ changeState, nameLink }: TypeProps) => {
           >
             <MoveLeft />
           </button>
+
+          {/* Card Plans */}
           <Plans email={email} nameLink={nameLink} />
         </div>
       ) : (
+        // Page SingUp
         <div className="container_sing-up container ">
           <div className="container_sing-up-info">
             <div className="box_info">

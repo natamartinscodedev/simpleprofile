@@ -19,14 +19,13 @@ const Plans = ({ email, nameLink }) => {
 
   return (
     <>
-      {/* se o planos der certo, mando para a pg de criaççao SingningUP */}
+      {/* se o plano for escolhido, mando para a pg de criação SingningUP */}
       {openSigningUp === true ? (
         <SigningUp
           price={plan}
           email={email}
           nameLink={nameLink}
           idPlans={idPlan}
-        // stateLink={stateLink}
         />
       ) : (
         <div
@@ -35,8 +34,8 @@ const Plans = ({ email, nameLink }) => {
           data-aos-duration="1000"
         >
           <CardPlan
-            tipePlan="Gold"
-            price={20}
+            tipePlan="Free"
+            price={"Free"}
             state={true}
             idPlans="id_plans-gold"
             email={email}
@@ -46,14 +45,14 @@ const Plans = ({ email, nameLink }) => {
             // Mandei a função para ser ativa dentro do CardPlan
             handleclick={handleclick}
           >
-            <li>
+            {/* <li>
               <CircleCheck size={20} />
               Access all the Sass
             </li>
             <li>
               <CircleCheck size={20} />
               Links
-            </li>
+            </li> */}
           </CardPlan>
         </div>
       )}
